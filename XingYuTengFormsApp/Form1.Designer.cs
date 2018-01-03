@@ -31,42 +31,38 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.listView2 = new System.Windows.Forms.ListView();
             this.deviceList = new BrightIdeasSoftware.ObjectListView();
-            ((System.ComponentModel.ISupportInitialize)(this.deviceList)).BeginInit();
             this.olvColumnDesk = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            ((System.ComponentModel.ISupportInitialize)(this.deviceList)).BeginInit();
             this.SuspendLayout();
             // 
             // listView2
             // 
-            this.listView2.Location = new System.Drawing.Point(314, 12);
+            this.listView2.Location = new System.Drawing.Point(313, 12);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(935, 683);
+            this.listView2.Size = new System.Drawing.Size(936, 683);
             this.listView2.TabIndex = 1;
             this.listView2.UseCompatibleStateImageBehavior = false;
             // 
             // deviceList
             // 
-            this.deviceList.CellEditUseWholeCell = false;
-            this.deviceList.Cursor = System.Windows.Forms.Cursors.Default;
-            this.deviceList.Location = new System.Drawing.Point(12, 12);
-            this.deviceList.Name = "deviceList";
-            this.deviceList.Size = new System.Drawing.Size(296, 683);
-            this.deviceList.TabIndex = 2;
-            this.deviceList.UseCompatibleStateImageBehavior = false;
-            this.deviceList.View = System.Windows.Forms.View.Details;
             this.deviceList.AllColumns.Add(this.olvColumnDesk);
             this.deviceList.AllowColumnReorder = true;
             this.deviceList.AllowDrop = true;
-            this.deviceList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.deviceList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.deviceList.CellEditUseWholeCell = false;
             this.deviceList.CheckBoxes = true;
             this.deviceList.CheckedAspectName = "";
             this.deviceList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.olvColumnDesk});
+            this.deviceList.Cursor = System.Windows.Forms.Cursors.Default;
             this.deviceList.FullRowSelect = true;
             this.deviceList.HeaderWordWrap = true;
             this.deviceList.HideSelection = false;
             this.deviceList.IncludeColumnHeadersInCopy = true;
+            this.deviceList.Location = new System.Drawing.Point(12, 12);
+            this.deviceList.Name = "deviceList";
             this.deviceList.OverlayText.Alignment = System.Drawing.ContentAlignment.BottomLeft;
             this.deviceList.OverlayText.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.deviceList.OverlayText.BorderWidth = 2F;
@@ -77,16 +73,19 @@
             this.deviceList.ShowGroups = false;
             this.deviceList.ShowHeaderInAllViews = false;
             this.deviceList.ShowItemToolTips = true;
+            this.deviceList.Size = new System.Drawing.Size(295, 683);
             this.deviceList.SortGroupItemsByPrimaryColumn = false;
+            this.deviceList.TabIndex = 2;
             this.deviceList.TriStateCheckBoxes = true;
             this.deviceList.UseAlternatingBackColors = true;
             this.deviceList.UseCellFormatEvents = true;
+            this.deviceList.UseCompatibleStateImageBehavior = false;
             this.deviceList.UseFilterIndicator = true;
             this.deviceList.UseFiltering = true;
             this.deviceList.UseHotItem = true;
             this.deviceList.View = System.Windows.Forms.View.Details;
             // 
-            // olvColumnTask
+            // olvColumnDesk
             // 
             this.olvColumnDesk.AspectName = "设备列表";
             this.olvColumnDesk.MinimumWidth = 40;

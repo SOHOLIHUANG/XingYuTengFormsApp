@@ -111,10 +111,12 @@ namespace XingYuTengFormsApp
             renderer.DescriptionAspectName = "Description";
 
             // Change the formatting slightly
-            renderer.TitleFont = new Font("Tahoma", 11, FontStyle.Bold);
-            renderer.DescriptionFont = new Font("Tahoma", 9);
+            renderer.TitleFont = new Font("Tahoma", 9);
+            renderer.DescriptionFont = new Font("Tahoma", 11, FontStyle.Bold);
             renderer.ImageTextSpace = 8;
             renderer.TitleDescriptionSpace = 1;
+            renderer.TitleColor = Color.Gray;
+            renderer.DescriptionColor = Color.Black;
 
             // Use older Gdi renderering, since most people think the text looks clearer
             renderer.UseGdiTextRendering = true;
@@ -130,13 +132,22 @@ namespace XingYuTengFormsApp
         {
             List<ServiceTask> tasks = new List<ServiceTask>();
 
-            tasks.Add(new ServiceTask("温湿度测试仪", "4656512"));
-            tasks.Add(new ServiceTask("温湿度+PM2.5传感器", "4656216"));
-            tasks.Add(new ServiceTask("Check circuit boards", "Ensure that the circuit boards are properly seated and have not be stolen"));
-            tasks.Add(new ServiceTask("Swap local gossip", "Spent some time in rec room to pick up any juicy gossip that could be useful"));
-            tasks.Add(new ServiceTask("Answer any questions", "Politely and informatively respond to all tech questions the employees may have"));
-            tasks.Add(new ServiceTask("Check Windows licenses", "Make sure that each Windows machine is running an authorized copy of Windows"));
-            tasks.Add(new ServiceTask("Download new games", "Check to see if anyone has installed an good new games and copy them onto the portable hard drive"));
+            tasks.Add(new ServiceTask("温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
+            tasks.Add(new ServiceTask("温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
+            tasks.Add(new ServiceTask("温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
+            tasks.Add(new ServiceTask("温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
+            tasks.Add(new ServiceTask("温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
+            tasks.Add(new ServiceTask("温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
+            tasks.Add(new ServiceTask("温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
+            tasks.Add(new ServiceTask("温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
+            tasks.Add(new ServiceTask("温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
+            tasks.Add(new ServiceTask("温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
+            tasks.Add(new ServiceTask("温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
+            tasks.Add(new ServiceTask("温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
+            tasks.Add(new ServiceTask("温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
+            tasks.Add(new ServiceTask("温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
+            tasks.Add(new ServiceTask("温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
+            tasks.Add(new ServiceTask("温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
 
             return tasks;
         }
