@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BrightIdeasSoftware;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,6 +28,18 @@ namespace XingYuTengFormsApp
             X = this.Width;//获取窗体的宽度
             Y = this.Height;//获取窗体的高度
             setTag(this);
+
+            this.SetupDescibedTaskColumn();
+            // How much space do we want to give each row? Obviously, this should be at least
+            // the height of the images used by the renderer
+            this.deviceList.RowHeight = 54;
+            this.deviceList.EmptyListMsg = "No tasks match the filter";
+            this.deviceList.UseAlternatingBackColors = false;
+            this.deviceList.UseHotItem = false;
+
+            // Make and display a list of tasks
+            List<ServiceTask> tasks = CreateTasks();
+            this.deviceList.SetObjects(tasks);
         }
 
         private void setTag(Control cons)
@@ -68,6 +81,91 @@ namespace XingYuTengFormsApp
             float newx = (this.Width) / X;
             float newy = this.Height / Y;
             setControls(newx, newy, this);
+        }
+
+        private void SetupDescibedTaskColumn()
+        {
+            // Setup a described task renderer, which draws a large icon
+            // with a title, and a description under the title.
+            // Almost all of this configuration could be done through the Designer
+            // but I've done it through code that make it clear what's going on.
+
+            // Create and install an appropriately configured renderer 
+            this.olvColumnDesk.Renderer = CreateDescribedTaskRenderer();
+
+            // Now let's setup the couple of other bits that the column needs
+
+            // Tell the column which property should be used to get the title
+            this.olvColumnDesk.AspectName = "Task";
+            // Put a little bit of space around the task and its description
+            this.olvColumnDesk.CellPadding = new Rectangle(4, 2, 4, 2);
+        }
+
+        private DescribedTaskRenderer CreateDescribedTaskRenderer()
+        {
+
+            // Let's create an appropriately configured renderer.
+            DescribedTaskRenderer renderer = new DescribedTaskRenderer();
+
+            // Tell the renderer which property holds the text to be used as a description
+            renderer.DescriptionAspectName = "Description";
+
+            // Change the formatting slightly
+            renderer.TitleFont = new Font("Tahoma", 11, FontStyle.Bold);
+            renderer.DescriptionFont = new Font("Tahoma", 9);
+            renderer.ImageTextSpace = 8;
+            renderer.TitleDescriptionSpace = 1;
+
+            // Use older Gdi renderering, since most people think the text looks clearer
+            renderer.UseGdiTextRendering = true;
+
+            // If you like colours other than black and grey, you could uncomment these
+            //            renderer.TitleColor = Color.DarkBlue;
+            //            renderer.DescriptionColor = Color.CornflowerBlue;
+
+            return renderer;
+        }
+
+        private static List<ServiceTask> CreateTasks()
+        {
+            List<ServiceTask> tasks = new List<ServiceTask>();
+
+            tasks.Add(new ServiceTask("温湿度测试仪", "4656512"));
+            tasks.Add(new ServiceTask("温湿度+PM2.5传感器", "4656216"));
+            tasks.Add(new ServiceTask("Check circuit boards", "Ensure that the circuit boards are properly seated and have not be stolen"));
+            tasks.Add(new ServiceTask("Swap local gossip", "Spent some time in rec room to pick up any juicy gossip that could be useful"));
+            tasks.Add(new ServiceTask("Answer any questions", "Politely and informatively respond to all tech questions the employees may have"));
+            tasks.Add(new ServiceTask("Check Windows licenses", "Make sure that each Windows machine is running an authorized copy of Windows"));
+            tasks.Add(new ServiceTask("Download new games", "Check to see if anyone has installed an good new games and copy them onto the portable hard drive"));
+
+            return tasks;
+        }
+    }
+
+    /// <summary>
+    /// Dumb model class
+    /// </summary>
+    public class ServiceTask
+    {
+        private string task;
+        private string description;
+
+        public ServiceTask(string task, string description)
+        {
+            this.Task = task;
+            this.Description = description;
+        }
+
+        public string Task
+        {
+            get { return this.task; }
+            set { this.task = value; }
+        }
+
+        public string Description
+        {
+            get { return this.description; }
+            set { this.description = value; }
         }
     }
 }
