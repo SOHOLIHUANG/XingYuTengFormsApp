@@ -69,6 +69,5 @@ namespace XingYuTengFormsApp
             float newy = this.Height / Y;
             setControls(newx, newy, this);
         }
-
     }
 }
