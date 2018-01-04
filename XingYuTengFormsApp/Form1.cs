@@ -20,10 +20,6 @@ namespace XingYuTengFormsApp
         public Form1()
         {
             InitializeComponent();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
             this.Resize += new EventHandler(Form1_Resize);
             X = this.Width;//获取窗体的宽度
             Y = this.Height;//获取窗体的高度
@@ -40,6 +36,12 @@ namespace XingYuTengFormsApp
             // Make and display a list of tasks
             List<ServiceTask> tasks = CreateTasks();
             this.deviceList.SetObjects(tasks);
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
         }
 
         private void setTag(Control cons)
