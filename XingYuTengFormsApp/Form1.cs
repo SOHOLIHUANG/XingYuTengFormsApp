@@ -185,89 +185,53 @@ namespace XingYuTengFormsApp
         /// <param name="e"></param>
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
+
+        }
+
+        /// <summary>
+        /// 左边拉伸
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DeviceList_MouseMove(object sender, MouseEventArgs e)
+        {
             Point p = this.PointToClient(MousePosition);
-            int xx = Width;
-            int yy = Height;
-            //TopLeft
-            if (p.X <= 2 && p.Y <= 2)
-            {
-                this.Cursor = Cursors.SizeNWSE;
-                wParam = (new IntPtr(WMSZ_TOPLEFT)).ToInt32();
-            }
-            //TopRight
-            else if (p.X >= Width - 2 && p.Y <= 2)
-            {
-                this.Cursor = Cursors.SizeNESW;
-                wParam = (new IntPtr(WMSZ_TOPRIGHT)).ToInt32();
-            }
-            //BottomLeft
-            else if (p.X <= 2 && p.Y >= Height - 2)
-            {
-                this.Cursor = Cursors.SizeNESW;
-                wParam = (new IntPtr(WMSZ_BOTTOMLEFT)).ToInt32();
-            }
-            //BottomRight
-            else if (p.X >= Width - 2 && p.Y >= Height - 2)
-            {
-                this.Cursor = Cursors.SizeNWSE;
-                wParam = (new IntPtr(WMSZ_BOTTOMRIGHT)).ToInt32();
-            }
+            int xx = deviceList.Width;
+            int yy = deviceList.Height;
+            
             //Left
-            else if (p.Y > 2 && p.Y < Height - 2 && p.X < 2)
+            if (p.Y > 2 && p.Y < deviceList.Height - 2 && p.X < 2)
             {
                 this.Cursor = Cursors.SizeWE;
                 wParam = (new IntPtr(WMSZ_LEFT)).ToInt32();
             }
-            //Up
-            else if (p.X > 2 && p.X < Width - 2 && p.Y < 2)
-            {
-                this.Cursor = Cursors.SizeNS;
-                wParam = (new IntPtr(WMSZ_TOP)).ToInt32();
-            }
             //Bottom
-            else if (p.X > 2 && p.X < Width - 2 && p.Y > Height - 2)
+            else if (p.X > 2 && p.X < deviceList.Width - 2 && p.Y > deviceList.Height - 2)
             {
                 this.Cursor = Cursors.SizeNS;
                 wParam = (new IntPtr(WMSZ_BOTTOM)).ToInt32();
-            }
-            //Right
-            else if (p.Y > 2 && p.Y < Height - 2 && p.X > Width - 2)
-            {
-                this.Cursor = Cursors.SizeWE;
-                wParam = (new IntPtr(WMSZ_RIGHT)).ToInt32();
             }
             else
                 this.Cursor = Cursors.Default;
         }
 
-        private void DeviceList_MouseMove(object sender, MouseEventArgs e)
+        private void ListView_MouseMove(object sender, MouseEventArgs e)
         {
             Point p = this.PointToClient(MousePosition);
-            int xx = Width;
-            int yy = Height;
-            //TopLeft
-            if (p.X <= 2 && p.Y <= 2)
-            {
-                this.Cursor = Cursors.SizeNWSE;
-                wParam = (new IntPtr(WMSZ_TOPLEFT)).ToInt32();
-            }
-            //BottomLeft
-            else if (p.X <= 2 && p.Y >= Height - 2)
-            {
-                this.Cursor = Cursors.SizeNESW;
-                wParam = (new IntPtr(WMSZ_BOTTOMLEFT)).ToInt32();
-            }
-            //Left
-            else if (p.Y > 2 && p.Y < Height - 2 && p.X < 2)
-            {
-                this.Cursor = Cursors.SizeWE;
-                wParam = (new IntPtr(WMSZ_LEFT)).ToInt32();
-            }
+            int xx = listView2.Width;
+            int yy = listView2.Height;
+         
             //Bottom
-            else if (p.X > 2 && p.X < Width - 2 && p.Y > Height - 2)
+            if (p.X > 2 && p.X < listView2.Width - 2 && p.Y > listView2.Height - 2)
             {
                 this.Cursor = Cursors.SizeNS;
                 wParam = (new IntPtr(WMSZ_BOTTOM)).ToInt32();
+            }
+            //Right
+            else if (p.Y > 2 && p.Y < listView2.Height - 2 && p.X > listView2.Width - 2)
+            {
+                this.Cursor = Cursors.SizeWE;
+                wParam = (new IntPtr(WMSZ_RIGHT)).ToInt32();
             }
             else
                 this.Cursor = Cursors.Default;

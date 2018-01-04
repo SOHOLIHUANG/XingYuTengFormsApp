@@ -41,9 +41,11 @@
             this.listView2.BackColor = System.Drawing.Color.White;
             this.listView2.Location = new System.Drawing.Point(371, 102);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(905, 625);
+            this.listView2.Size = new System.Drawing.Size(878, 625);
             this.listView2.TabIndex = 1;
             this.listView2.UseCompatibleStateImageBehavior = false;
+            this.listView2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DeviceList_MouseDown);
+            this.listView2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ListView_MouseMove);
             // 
             // deviceList
             // 
@@ -110,7 +112,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Blue;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1277, 723);
             this.ControlBox = false;
             this.Controls.Add(this.panel);
@@ -122,7 +124,7 @@
             this.MinimumSize = new System.Drawing.Size(1277, 723);
             this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.TransparencyKey = System.Drawing.Color.Blue;
+            this.TransparencyKey = System.Drawing.Color.White;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.DoubleClick += new System.EventHandler(this.Form1_DoubleClick);
