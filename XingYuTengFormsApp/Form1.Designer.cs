@@ -33,7 +33,22 @@
             this.deviceList = new BrightIdeasSoftware.ObjectListView();
             this.olvColumnDesk = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.panel = new System.Windows.Forms.Panel();
+            this.pictureBoxClose = new System.Windows.Forms.PictureBox();
+            this.pictureBoxLagest = new System.Windows.Forms.PictureBox();
+            this.pictureBoxSmall = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonAdd = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.labelAdd = new System.Windows.Forms.Label();
+            this.label = new System.Windows.Forms.Label();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.deviceList)).BeginInit();
+            this.panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLagest)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSmall)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // listView2
@@ -41,7 +56,7 @@
             this.listView2.BackColor = System.Drawing.Color.White;
             this.listView2.Location = new System.Drawing.Point(371, 102);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(878, 625);
+            this.listView2.Size = new System.Drawing.Size(907, 625);
             this.listView2.TabIndex = 1;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DeviceList_MouseDown);
@@ -101,12 +116,112 @@
             // 
             // panel
             // 
-            this.panel.BackColor = System.Drawing.Color.Maroon;
+            this.panel.BackColor = System.Drawing.Color.DodgerBlue;
+            this.panel.Controls.Add(this.pictureBoxClose);
+            this.panel.Controls.Add(this.pictureBoxLagest);
+            this.panel.Controls.Add(this.pictureBoxSmall);
+            this.panel.Controls.Add(this.panel1);
+            this.panel.Controls.Add(this.label);
+            this.panel.Controls.Add(this.pictureBox);
             this.panel.Location = new System.Drawing.Point(-2, -1);
             this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(1341, 104);
+            this.panel.Size = new System.Drawing.Size(1280, 104);
             this.panel.TabIndex = 3;
             this.panel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
+            // 
+            // pictureBoxClose
+            // 
+            this.pictureBoxClose.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxClose.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxClose.Image")));
+            this.pictureBoxClose.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxClose.InitialImage")));
+            this.pictureBoxClose.Location = new System.Drawing.Point(1216, 43);
+            this.pictureBoxClose.Name = "pictureBoxClose";
+            this.pictureBoxClose.Size = new System.Drawing.Size(23, 23);
+            this.pictureBoxClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBoxClose.TabIndex = 5;
+            this.pictureBoxClose.TabStop = false;
+            // 
+            // pictureBoxLagest
+            // 
+            this.pictureBoxLagest.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxLagest.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxLagest.Image")));
+            this.pictureBoxLagest.Location = new System.Drawing.Point(1166, 40);
+            this.pictureBoxLagest.Name = "pictureBoxLagest";
+            this.pictureBoxLagest.Size = new System.Drawing.Size(32, 32);
+            this.pictureBoxLagest.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBoxLagest.TabIndex = 4;
+            this.pictureBoxLagest.TabStop = false;
+            // 
+            // pictureBoxSmall
+            // 
+            this.pictureBoxSmall.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxSmall.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxSmall.Image")));
+            this.pictureBoxSmall.Location = new System.Drawing.Point(1113, 40);
+            this.pictureBoxSmall.Name = "pictureBoxSmall";
+            this.pictureBoxSmall.Size = new System.Drawing.Size(32, 32);
+            this.pictureBoxSmall.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBoxSmall.TabIndex = 3;
+            this.pictureBoxSmall.TabStop = false;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.buttonAdd);
+            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.labelAdd);
+            this.panel1.Location = new System.Drawing.Point(373, 40);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(475, 30);
+            this.panel1.TabIndex = 2;
+            // 
+            // buttonAdd
+            // 
+            this.buttonAdd.Location = new System.Drawing.Point(390, 4);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonAdd.TabIndex = 2;
+            this.buttonAdd.Text = "确定";
+            this.buttonAdd.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(95, 5);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(279, 21);
+            this.textBox1.TabIndex = 1;
+            // 
+            // labelAdd
+            // 
+            this.labelAdd.AutoSize = true;
+            this.labelAdd.Font = new System.Drawing.Font("宋体", 15F);
+            this.labelAdd.Location = new System.Drawing.Point(0, 5);
+            this.labelAdd.Name = "labelAdd";
+            this.labelAdd.Size = new System.Drawing.Size(89, 20);
+            this.labelAdd.TabIndex = 0;
+            this.labelAdd.Text = "添加设备";
+            // 
+            // label
+            // 
+            this.label.AutoSize = true;
+            this.label.Font = new System.Drawing.Font("宋体", 15F);
+            this.label.ForeColor = System.Drawing.Color.White;
+            this.label.Location = new System.Drawing.Point(82, 43);
+            this.label.Name = "label";
+            this.label.Size = new System.Drawing.Size(109, 20);
+            this.label.TabIndex = 1;
+            this.label.Text = "兴宇腾测控";
+            // 
+            // pictureBox
+            // 
+            this.pictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox.Image")));
+            this.pictureBox.InitialImage = null;
+            this.pictureBox.Location = new System.Drawing.Point(23, 31);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(42, 42);
+            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox.TabIndex = 0;
+            this.pictureBox.TabStop = false;
             // 
             // Form
             // 
@@ -129,6 +244,14 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.DoubleClick += new System.EventHandler(this.Form1_DoubleClick);
             ((System.ComponentModel.ISupportInitialize)(this.deviceList)).EndInit();
+            this.panel.ResumeLayout(false);
+            this.panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLagest)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSmall)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -138,6 +261,15 @@
         private BrightIdeasSoftware.ObjectListView deviceList;
         private BrightIdeasSoftware.OLVColumn olvColumnDesk;
         private System.Windows.Forms.Panel panel;
+        private System.Windows.Forms.PictureBox pictureBox;
+        private System.Windows.Forms.Label label;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label labelAdd;
+        private System.Windows.Forms.Button buttonAdd;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.PictureBox pictureBoxClose;
+        private System.Windows.Forms.PictureBox pictureBoxLagest;
+        private System.Windows.Forms.PictureBox pictureBoxSmall;
     }
 }
 
