@@ -372,7 +372,16 @@ namespace XingYuTengFormsApp
 
         private void pictureBoxSmall_Click(object sender, EventArgs e)
         {
-            WindowState = FormWindowState.Minimized;
+            WindowState = FormWindowState.Minimized;//最小化
+        }
+
+        private void AddDevice_Click(object sender, EventArgs e)
+        {
+            string DeviceId = deviceID.Text;
+            if (!String.IsNullOrEmpty(DeviceId))
+            {
+                MessageBox.Show(DeviceId);
+            }
         }
     }
 

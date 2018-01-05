@@ -37,7 +37,7 @@
             this.pictureBoxSize = new System.Windows.Forms.PictureBox();
             this.pictureBoxSmall = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.AddDevice = new System.Windows.Forms.PictureBox();
             this.deviceID = new System.Windows.Forms.TextBox();
             this.labelAdd = new System.Windows.Forms.Label();
             this.label = new System.Windows.Forms.Label();
@@ -48,7 +48,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSmall)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AddDevice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -170,7 +170,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Controls.Add(this.AddDevice);
             this.panel1.Controls.Add(this.deviceID);
             this.panel1.Controls.Add(this.labelAdd);
             this.panel1.Location = new System.Drawing.Point(399, 36);
@@ -178,15 +178,16 @@
             this.panel1.Size = new System.Drawing.Size(427, 30);
             this.panel1.TabIndex = 2;
             // 
-            // pictureBox1
+            // AddDevice
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(390, 4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(23, 23);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
+            this.AddDevice.Image = ((System.Drawing.Image)(resources.GetObject("AddDevice.Image")));
+            this.AddDevice.Location = new System.Drawing.Point(390, 4);
+            this.AddDevice.Name = "AddDevice";
+            this.AddDevice.Size = new System.Drawing.Size(23, 23);
+            this.AddDevice.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.AddDevice.TabIndex = 2;
+            this.AddDevice.TabStop = false;
+            this.AddDevice.Click += new System.EventHandler(this.AddDevice_Click);
             // 
             // deviceID
             // 
@@ -258,7 +259,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSmall)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AddDevice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
 
@@ -277,7 +278,7 @@
         private System.Windows.Forms.PictureBox pictureBoxClose;
         private System.Windows.Forms.PictureBox pictureBoxSize;
         private System.Windows.Forms.PictureBox pictureBoxSmall;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox AddDevice;
     }
 }
 
