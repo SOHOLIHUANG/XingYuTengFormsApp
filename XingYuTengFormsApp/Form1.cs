@@ -17,6 +17,7 @@ namespace XingYuTengFormsApp
         #region 窗体边框阴影动画效果移动改变大小
         private float X;
         private float Y;
+        private bool isMax;//最大化为true,否则为false
         const int CS_DropSHADOW = 0x20000;
         const int GCL_STYLE = (-26);
         //声明Win32 API
@@ -135,6 +136,7 @@ namespace XingYuTengFormsApp
         {
             //窗体加载动画效果
             AnimateWindow(this.Handle, 500, AW_BLEND | AW_CENTER);
+            this.deviceID.Focus();
         }
 
         private void setTag(Control cons)
@@ -177,17 +179,7 @@ namespace XingYuTengFormsApp
             float newy = this.Height / Y;
             setControls(newx, newy, this);
         }
-
-        /// <summary>
-        /// 获取游标位置并改变形状
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Form1_MouseMove(object sender, MouseEventArgs e)
-        {
-
-        }
-
+  
         /// <summary>
         /// 左边拉伸
         /// </summary>
@@ -342,6 +334,45 @@ namespace XingYuTengFormsApp
             tasks.Add(new ServiceTask("温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
 
             return tasks;
+        }
+
+        private void pictureBoxLagest_Click(object sender, EventArgs e)
+        {
+            if (isMax)
+            {
+                isMax = false;
+                WindowState = FormWindowState.Normal;//还原
+                string Path=GetPath();
+                Path += @"\lagest.png";
+                pictureBoxSize.Image = Image.FromFile(Path);
+            }
+            else
+            {
+                isMax = true;
+                WindowState = FormWindowState.Maximized;//最大化
+                string Path = GetPath();
+                Path += @"\restore.png";
+                pictureBoxSize.Image = Image.FromFile(Path);
+            }
+        }
+
+        /// <summary>
+        /// 获取路径,该路径为源码根路径
+        /// </summary>
+        /// <returns></returns>
+        private string GetPath()
+        {
+            return Application.StartupPath.Substring(0, Application.StartupPath.Substring(0, Application.StartupPath.LastIndexOf("\\")).LastIndexOf("\\")); ;
+        }
+
+        private void pictureBoxClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void pictureBoxSmall_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
         }
     }
 

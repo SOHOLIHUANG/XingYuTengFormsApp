@@ -34,20 +34,21 @@
             this.olvColumnDesk = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.panel = new System.Windows.Forms.Panel();
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
-            this.pictureBoxLagest = new System.Windows.Forms.PictureBox();
+            this.pictureBoxSize = new System.Windows.Forms.PictureBox();
             this.pictureBoxSmall = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonAdd = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.deviceID = new System.Windows.Forms.TextBox();
             this.labelAdd = new System.Windows.Forms.Label();
             this.label = new System.Windows.Forms.Label();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.deviceList)).BeginInit();
             this.panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLagest)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSmall)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -118,7 +119,7 @@
             // 
             this.panel.BackColor = System.Drawing.Color.DodgerBlue;
             this.panel.Controls.Add(this.pictureBoxClose);
-            this.panel.Controls.Add(this.pictureBoxLagest);
+            this.panel.Controls.Add(this.pictureBoxSize);
             this.panel.Controls.Add(this.pictureBoxSmall);
             this.panel.Controls.Add(this.panel1);
             this.panel.Controls.Add(this.label);
@@ -140,17 +141,19 @@
             this.pictureBoxClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBoxClose.TabIndex = 5;
             this.pictureBoxClose.TabStop = false;
+            this.pictureBoxClose.Click += new System.EventHandler(this.pictureBoxClose_Click);
             // 
-            // pictureBoxLagest
+            // pictureBoxSize
             // 
-            this.pictureBoxLagest.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBoxLagest.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxLagest.Image")));
-            this.pictureBoxLagest.Location = new System.Drawing.Point(1166, 40);
-            this.pictureBoxLagest.Name = "pictureBoxLagest";
-            this.pictureBoxLagest.Size = new System.Drawing.Size(32, 32);
-            this.pictureBoxLagest.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBoxLagest.TabIndex = 4;
-            this.pictureBoxLagest.TabStop = false;
+            this.pictureBoxSize.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxSize.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxSize.Image")));
+            this.pictureBoxSize.Location = new System.Drawing.Point(1166, 40);
+            this.pictureBoxSize.Name = "pictureBoxSize";
+            this.pictureBoxSize.Size = new System.Drawing.Size(32, 32);
+            this.pictureBoxSize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBoxSize.TabIndex = 4;
+            this.pictureBoxSize.TabStop = false;
+            this.pictureBoxSize.Click += new System.EventHandler(this.pictureBoxLagest_Click);
             // 
             // pictureBoxSmall
             // 
@@ -162,33 +165,37 @@
             this.pictureBoxSmall.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBoxSmall.TabIndex = 3;
             this.pictureBoxSmall.TabStop = false;
+            this.pictureBoxSmall.Click += new System.EventHandler(this.pictureBoxSmall_Click);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.buttonAdd);
-            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Controls.Add(this.deviceID);
             this.panel1.Controls.Add(this.labelAdd);
-            this.panel1.Location = new System.Drawing.Point(373, 40);
+            this.panel1.Location = new System.Drawing.Point(399, 36);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(475, 30);
+            this.panel1.Size = new System.Drawing.Size(427, 30);
             this.panel1.TabIndex = 2;
             // 
-            // buttonAdd
+            // pictureBox1
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(390, 4);
-            this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(75, 23);
-            this.buttonAdd.TabIndex = 2;
-            this.buttonAdd.Text = "确定";
-            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(390, 4);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(23, 23);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
             // 
-            // textBox1
+            // deviceID
             // 
-            this.textBox1.Location = new System.Drawing.Point(95, 5);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(279, 21);
-            this.textBox1.TabIndex = 1;
+            this.deviceID.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.deviceID.Font = new System.Drawing.Font("宋体", 15F);
+            this.deviceID.Location = new System.Drawing.Point(95, 4);
+            this.deviceID.Name = "deviceID";
+            this.deviceID.Size = new System.Drawing.Size(279, 23);
+            this.deviceID.TabIndex = 1;
             // 
             // labelAdd
             // 
@@ -247,10 +254,11 @@
             this.panel.ResumeLayout(false);
             this.panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLagest)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSmall)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
 
@@ -265,11 +273,11 @@
         private System.Windows.Forms.Label label;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label labelAdd;
-        private System.Windows.Forms.Button buttonAdd;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox deviceID;
         private System.Windows.Forms.PictureBox pictureBoxClose;
-        private System.Windows.Forms.PictureBox pictureBoxLagest;
+        private System.Windows.Forms.PictureBox pictureBoxSize;
         private System.Windows.Forms.PictureBox pictureBoxSmall;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
