@@ -116,12 +116,6 @@ namespace XingYuTengFormsApp
             this.SetupDescibedTaskColumn();
             // How much space do we want to give each row? Obviously, this should be at least
             // the height of the images used by the renderer
-            this.Resize += new EventHandler(Form1_Resize);
-            X = this.Width;//获取窗体的宽度
-            Y = this.Height;//获取窗体的高度
-            setTag(this);
-            this.SetupDescibedTaskColumn();
-
             this.deviceList.RowHeight = 54;
             this.deviceList.EmptyListMsg = "No tasks match the filter";
             this.deviceList.UseAlternatingBackColors = false;
@@ -137,6 +131,12 @@ namespace XingYuTengFormsApp
             //窗体加载动画效果
             AnimateWindow(this.Handle, 500, AW_BLEND | AW_CENTER);
             this.deviceID.Focus();
+
+            this.Resize += new EventHandler(Form1_Resize);
+            X = this.Width;
+            Y = this.Height;
+            setTag(this);
+            Form1_Resize(new object(), new EventArgs());//x,y可在实例化时赋值,最后这句是新加的，在MDI时有用
         }
 
         private void setTag(Control cons)
@@ -158,13 +158,13 @@ namespace XingYuTengFormsApp
                 float a = Convert.ToSingle(mytag[0]) * newx;
                 con.Width = (int)a;
                 a = Convert.ToSingle(mytag[1]) * newy;
-                con.Height = (int)(a);
+                //con.Height = (int)(a);
                 a = Convert.ToSingle(mytag[2]) * newx;
                 con.Left = (int)(a);
                 a = Convert.ToSingle(mytag[3]) * newy;
-                con.Top = (int)(a);
+                //con.Top = (int)(a);
                 Single currentSize = Convert.ToSingle(mytag[4]) * Math.Min(newx, newy);
-                con.Font = new Font(con.Font.Name, currentSize, con.Font.Style, con.Font.Unit);
+                //con.Font = new Font(con.Font.Name, currentSize, con.Font.Style, con.Font.Unit);
                 if (con.Controls.Count > 0)
                 {
                     setControls(newx, newy, con);
@@ -323,15 +323,6 @@ namespace XingYuTengFormsApp
             tasks.Add(new ServiceTask("温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
             tasks.Add(new ServiceTask("温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
             tasks.Add(new ServiceTask("温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
-            tasks.Add(new ServiceTask("温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
-            tasks.Add(new ServiceTask("温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
-            tasks.Add(new ServiceTask("温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
-            tasks.Add(new ServiceTask("温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
-            tasks.Add(new ServiceTask("温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
-            tasks.Add(new ServiceTask("温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
-            tasks.Add(new ServiceTask("温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
-            tasks.Add(new ServiceTask("温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
-            tasks.Add(new ServiceTask("温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
 
             return tasks;
         }

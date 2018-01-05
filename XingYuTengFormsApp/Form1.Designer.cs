@@ -54,10 +54,13 @@
             // 
             // listView2
             // 
+            this.listView2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listView2.BackColor = System.Drawing.Color.White;
-            this.listView2.Location = new System.Drawing.Point(371, 102);
+            this.listView2.Location = new System.Drawing.Point(381, 102);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(907, 625);
+            this.listView2.Size = new System.Drawing.Size(897, 619);
             this.listView2.TabIndex = 1;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DeviceList_MouseDown);
@@ -68,9 +71,8 @@
             this.deviceList.AllColumns.Add(this.olvColumnDesk);
             this.deviceList.AllowColumnReorder = true;
             this.deviceList.AllowDrop = true;
-            this.deviceList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.deviceList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.deviceList.CellEditUseWholeCell = false;
             this.deviceList.CheckBoxes = true;
             this.deviceList.CheckedAspectName = "";
@@ -93,7 +95,7 @@
             this.deviceList.ShowGroups = false;
             this.deviceList.ShowHeaderInAllViews = false;
             this.deviceList.ShowItemToolTips = true;
-            this.deviceList.Size = new System.Drawing.Size(377, 625);
+            this.deviceList.Size = new System.Drawing.Size(377, 619);
             this.deviceList.SortGroupItemsByPrimaryColumn = false;
             this.deviceList.TabIndex = 2;
             this.deviceList.TriStateCheckBoxes = true;
@@ -117,6 +119,9 @@
             // 
             // panel
             // 
+            this.panel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel.AutoSize = true;
             this.panel.BackColor = System.Drawing.Color.DodgerBlue;
             this.panel.Controls.Add(this.pictureBoxClose);
             this.panel.Controls.Add(this.pictureBoxSize);
@@ -124,18 +129,19 @@
             this.panel.Controls.Add(this.panel1);
             this.panel.Controls.Add(this.label);
             this.panel.Controls.Add(this.pictureBox);
-            this.panel.Location = new System.Drawing.Point(-2, -1);
+            this.panel.Location = new System.Drawing.Point(0, 0);
             this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(1280, 104);
+            this.panel.Size = new System.Drawing.Size(1278, 104);
             this.panel.TabIndex = 3;
             this.panel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
             // 
             // pictureBoxClose
             // 
+            this.pictureBoxClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxClose.BackColor = System.Drawing.Color.Transparent;
             this.pictureBoxClose.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxClose.Image")));
             this.pictureBoxClose.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxClose.InitialImage")));
-            this.pictureBoxClose.Location = new System.Drawing.Point(1216, 43);
+            this.pictureBoxClose.Location = new System.Drawing.Point(1244, 43);
             this.pictureBoxClose.Name = "pictureBoxClose";
             this.pictureBoxClose.Size = new System.Drawing.Size(23, 23);
             this.pictureBoxClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -145,9 +151,11 @@
             // 
             // pictureBoxSize
             // 
+            this.pictureBoxSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxSize.BackColor = System.Drawing.Color.Transparent;
             this.pictureBoxSize.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxSize.Image")));
-            this.pictureBoxSize.Location = new System.Drawing.Point(1166, 40);
+            this.pictureBoxSize.Location = new System.Drawing.Point(1197, 40);
             this.pictureBoxSize.Name = "pictureBoxSize";
             this.pictureBoxSize.Size = new System.Drawing.Size(32, 32);
             this.pictureBoxSize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -157,9 +165,11 @@
             // 
             // pictureBoxSmall
             // 
+            this.pictureBoxSmall.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxSmall.BackColor = System.Drawing.Color.Transparent;
             this.pictureBoxSmall.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxSmall.Image")));
-            this.pictureBoxSmall.Location = new System.Drawing.Point(1113, 40);
+            this.pictureBoxSmall.Location = new System.Drawing.Point(1148, 40);
             this.pictureBoxSmall.Name = "pictureBoxSmall";
             this.pictureBoxSmall.Size = new System.Drawing.Size(32, 32);
             this.pictureBoxSmall.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -169,19 +179,24 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.Controls.Add(this.AddDevice);
             this.panel1.Controls.Add(this.deviceID);
             this.panel1.Controls.Add(this.labelAdd);
-            this.panel1.Location = new System.Drawing.Point(399, 36);
+            this.panel1.Location = new System.Drawing.Point(398, 36);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(427, 30);
             this.panel1.TabIndex = 2;
             // 
             // AddDevice
             // 
+            this.AddDevice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.AddDevice.Image = ((System.Drawing.Image)(resources.GetObject("AddDevice.Image")));
-            this.AddDevice.Location = new System.Drawing.Point(390, 4);
+            this.AddDevice.Location = new System.Drawing.Point(400, 4);
             this.AddDevice.Name = "AddDevice";
             this.AddDevice.Size = new System.Drawing.Size(23, 23);
             this.AddDevice.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -191,6 +206,9 @@
             // 
             // deviceID
             // 
+            this.deviceID.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.deviceID.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.deviceID.Font = new System.Drawing.Font("宋体", 15F);
             this.deviceID.Location = new System.Drawing.Point(95, 4);
@@ -200,6 +218,7 @@
             // 
             // labelAdd
             // 
+            this.labelAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.labelAdd.AutoSize = true;
             this.labelAdd.Font = new System.Drawing.Font("宋体", 15F);
             this.labelAdd.Location = new System.Drawing.Point(0, 5);
@@ -213,7 +232,7 @@
             this.label.AutoSize = true;
             this.label.Font = new System.Drawing.Font("宋体", 15F);
             this.label.ForeColor = System.Drawing.Color.White;
-            this.label.Location = new System.Drawing.Point(82, 43);
+            this.label.Location = new System.Drawing.Point(86, 43);
             this.label.Name = "label";
             this.label.Size = new System.Drawing.Size(109, 20);
             this.label.TabIndex = 1;
@@ -221,10 +240,12 @@
             // 
             // pictureBox
             // 
+            this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox.Image")));
             this.pictureBox.InitialImage = null;
-            this.pictureBox.Location = new System.Drawing.Point(23, 31);
+            this.pictureBox.Location = new System.Drawing.Point(22, 30);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(42, 42);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -262,6 +283,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.AddDevice)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
