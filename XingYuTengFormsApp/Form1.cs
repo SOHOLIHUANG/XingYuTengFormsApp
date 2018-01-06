@@ -210,17 +210,15 @@ namespace XingYuTengFormsApp
         private void ListView_MouseMove(object sender, MouseEventArgs e)
         {
             Point p = this.PointToClient(MousePosition);
-            int xx = listView2.Width;
-            int yy = listView2.Height;
          
             //Bottom
-            if (p.X > 2 && p.X < listView2.Width - 2 && p.Y > listView2.Height - 2)
+            if (p.X > 2 && p.X < listView2.Width - 2 && p.Y-panel.Height > listView2.Height - 2)
             {
                 this.Cursor = Cursors.SizeNS;
                 wParam = (new IntPtr(WMSZ_BOTTOM)).ToInt32();
             }
             //Right
-            else if (p.Y > 2 && p.Y < listView2.Height - 2 && p.X > listView2.Width - 2)
+            else if (p.Y-panel.Height> 2 && p.Y-panel.Height < listView2.Height - 2 && p.X-deviceList.Width > listView2.Width - 2)
             {
                 this.Cursor = Cursors.SizeWE;
                 wParam = (new IntPtr(WMSZ_RIGHT)).ToInt32();
