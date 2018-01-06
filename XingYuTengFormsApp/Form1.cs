@@ -187,18 +187,16 @@ namespace XingYuTengFormsApp
         /// <param name="e"></param>
         private void DeviceList_MouseMove(object sender, MouseEventArgs e)
         {
-            Point p = this.PointToClient(MousePosition);
-            int xx = deviceList.Width;
-            int yy = deviceList.Height;
-            
+            Point p =deviceList.PointToClient(MousePosition);
+
             //Left
-            if (p.Y > 2 && p.Y < deviceList.Height - 2 && p.X < 2)
+            if (p.Y > 2+panel.Height && p.Y < Height - 2 && p.X < 2)
             {
                 this.Cursor = Cursors.SizeWE;
                 wParam = (new IntPtr(WMSZ_LEFT)).ToInt32();
             }
             //Bottom
-            else if (p.X > 2 && p.X < deviceList.Width - 2 && p.Y > deviceList.Height - 2)
+            else if (p.X > 2 && p.X < deviceList.Width - 2 && p.Y > deviceList.Height - 8)
             {
                 this.Cursor = Cursors.SizeNS;
                 wParam = (new IntPtr(WMSZ_BOTTOM)).ToInt32();
@@ -209,16 +207,16 @@ namespace XingYuTengFormsApp
 
         private void ListView_MouseMove(object sender, MouseEventArgs e)
         {
-            Point p = this.PointToClient(MousePosition);
+            Point p =listView2.PointToClient(MousePosition);
          
             //Bottom
-            if (p.X > 2 && p.X < listView2.Width - 2 && p.Y-panel.Height > listView2.Height - 2)
+            if (p.X > 2 && p.X < listView2.Width - 2 && p.Y > listView2.Height - 8)
             {
                 this.Cursor = Cursors.SizeNS;
                 wParam = (new IntPtr(WMSZ_BOTTOM)).ToInt32();
             }
             //Right
-            else if (p.Y-panel.Height> 2 && p.Y-panel.Height < listView2.Height - 2 && p.X-deviceList.Width > listView2.Width - 2)
+            else if (p.Y> 2 && p.Y < listView2.Height - 2 && p.X > listView2.Width - 8)
             {
                 this.Cursor = Cursors.SizeWE;
                 wParam = (new IntPtr(WMSZ_RIGHT)).ToInt32();

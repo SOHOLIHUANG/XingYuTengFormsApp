@@ -58,7 +58,7 @@
             this.olvColumnDesk.MinimumWidth = 40;
             this.olvColumnDesk.Text = "设备列表";
             this.olvColumnDesk.ToolTipText = "";
-            this.olvColumnDesk.Width = 325;
+            this.olvColumnDesk.Width = 373;
             // 
             // deviceList
             // 
@@ -149,7 +149,7 @@
             this.AddDevice.Image = ((System.Drawing.Image)(resources.GetObject("AddDevice.Image")));
             this.AddDevice.Location = new System.Drawing.Point(400, 4);
             this.AddDevice.Name = "AddDevice";
-            this.AddDevice.Size = new System.Drawing.Size(23, 25);
+            this.AddDevice.Size = new System.Drawing.Size(23, 23);
             this.AddDevice.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.AddDevice.TabIndex = 2;
             this.AddDevice.TabStop = false;
@@ -265,6 +265,7 @@
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(920, 580);
             this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TransparencyKey = System.Drawing.Color.White;
