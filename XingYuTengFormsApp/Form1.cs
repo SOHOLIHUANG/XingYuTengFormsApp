@@ -189,8 +189,14 @@ namespace XingYuTengFormsApp
         {
             Point p =deviceList.PointToClient(MousePosition);
 
+            //BottomLeft
+            if (p.X <= 2 && p.Y >= deviceList.Height - 8)
+            {
+                this.Cursor = Cursors.SizeNESW;
+                wParam = (new IntPtr(WMSZ_BOTTOMLEFT)).ToInt32();
+            }
             //Left
-            if (p.Y > 2+panel.Height && p.Y < Height - 2 && p.X < 2)
+            else if (p.Y > 2 && p.Y < deviceList.Height - 2 && p.X < 2)
             {
                 this.Cursor = Cursors.SizeWE;
                 wParam = (new IntPtr(WMSZ_LEFT)).ToInt32();
@@ -208,15 +214,56 @@ namespace XingYuTengFormsApp
         private void ListView_MouseMove(object sender, MouseEventArgs e)
         {
             Point p =listView2.PointToClient(MousePosition);
-         
+
+            //BottomRight
+            if (p.X >= listView2.Width - 8 && p.Y >= listView2.Height - 8)
+            {
+                this.Cursor = Cursors.SizeNWSE;
+                wParam = (new IntPtr(WMSZ_BOTTOMRIGHT)).ToInt32();
+            }
             //Bottom
-            if (p.X > 2 && p.X < listView2.Width - 2 && p.Y > listView2.Height - 8)
+            else if (p.X > 2 && p.X < listView2.Width - 2 && p.Y > listView2.Height - 8)
             {
                 this.Cursor = Cursors.SizeNS;
                 wParam = (new IntPtr(WMSZ_BOTTOM)).ToInt32();
             }
             //Right
             else if (p.Y> 2 && p.Y < listView2.Height - 2 && p.X > listView2.Width - 8)
+            {
+                this.Cursor = Cursors.SizeWE;
+                wParam = (new IntPtr(WMSZ_RIGHT)).ToInt32();
+            }
+            else
+                this.Cursor = Cursors.Default;
+        }
+
+        private void Panel_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point p = this.PointToClient(MousePosition);
+            //TopLeft
+            if (p.X <= 2 && p.Y <= 2)
+            {
+                this.Cursor = Cursors.SizeNWSE;
+                wParam = (new IntPtr(WMSZ_TOPLEFT)).ToInt32();
+            }
+            //TopRight
+            else if (p.X >= Width - 2 && p.Y <= 2)
+            {
+                this.Cursor = Cursors.SizeNESW;
+                wParam = (new IntPtr(WMSZ_TOPRIGHT)).ToInt32();
+            }//Left
+            else if (p.Y > 2 && p.Y < Height - 2 && p.X < 2)
+            {
+                this.Cursor = Cursors.SizeWE;
+                wParam = (new IntPtr(WMSZ_LEFT)).ToInt32();
+            }
+            //Up
+            else if (p.X > 2 && p.X < Width - 2 && p.Y < 2)
+            {
+                this.Cursor = Cursors.SizeNS;
+                wParam = (new IntPtr(WMSZ_TOP)).ToInt32();
+            }//Right
+            else if (p.Y > 2 && p.Y < Height - 2 && p.X > Width - 2)
             {
                 this.Cursor = Cursors.SizeWE;
                 wParam = (new IntPtr(WMSZ_RIGHT)).ToInt32();

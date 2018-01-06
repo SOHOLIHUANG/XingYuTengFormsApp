@@ -237,6 +237,7 @@
             this.panel.Size = new System.Drawing.Size(921, 104);
             this.panel.TabIndex = 3;
             this.panel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
+            this.panel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Panel_MouseMove);
             // 
             // listView2
             // 
