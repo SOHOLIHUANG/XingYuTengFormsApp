@@ -59,11 +59,7 @@ namespace XingYuTengFormsApp
 
         public const int AW_ACTIVATE = 0x20000;//激活窗口。在使用了AW_HIDE标志后不要使用这个标志。
 
-        public const int AW_BLEND = 0x80000;//使用淡出效果。只有当hWnd为顶层窗口的时候才可以使用此标志。
-
         public const int AW_HIDE = 0x10000;//隐藏窗口，缺省则显示窗口。(关闭窗口用)
-
-        public const int AW_CENTER = 0x0010;//若使用了AW_HIDE标志，则使窗口向内重叠；若未使用AW_HIDE标志，则使窗口向外扩展。
 
         public const int AW_HOR_POSITIVE = 0x0001;//自左向右显示窗口。该标志可以在滚动动画和滑动动画中使用。当使用AW_CENTER标志时，该标志将被忽略。
 
@@ -128,16 +124,19 @@ namespace XingYuTengFormsApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //窗体加载动画效果
-            AnimateWindow(this.Handle, 500, AW_BLEND | AW_CENTER);
-            this.deviceID.Focus();
-
             this.Resize += new EventHandler(Form1_Resize);
             X = this.Width;
             Y = this.Height;
             setTag(this);
             Form1_Resize(new object(), new EventArgs());//x,y可在实例化时赋值,最后这句是新加的，在MDI时有用
         }
+
+        private void Form1_Activated(object sender, EventArgs e)
+        {
+            this.deviceID.Focus();
+        }
+
+
 
         private void setTag(Control cons)
         {
@@ -297,12 +296,6 @@ namespace XingYuTengFormsApp
                 ReleaseCapture();
                 SendMessage(this.Handle, WM_SYSCOMMAND, wParam, IntPtr.Zero.ToInt32());
             }
-        }
-
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //窗体关闭动画效果
-            AnimateWindow(this.Handle, 500, AW_HIDE | AW_BLEND | AW_CENTER);
         }
 
         private void Form1_DoubleClick(object sender, EventArgs e)
