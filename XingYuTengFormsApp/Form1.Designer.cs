@@ -259,7 +259,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.LavenderBlush;
             this.ClientSize = new System.Drawing.Size(920, 580);
             this.ControlBox = false;
             this.Controls.Add(this.panel);
@@ -271,7 +271,7 @@
             this.MinimumSize = new System.Drawing.Size(920, 580);
             this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.TransparencyKey = System.Drawing.Color.White;
+            this.TransparencyKey = System.Drawing.Color.LavenderBlush;
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.DoubleClick += new System.EventHandler(this.Form1_DoubleClick);
