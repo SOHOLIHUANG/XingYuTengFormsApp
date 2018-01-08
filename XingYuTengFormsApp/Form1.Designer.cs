@@ -39,9 +39,9 @@
             this.pictureBoxSize = new System.Windows.Forms.PictureBox();
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
             this.panel = new System.Windows.Forms.Panel();
-            this.listView2 = new System.Windows.Forms.ListView();
             this.olvColumnDesk = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.deviceList = new BrightIdeasSoftware.ObjectListView();
+            this.listView2 = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AddDevice)).BeginInit();
@@ -186,22 +186,6 @@
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(916, 104);
             this.panel.TabIndex = 3;
-            this.panel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
-            this.panel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Panel_MouseMove);
-            // 
-            // listView2
-            // 
-            this.listView2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.listView2.Location = new System.Drawing.Point(382, 106);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(536, 472);
-            this.listView2.TabIndex = 1;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            this.listView2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DeviceList_MouseDown);
-            this.listView2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ListView_MouseMove);
             // 
             // olvColumnDesk
             // 
@@ -252,8 +236,18 @@
             this.deviceList.UseFiltering = true;
             this.deviceList.UseHotItem = true;
             this.deviceList.View = System.Windows.Forms.View.Details;
-            this.deviceList.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DeviceList_MouseDown);
-            this.deviceList.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DeviceList_MouseMove);
+            // 
+            // listView2
+            // 
+            this.listView2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView2.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.listView2.Location = new System.Drawing.Point(380, 106);
+            this.listView2.Name = "listView2";
+            this.listView2.Size = new System.Drawing.Size(538, 472);
+            this.listView2.TabIndex = 1;
+            this.listView2.UseCompatibleStateImageBehavior = false;
             // 
             // Form
             // 
@@ -274,7 +268,6 @@
             this.TransparencyKey = System.Drawing.Color.LavenderBlush;
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.DoubleClick += new System.EventHandler(this.Form1_DoubleClick);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -301,9 +294,9 @@
         private System.Windows.Forms.PictureBox pictureBoxSize;
         private System.Windows.Forms.PictureBox pictureBoxClose;
         private System.Windows.Forms.Panel panel;
-        private System.Windows.Forms.ListView listView2;
         private BrightIdeasSoftware.OLVColumn olvColumnDesk;
         private BrightIdeasSoftware.ObjectListView deviceList;
+        private System.Windows.Forms.ListView listView2;
     }
 }
 
