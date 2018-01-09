@@ -114,12 +114,34 @@ namespace XingYuTengFormsApp
             setTag(this);
             Form1_Resize(new object(), new EventArgs());//x,y可在实例化时赋值,最后这句是新加的，在MDI时有用
 
-            // Make the hot item show an overlay when it changes
-            if (this.deviceList.UseTranslucentHotItem)
-            {
-                this.deviceList.HotItemStyle.Overlay = new BusinessCardOverlay();
-                this.deviceList.HotItemStyle = this.deviceList.HotItemStyle;
-            }
+            this.deviceList.HotItemChanged += delegate (object msender, HotItemChangedEventArgs args) {
+                if (sender == null)
+                {
+                    textBox1.Text = "";
+                    return;
+                }
+
+                switch (args.HotCellHitLocation)
+                {
+                    case HitTestLocation.Nothing:
+                        textBox1.Text = @"Over nothing";
+                        break;
+                    case HitTestLocation.Header:
+                    case HitTestLocation.HeaderCheckBox:
+                    case HitTestLocation.HeaderDivider:
+                        textBox1.Text = String.Format("Over {0} of column #{1}", args.HotCellHitLocation, args.HotColumnIndex);
+                        break;
+                    case HitTestLocation.Group:
+                        textBox1.Text = String.Format("Over group '{0}', {1}", args.HotGroup.Header, args.HotCellHitLocationEx);
+                        break;
+                    case HitTestLocation.GroupExpander:
+                        textBox1.Text = String.Format("Over group expander of '{0}'", args.HotGroup.Header);
+                        break;
+                    default:
+                        textBox1.Text = String.Format("Over {0} of ({1}, {2})", args.HotCellHitLocation, args.HotRowIndex, args.HotColumnIndex);
+                        break;
+                }
+            };
         }
 
         private void Form1_Activated(object sender, EventArgs e)

@@ -42,6 +42,7 @@
             this.olvColumnDesk = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.deviceList = new BrightIdeasSoftware.ObjectListView();
             this.listView2 = new System.Windows.Forms.ListView();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AddDevice)).BeginInit();
@@ -176,6 +177,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Panel.AutoSize = true;
             this.Panel.BackColor = System.Drawing.Color.DodgerBlue;
+            this.Panel.Controls.Add(this.textBox1);
             this.Panel.Controls.Add(this.pictureBoxClose);
             this.Panel.Controls.Add(this.pictureBoxSize);
             this.Panel.Controls.Add(this.pictureBoxSmall);
@@ -252,6 +254,13 @@
             this.listView2.TabIndex = 1;
             this.listView2.UseCompatibleStateImageBehavior = false;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(420, 7);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 21);
+            this.textBox1.TabIndex = 4;
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -300,6 +309,7 @@
         private BrightIdeasSoftware.OLVColumn olvColumnDesk;
         private BrightIdeasSoftware.ObjectListView deviceList;
         private System.Windows.Forms.ListView listView2;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
