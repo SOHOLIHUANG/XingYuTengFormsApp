@@ -203,13 +203,14 @@
             this.deviceList.AllowDrop = true;
             this.deviceList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.deviceList.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.deviceList.BackColor = System.Drawing.SystemColors.Window;
             this.deviceList.CellEditUseWholeCell = false;
             this.deviceList.CheckBoxes = true;
             this.deviceList.CheckedAspectName = "";
             this.deviceList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.olvColumnDesk});
             this.deviceList.Cursor = System.Windows.Forms.Cursors.Default;
+            this.deviceList.EmptyListMsg = "未添加设备";
             this.deviceList.FullRowSelect = true;
             this.deviceList.HeaderWordWrap = true;
             this.deviceList.HideSelection = false;

@@ -46,9 +46,7 @@ namespace XingYuTengFormsApp
             // How much space do we want to give each row? Obviously, this should be at least
             // the height of the images used by the renderer
             this.deviceList.RowHeight = 54;
-            this.deviceList.EmptyListMsg = "No tasks match the filter";
             this.deviceList.UseAlternatingBackColors = false;
-            this.deviceList.UseHotItem = false;
 
             // Make and display a list of tasks
             List<ServiceTask> tasks = CreateTasks();
