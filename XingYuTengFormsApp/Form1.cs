@@ -113,6 +113,13 @@ namespace XingYuTengFormsApp
             Y = this.Height;
             setTag(this);
             Form1_Resize(new object(), new EventArgs());//x,y可在实例化时赋值,最后这句是新加的，在MDI时有用
+
+            // Make the hot item show an overlay when it changes
+            if (this.deviceList.UseTranslucentHotItem)
+            {
+                this.deviceList.HotItemStyle.Overlay = new BusinessCardOverlay();
+                this.deviceList.HotItemStyle = this.deviceList.HotItemStyle;
+            }
         }
 
         private void Form1_Activated(object sender, EventArgs e)

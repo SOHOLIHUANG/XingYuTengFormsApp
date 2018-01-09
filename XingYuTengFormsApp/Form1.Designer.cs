@@ -237,6 +237,7 @@
             this.deviceList.UseFilterIndicator = true;
             this.deviceList.UseFiltering = true;
             this.deviceList.UseHotItem = true;
+            this.deviceList.UseTranslucentHotItem = true;
             this.deviceList.View = System.Windows.Forms.View.Details;
             // 
             // listView2
