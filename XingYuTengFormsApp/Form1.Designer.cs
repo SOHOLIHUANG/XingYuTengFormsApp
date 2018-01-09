@@ -38,7 +38,7 @@
             this.pictureBoxSmall = new System.Windows.Forms.PictureBox();
             this.pictureBoxSize = new System.Windows.Forms.PictureBox();
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
-            this.panel = new System.Windows.Forms.Panel();
+            this.Panel = new System.Windows.Forms.Panel();
             this.olvColumnDesk = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.deviceList = new BrightIdeasSoftware.ObjectListView();
             this.listView2 = new System.Windows.Forms.ListView();
@@ -48,7 +48,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSmall)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
-            this.panel.SuspendLayout();
+            this.Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -170,22 +170,23 @@
             this.pictureBoxClose.TabStop = false;
             this.pictureBoxClose.Click += new System.EventHandler(this.pictureBoxClose_Click);
             // 
-            // panel
+            // Panel
             // 
-            this.panel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.Panel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel.AutoSize = true;
-            this.panel.BackColor = System.Drawing.Color.DodgerBlue;
-            this.panel.Controls.Add(this.pictureBoxClose);
-            this.panel.Controls.Add(this.pictureBoxSize);
-            this.panel.Controls.Add(this.pictureBoxSmall);
-            this.panel.Controls.Add(this.panel1);
-            this.panel.Controls.Add(this.label);
-            this.panel.Controls.Add(this.pictureBox);
-            this.panel.Location = new System.Drawing.Point(2, 2);
-            this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(916, 104);
-            this.panel.TabIndex = 3;
+            this.Panel.AutoSize = true;
+            this.Panel.BackColor = System.Drawing.Color.DodgerBlue;
+            this.Panel.Controls.Add(this.pictureBoxClose);
+            this.Panel.Controls.Add(this.pictureBoxSize);
+            this.Panel.Controls.Add(this.pictureBoxSmall);
+            this.Panel.Controls.Add(this.panel1);
+            this.Panel.Controls.Add(this.label);
+            this.Panel.Controls.Add(this.pictureBox);
+            this.Panel.Location = new System.Drawing.Point(2, 2);
+            this.Panel.Name = "Panel";
+            this.Panel.Size = new System.Drawing.Size(916, 104);
+            this.Panel.TabIndex = 3;
+            this.Panel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Panel_MouseDown);
             // 
             // olvColumnDesk
             // 
@@ -243,9 +244,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listView2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.listView2.Location = new System.Drawing.Point(380, 106);
+            this.listView2.Location = new System.Drawing.Point(382, 106);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(538, 472);
+            this.listView2.Size = new System.Drawing.Size(537, 472);
             this.listView2.TabIndex = 1;
             this.listView2.UseCompatibleStateImageBehavior = false;
             // 
@@ -256,7 +257,7 @@
             this.BackColor = System.Drawing.Color.LavenderBlush;
             this.ClientSize = new System.Drawing.Size(920, 580);
             this.ControlBox = false;
-            this.Controls.Add(this.panel);
+            this.Controls.Add(this.Panel);
             this.Controls.Add(this.deviceList);
             this.Controls.Add(this.listView2);
             this.DoubleBuffered = true;
@@ -275,8 +276,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSmall)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSize)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).EndInit();
-            this.panel.ResumeLayout(false);
-            this.panel.PerformLayout();
+            this.Panel.ResumeLayout(false);
+            this.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -293,7 +294,7 @@
         private System.Windows.Forms.PictureBox pictureBoxSmall;
         private System.Windows.Forms.PictureBox pictureBoxSize;
         private System.Windows.Forms.PictureBox pictureBoxClose;
-        private System.Windows.Forms.Panel panel;
+        private System.Windows.Forms.Panel Panel;
         private BrightIdeasSoftware.OLVColumn olvColumnDesk;
         private BrightIdeasSoftware.ObjectListView deviceList;
         private System.Windows.Forms.ListView listView2;

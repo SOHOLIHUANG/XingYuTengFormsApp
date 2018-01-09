@@ -15,7 +15,7 @@ namespace XingYuTengFormsApp
     public partial class Form : System.Windows.Forms.Form
     {
 
-        #region 窗体边框阴影动画效果移动改变大小
+        #region 窗体边框移动改变大小
         private float X;
         private float Y;
         private bool isMax;//最大化为true,否则为false
@@ -28,6 +28,17 @@ namespace XingYuTengFormsApp
         const int Guying_HTBOTTOMLEFT = 0x10;
         const int Guying_HTBOTTOMRIGHT = 17;
         #endregion
+
+        #region
+        [DllImport("user32.dll")]
+        public static extern bool ReleaseCapture();
+        [DllImport("user32.dll")]
+        public static extern bool SendMessage(IntPtr hwnd, int wMsg, int wParam, int lParam);
+        public const int WM_SYSCOMMAND = 0x0112;
+        public const int SC_MOVE = 0xF010;
+        public const int HTCAPTION = 0x0002;
+        #endregion
+
         public Form()
         {
             InitializeComponent();
@@ -44,6 +55,10 @@ namespace XingYuTengFormsApp
             this.deviceList.SetObjects(tasks);
         }
 
+        /// <summary>
+        /// 拉伸压缩窗体
+        /// </summary>
+        /// <param name="m"></param>
         protected override void WndProc(ref Message m)
         {
             switch (m.Msg)
@@ -81,6 +96,18 @@ namespace XingYuTengFormsApp
                     break;
             }
         }
+
+        /// <summary>
+        /// 拖动窗体
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Panel_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, WM_SYSCOMMAND, SC_MOVE + HTCAPTION, 0);
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             this.Resize += new EventHandler(Form1_Resize);
