@@ -42,7 +42,6 @@
             this.olvColumnDesk = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.deviceList = new BrightIdeasSoftware.ObjectListView();
             this.listView2 = new System.Windows.Forms.ListView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AddDevice)).BeginInit();
@@ -177,7 +176,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Panel.AutoSize = true;
             this.Panel.BackColor = System.Drawing.Color.DodgerBlue;
-            this.Panel.Controls.Add(this.textBox1);
             this.Panel.Controls.Add(this.pictureBoxClose);
             this.Panel.Controls.Add(this.pictureBoxSize);
             this.Panel.Controls.Add(this.pictureBoxSmall);
@@ -196,7 +194,7 @@
             this.olvColumnDesk.MinimumWidth = 40;
             this.olvColumnDesk.Text = "设备列表";
             this.olvColumnDesk.ToolTipText = "";
-            this.olvColumnDesk.Width = 373;
+            this.olvColumnDesk.Width = 302;
             // 
             // deviceList
             // 
@@ -229,7 +227,7 @@
             this.deviceList.ShowGroups = false;
             this.deviceList.ShowHeaderInAllViews = false;
             this.deviceList.ShowItemToolTips = true;
-            this.deviceList.Size = new System.Drawing.Size(380, 472);
+            this.deviceList.Size = new System.Drawing.Size(299, 472);
             this.deviceList.SortGroupItemsByPrimaryColumn = false;
             this.deviceList.TabIndex = 2;
             this.deviceList.TriStateCheckBoxes = true;
@@ -244,22 +242,14 @@
             // 
             // listView2
             // 
-            this.listView2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.listView2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.listView2.Location = new System.Drawing.Point(382, 106);
+            this.listView2.Location = new System.Drawing.Point(299, 106);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(537, 472);
+            this.listView2.Size = new System.Drawing.Size(619, 472);
             this.listView2.TabIndex = 1;
             this.listView2.UseCompatibleStateImageBehavior = false;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(420, 7);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 21);
-            this.textBox1.TabIndex = 4;
             // 
             // Form
             // 
@@ -309,7 +299,6 @@
         private BrightIdeasSoftware.OLVColumn olvColumnDesk;
         private BrightIdeasSoftware.ObjectListView deviceList;
         private System.Windows.Forms.ListView listView2;
-        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

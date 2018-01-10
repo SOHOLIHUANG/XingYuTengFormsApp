@@ -18,6 +18,7 @@ namespace XingYuTengFormsApp
         #region 窗体边框移动改变大小
         private float X;
         private float Y;
+        private Panel panel;
         private bool isMax;//最大化为true,否则为false
         const int Guying_HTLEFT = 10;
         const int Guying_HTRIGHT = 11;
@@ -106,6 +107,18 @@ namespace XingYuTengFormsApp
             SendMessage(this.Handle, WM_SYSCOMMAND, SC_MOVE + HTCAPTION, 0);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Panel_MouseLeave(object sender, EventArgs e)
+        {
+            Control control = (Control)sender;
+            this.Controls.Remove(control);
+            control.Dispose();
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             this.Resize += new EventHandler(Form1_Resize);
@@ -117,31 +130,78 @@ namespace XingYuTengFormsApp
             this.deviceList.HotItemChanged += delegate (object msender, HotItemChangedEventArgs args) {
                 if (sender == null)
                 {
-                    textBox1.Text = "";
                     return;
                 }
-
                 switch (args.HotCellHitLocation)
                 {
                     case HitTestLocation.Nothing:
-                        textBox1.Text = @"Over nothing";
+                        
+                        ClearAddedcomponent();
                         break;
                     case HitTestLocation.Header:
                     case HitTestLocation.HeaderCheckBox:
                     case HitTestLocation.HeaderDivider:
-                        textBox1.Text = String.Format("Over {0} of column #{1}", args.HotCellHitLocation, args.HotColumnIndex);
+                        //textBox1.Text = String.Format("Over {0} of column #{1}", "fdfdff", args.HotColumnIndex);
                         break;
                     case HitTestLocation.Group:
-                        textBox1.Text = String.Format("Over group '{0}', {1}", args.HotGroup.Header, args.HotCellHitLocationEx);
+                        //textBox1.Text = String.Format("Over group '{0}', {1}", args.HotGroup.Header, args.HotCellHitLocationEx);
                         break;
                     case HitTestLocation.GroupExpander:
-                        textBox1.Text = String.Format("Over group expander of '{0}'", args.HotGroup.Header);
+                        //textBox1.Text = String.Format("Over group expander of '{0}'", args.HotGroup.Header);
                         break;
                     default:
-                        textBox1.Text = String.Format("Over {0} of ({1}, {2})", args.HotCellHitLocation, args.HotRowIndex, args.HotColumnIndex);
+                        ClearAddedcomponent();
+                        Point point = deviceList.GetItem(args.HotRowIndex).Position;
+                        panel = new Panel();
+                        panel.Name = "panel";
+                        panel.Size = new Size(422, 432);
+                        if (point.Y < 2 + Panel.Height)
+                        {
+                            panel.Location = new Point(2 + deviceList.Width, 2 + Panel.Height);
+                        }
+                        else if (point.Y + panel.Height > Height - 2)
+                        {
+                            panel.Location = new Point(2 + deviceList.Width, Height - 2-panel.Height);
+                        }
+                        else {
+                            panel.Location = new Point(2 + deviceList.Width, point.Y);
+                        }
+                        panel.BackColor = Color.Yellow;
+                        panel.SuspendLayout();
+                        panel.ResumeLayout(false);
+                        panel.PerformLayout();
+                        this.Controls.Add(panel);
+                        panel.BringToFront();
+                        ServiceTask oLVListItem = (ServiceTask)deviceList.GetItem(args.HotRowIndex).RowObject;
                         break;
                 }
             };
+        }
+
+        /// <summary>
+        /// 删除列表详细信息控件
+        /// </summary>
+        private void ClearAddedcomponent()
+        {
+            foreach (Control control in this.Controls)
+            {
+                if (control.Name.Equals(AllConstant.panel))
+                {
+                    Point p = this.PointToClient(MousePosition);
+                    Point conPoint = control.Location;
+                    if(p.X>=deviceList.Width+2&&p.X< deviceList.Width + 2 + control.Width && p.Y >= conPoint.Y && p.Y <= conPoint.Y + control.Height)
+                    {
+                        control.MouseLeave+= new EventHandler(Panel_MouseLeave);
+                    }
+                    else
+                    {
+                        this.Controls.Remove(control);
+                        control.Dispose();
+                    }
+                }
+
+            }
+
         }
 
         private void Form1_Activated(object sender, EventArgs e)
@@ -163,18 +223,14 @@ namespace XingYuTengFormsApp
         {
             foreach (Control con in cons.Controls)
             {
-
+                if (con.Name.Equals("deviceList")) {
+                    continue;
+                }
                 string[] mytag = con.Tag.ToString().Split(new char[] { ':' });
                 float a = Convert.ToSingle(mytag[0]) * newx;
                 con.Width = (int)a;
-                a = Convert.ToSingle(mytag[1]) * newy;
-                //con.Height = (int)(a);
                 a = Convert.ToSingle(mytag[2]) * newx;
                 con.Left = (int)(a);
-                a = Convert.ToSingle(mytag[3]) * newy;
-                //con.Top = (int)(a);
-                Single currentSize = Convert.ToSingle(mytag[4]) * Math.Min(newx, newy);
-                //con.Font = new Font(con.Font.Name, currentSize, con.Font.Style, con.Font.Unit);
                 if (con.Controls.Count > 0)
                 {
                     setControls(newx, newy, con);
@@ -188,6 +244,8 @@ namespace XingYuTengFormsApp
             float newx = (this.Width) / X;
             float newy = this.Height / Y;
             setControls(newx, newy, this);
+            listView2.Location = new Point(2 + deviceList.Width, listView2.Location.Y);
+            listView2.Width = Width - deviceList.Width - 4;
         }
 
         private void SetupDescibedTaskColumn()
@@ -239,13 +297,13 @@ namespace XingYuTengFormsApp
         {
             List<ServiceTask> tasks = new List<ServiceTask>();
 
-            tasks.Add(new ServiceTask("温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
-            tasks.Add(new ServiceTask("温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
-            tasks.Add(new ServiceTask("温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
-            tasks.Add(new ServiceTask("温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
-            tasks.Add(new ServiceTask("温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
-            tasks.Add(new ServiceTask("温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
-            tasks.Add(new ServiceTask("温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
+            tasks.Add(new ServiceTask("1111温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
+            tasks.Add(new ServiceTask("2222温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
+            tasks.Add(new ServiceTask("3333温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
+            tasks.Add(new ServiceTask("4444温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
+            tasks.Add(new ServiceTask("5555温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
+            tasks.Add(new ServiceTask("6666温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
+            tasks.Add(new ServiceTask("7777温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
 
             return tasks;
         }
