@@ -352,7 +352,7 @@ namespace XingYuTengFormsApp
             string DeviceId = deviceID.Text;
             if (!String.IsNullOrEmpty(DeviceId))
             {
-                MessageBox.Show(DeviceId);
+                NetWorkUtil.Instance.addDevice(DeviceId);
             }
         }
     }
