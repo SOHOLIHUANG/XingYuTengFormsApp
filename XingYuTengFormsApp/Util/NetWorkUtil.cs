@@ -6,15 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using XingYuTengFormsApp.Entity;
 using XingYuTengFormsApp.Util;
+using XingYuTengFormsApp.Util.SQLiteUtil;
 
 namespace XingYuTengFormsApp
 {
     public sealed class NetWorkUtil
     {
+        private RestClient client;
         private static NetWorkUtil instance;
         private static readonly object obj = new object();
         public const string URL="http://api.heclouds.com/";
-        private RestClient client;
 
         public static NetWorkUtil Instance
         {
@@ -61,6 +62,8 @@ namespace XingYuTengFormsApp
             var content = response.Content; // raw content as string
             if (response.IsSuccessful) {
                 Device device=JsonHelper.DeserializeJsonToObject<Device>(content);
+               // DeviceDataSql.CreateDeviceTable();
+                DeviceDataSql.Insert(device.data);
             } else {
 
             }

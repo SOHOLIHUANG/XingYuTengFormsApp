@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using XingYuTengFormsApp.Util;
 
 namespace XingYuTengFormsApp
 {
@@ -310,11 +311,11 @@ namespace XingYuTengFormsApp
 
         private void pictureBoxLagest_Click(object sender, EventArgs e)
         {
+            string Path = Util.Utils.GetPath();
             if (isMax)
             {
                 isMax = false;
                 WindowState = FormWindowState.Normal;//还原
-                string Path=GetPath();
                 Path += @"\lagest.png";
                 pictureBoxSize.Image = Image.FromFile(Path);
             }
@@ -322,19 +323,9 @@ namespace XingYuTengFormsApp
             {
                 isMax = true;
                 WindowState = FormWindowState.Maximized;//最大化
-                string Path = GetPath();
                 Path += @"\restore.png";
                 pictureBoxSize.Image = Image.FromFile(Path);
             }
-        }
-
-        /// <summary>
-        /// 获取路径,该路径为源码根路径
-        /// </summary>
-        /// <returns></returns>
-        private string GetPath()
-        {
-            return Application.StartupPath.Substring(0, Application.StartupPath.Substring(0, Application.StartupPath.LastIndexOf("\\")).LastIndexOf("\\")); ;
         }
 
         private void pictureBoxClose_Click(object sender, EventArgs e)
