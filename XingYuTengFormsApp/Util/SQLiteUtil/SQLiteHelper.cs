@@ -120,6 +120,23 @@ namespace XingYuTengFormsApp.Util
             return ExecuteQuery(queryString);
         }
 
+        /// <summary>
+        /// 判断tableName表中是否有id
+        /// </summary>
+        /// <param name="tableName"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool HasRow(string tableName,string id)
+        {
+            bool hasRow = false;
+            OpenConnection();
+            string queryString = "SELECT * FROM " + tableName+ "where id="+id;
+            SQLiteDataReader sql= ExecuteQuery(queryString);
+            hasRow=sql.HasRows;
+            CloseConnection();
+            return hasRow;
+        }
+
 
         /// <summary>
         /// 向指定数据表中插入数据
