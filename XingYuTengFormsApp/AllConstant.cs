@@ -9,7 +9,11 @@ namespace XingYuTengFormsApp
     class AllConstant
     {
         public static string panel = "panel";//动态添加的组件name
+
+        /// <summary>
+        /// 以下为数据库常量
+        /// </summary>
         public static string DB = "db_xingyuteng";//数据库名
-        public static string DEVICE_TABLE = "device";//表名
+        public static string DEVICEDATA_TABLE = "DeviceData";//表名
     }
 }

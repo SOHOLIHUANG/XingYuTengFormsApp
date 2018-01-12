@@ -107,7 +107,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\JsonHelper.cs" />
-    <Compile Include="Util\SQLiteUtil\DeviceSql.cs" />
+    <Compile Include="Util\SQLiteUtil\DeviceDao.cs" />
     <Compile Include="Util\SQLiteUtil\SQLiteHelper.cs" />
     <Compile Include="Util\Utils.cs" />
     <EmbeddedResource Include="Form1.resx">

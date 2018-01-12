@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using XingYuTengFormsApp.Util;
+using XingYuTengFormsApp.Util.SQLiteUtil;
 
 namespace XingYuTengFormsApp
 {
@@ -16,7 +18,16 @@ namespace XingYuTengFormsApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            CreateOrUpdateDB();
             Application.Run(new Form());
+        }
+
+        /// <summary>
+        /// 创建表
+        /// </summary>
+        private static void CreateOrUpdateDB()
+        {
+            DeviceDataDao.Instance.CreateDeviceTable();
         }
     }
 }

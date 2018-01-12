@@ -8,8 +8,8 @@ namespace XingYuTengFormsApp.Entity
 {
     public class Location
     {
-        private string ele { get; set; }
-        private string lat { get; set; }
-        private string lon { get; set; }
+        public string ele { get; set; }
+        public string lat { get; set; }
+        public string lon { get; set; }
     }
 }

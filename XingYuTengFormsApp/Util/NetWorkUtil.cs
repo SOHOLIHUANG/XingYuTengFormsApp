@@ -62,8 +62,7 @@ namespace XingYuTengFormsApp
             var content = response.Content; // raw content as string
             if (response.IsSuccessful) {
                 Device device=JsonHelper.DeserializeJsonToObject<Device>(content);
-               // DeviceDataSql.CreateDeviceTable();
-                DeviceDataSql.Insert(device.data);
+                DeviceDataDao.Instance.Insert(device.data);
             } else {
 
             }
