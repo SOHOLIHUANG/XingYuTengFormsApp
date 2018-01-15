@@ -130,9 +130,15 @@ namespace XingYuTengFormsApp.Util
         {
             bool hasRow = false;
             OpenConnection();
-            string queryString = "SELECT * FROM " + tableName+ "where id="+id;
+            string queryString = "SELECT * FROM " + tableName+ " where id="+id;
             SQLiteDataReader sql= ExecuteQuery(queryString);
-            hasRow=sql.HasRows;
+            if (sql == null) {
+                hasRow = false;
+            }
+            else
+            {
+                hasRow = sql.HasRows;
+            }
             CloseConnection();
             return hasRow;
         }
@@ -155,7 +161,7 @@ namespace XingYuTengFormsApp.Util
                 throw new SQLiteException("values.Length!=fieldCount");
             }
 
-            string queryString = "INSERT OR REPLACE INTO " + tableName + " VALUES (" + "'" + values[0] + "'";
+            string queryString = "INSERT INTO " + tableName + " VALUES (" + "'" + values[0] + "'";
             for (int i = 1; i < values.Length; i++)
             {
                 queryString += ", " + "'" + values[i] + "'";

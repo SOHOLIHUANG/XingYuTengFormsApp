@@ -45,10 +45,23 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
         {
             string location = JsonHelper.SerializeObject(deviceData.location);
             string datastreams = JsonHelper.SerializeObject(deviceData.datastreams);
-          
-            SQLiteHelper.Instance.InsertValues(AllConstant.DEVICEDATA_TABLE, new string[] {deviceData.auth_info,
+
+            if (SQLiteHelper.Instance.HasRow(AllConstant.DEVICEDATA_TABLE, deviceData.id)) {
+
+                SQLiteHelper.Instance.DeleteValuesOR(AllConstant.DEVICEDATA_TABLE, new string[] { "id" }, new string[] { deviceData.id }, new string[] { "=" });
+                
+
+                SQLiteHelper.Instance.InsertValues(AllConstant.DEVICEDATA_TABLE, new string[] {deviceData.auth_info,
                 deviceData.create_time,deviceData.id,location,deviceData.online.ToString(),deviceData.isPrivate.ToString(),
-            deviceData.protocol,deviceData.title,deviceData.desc,datastreams});
+                deviceData.protocol,deviceData.title,deviceData.desc,datastreams});
+            } else
+            {
+                
+                SQLiteHelper.Instance.InsertValues(AllConstant.DEVICEDATA_TABLE, new string[] {deviceData.auth_info,
+                deviceData.create_time,deviceData.id,location,deviceData.online.ToString(),deviceData.isPrivate.ToString(),
+                deviceData.protocol,deviceData.title,deviceData.desc,datastreams});
+            }
+            
             
         }
     }
