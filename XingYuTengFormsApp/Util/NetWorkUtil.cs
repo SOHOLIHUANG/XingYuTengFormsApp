@@ -42,7 +42,7 @@ namespace XingYuTengFormsApp
         }
 
 
-        public void addDevice(string device_id) {
+        public void addDevice(string device_id,InetworkResult result) {
 
             // client.Authenticator = new HttpBasicAuthenticator(username, password);
 
@@ -62,9 +62,17 @@ namespace XingYuTengFormsApp
             var content = response.Content; // raw content as string
             if (response.IsSuccessful) {
                 Device device=JsonHelper.DeserializeJsonToObject<Device>(content);
-                DeviceDataDao.Instance.Insert(device.data);
+                if (device.error.Equals("succ"))
+                {
+                    DeviceDataDao.Instance.Insert(device.data);
+                    result.onSuccess(device_id);
+                }
+                else {
+                    result.onFailure(device.error);
+                }
+                
             } else {
-
+                result.onFailure("获取设备信息失败");
             }
         }
     }

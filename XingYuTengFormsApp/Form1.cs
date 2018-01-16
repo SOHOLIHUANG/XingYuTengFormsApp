@@ -13,7 +13,7 @@ using XingYuTengFormsApp.Util;
 
 namespace XingYuTengFormsApp
 {
-    public partial class Form : System.Windows.Forms.Form
+    public partial class Form : System.Windows.Forms.Form ,InetworkResult
     {
 
         #region 窗体边框移动改变大小
@@ -136,7 +136,7 @@ namespace XingYuTengFormsApp
                 switch (args.HotCellHitLocation)
                 {
                     case HitTestLocation.Nothing:
-                        
+
                         ClearAddedcomponent();
                         break;
                     case HitTestLocation.Header:
@@ -162,7 +162,7 @@ namespace XingYuTengFormsApp
                         }
                         else if (point.Y + panel.Height > Height - 2)
                         {
-                            panel.Location = new Point(2 + deviceList.Width, Height - 2-panel.Height);
+                            panel.Location = new Point(2 + deviceList.Width, Height - 2 - panel.Height);
                         }
                         else {
                             panel.Location = new Point(2 + deviceList.Width, point.Y);
@@ -190,9 +190,9 @@ namespace XingYuTengFormsApp
                 {
                     Point p = this.PointToClient(MousePosition);
                     Point conPoint = control.Location;
-                    if(p.X>=deviceList.Width+2&&p.X< deviceList.Width + 2 + control.Width && p.Y >= conPoint.Y && p.Y <= conPoint.Y + control.Height)
+                    if (p.X >= deviceList.Width + 2 && p.X < deviceList.Width + 2 + control.Width && p.Y >= conPoint.Y && p.Y <= conPoint.Y + control.Height)
                     {
-                        control.MouseLeave+= new EventHandler(Panel_MouseLeave);
+                        control.MouseLeave += new EventHandler(Panel_MouseLeave);
                     }
                     else
                     {
@@ -343,8 +343,18 @@ namespace XingYuTengFormsApp
             string DeviceId = deviceID.Text;
             if (!String.IsNullOrEmpty(DeviceId))
             {
-                NetWorkUtil.Instance.addDevice(DeviceId);
+                NetWorkUtil.Instance.addDevice(DeviceId,this);
             }
+        }
+
+        void InetworkResult.onSuccess(string id)
+        {
+            MessageBox.Show(id);
+        }
+
+        void InetworkResult.onFailure(string error)
+        {
+            MessageBox.Show(error);
         }
     }
 
@@ -373,5 +383,14 @@ namespace XingYuTengFormsApp
             get { return this.description; }
             set { this.description = value; }
         }
+    }
+
+    /// <summary>
+    /// 添加设备返回结果
+    /// </summary>
+    public interface InetworkResult{
+        void onSuccess(string id);
+
+        void onFailure(string error);
     }
 }
