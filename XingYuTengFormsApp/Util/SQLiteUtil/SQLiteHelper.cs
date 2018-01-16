@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.Common;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
@@ -48,261 +51,481 @@ namespace XingYuTengFormsApp.Util
             }
         }
 
-        /// <summary>
-        /// 打开数据库连接
-        /// </summary>
-        private void OpenConnection()
+        // Application.StartupPath  
+        public static string LocalDbConnectionString = ConfigurationManager.ConnectionStrings["localdb"].ConnectionString;
+
+        #region ExecuteNonQuery  
+        /// <summary>  
+        /// 执行数据库操作(新增、更新或删除)  
+        /// </summary>  
+        /// <param name="connectionString">连接字符串</param>  
+        /// <param name="cmd">SqlCommand对象</param>  
+        /// <returns>所受影响的行数</returns>  
+        public static int ExecuteNonQuery(string connectionString, SQLiteCommand cmd)
         {
+            int result = 0;
+            if (connectionString == null || connectionString.Length == 0)
+                throw new ArgumentNullException("connectionString");
+            using (SQLiteConnection con = new SQLiteConnection(connectionString))
+            {
+                SQLiteTransaction trans = null;
+                PrepareCommand(cmd, con, ref trans, true, cmd.CommandType, cmd.CommandText);
+                try
+                {
+                    result = cmd.ExecuteNonQuery();
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    throw ex;
+                }
+            }
+            return result;
+        }
+
+        /// <summary>  
+        /// 执行数据库操作(新增、更新或删除)  
+        /// </summary>  
+        /// <param name="connectionString">连接字符串</param>  
+        /// <param name="commandText">执行语句或存储过程名</param>  
+        /// <param name="commandType">执行类型</param>  
+        /// <returns>所受影响的行数</returns>  
+        public static int ExecuteNonQuery(string connectionString, string commandText, CommandType commandType)
+        {
+            int result = 0;
+            if (connectionString == null || connectionString.Length == 0)
+                throw new ArgumentNullException("connectionString");
+            if (commandText == null || commandText.Length == 0)
+                throw new ArgumentNullException("commandText");
+            SQLiteCommand cmd = new SQLiteCommand();
+            using (SQLiteConnection con = new SQLiteConnection(connectionString))
+            {
+                SQLiteTransaction trans = null;
+                PrepareCommand(cmd, con, ref trans, true, commandType, commandText);
+                try
+                {
+                    result = cmd.ExecuteNonQuery();
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    throw ex;
+                }
+            }
+            return result;
+        }
+
+        /// <summary>  
+        /// 执行数据库操作(新增、更新或删除)  
+        /// </summary>  
+        /// <param name="connectionString">连接字符串</param>  
+        /// <param name="commandText">执行语句或存储过程名</param>  
+        /// <param name="commandType">执行类型</param>  
+        /// <param name="cmdParms">SQL参数对象</param>  
+        /// <returns>所受影响的行数</returns>  
+        public static int ExecuteNonQuery(string connectionString, string commandText, CommandType commandType, params SQLiteParameter[] cmdParms)
+        {
+            int result = 0;
+            if (connectionString == null || connectionString.Length == 0)
+                throw new ArgumentNullException("connectionString");
+            if (commandText == null || commandText.Length == 0)
+                throw new ArgumentNullException("commandText");
+
+            SQLiteCommand cmd = new SQLiteCommand();
+            using (SQLiteConnection con = new SQLiteConnection(connectionString))
+            {
+                SQLiteTransaction trans = null;
+                PrepareCommand(cmd, con, ref trans, true, commandType, commandText);
+                try
+                {
+                    result = cmd.ExecuteNonQuery();
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    throw ex;
+                }
+            }
+            return result;
+        }
+        #endregion
+
+        #region ExecuteScalar  
+        /// <summary>  
+        /// 执行数据库操作(新增、更新或删除)同时返回执行后查询所得的第1行第1列数据  
+        /// </summary>  
+        /// <param name="connectionString">连接字符串</param>  
+        /// <param name="cmd">SqlCommand对象</param>  
+        /// <returns>查询所得的第1行第1列数据</returns>  
+        public static object ExecuteScalar(string connectionString, SQLiteCommand cmd)
+        {
+            object result = 0;
+            if (connectionString == null || connectionString.Length == 0)
+                throw new ArgumentNullException("connectionString");
+            using (SQLiteConnection con = new SQLiteConnection(connectionString))
+            {
+                SQLiteTransaction trans = null;
+                PrepareCommand(cmd, con, ref trans, true, cmd.CommandType, cmd.CommandText);
+                try
+                {
+                    result = cmd.ExecuteScalar();
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    throw ex;
+                }
+            }
+            return result;
+        }
+
+        /// <summary>  
+        /// 执行数据库操作(新增、更新或删除)同时返回执行后查询所得的第1行第1列数据  
+        /// </summary>  
+        /// <param name="connectionString">连接字符串</param>  
+        /// <param name="commandText">执行语句或存储过程名</param>  
+        /// <param name="commandType">执行类型</param>  
+        /// <returns>查询所得的第1行第1列数据</returns>  
+        public static object ExecuteScalar(string connectionString, string commandText, CommandType commandType)
+        {
+            object result = 0;
+            if (connectionString == null || connectionString.Length == 0)
+                throw new ArgumentNullException("connectionString");
+            if (commandText == null || commandText.Length == 0)
+                throw new ArgumentNullException("commandText");
+            SQLiteCommand cmd = new SQLiteCommand();
+            using (SQLiteConnection con = new SQLiteConnection(connectionString))
+            {
+                SQLiteTransaction trans = null;
+                PrepareCommand(cmd, con, ref trans, true, commandType, commandText);
+                try
+                {
+                    result = cmd.ExecuteScalar();
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    throw ex;
+                }
+            }
+            return result;
+        }
+
+        /// <summary>  
+        /// 执行数据库操作(新增、更新或删除)同时返回执行后查询所得的第1行第1列数据  
+        /// </summary>  
+        /// <param name="connectionString">连接字符串</param>  
+        /// <param name="commandText">执行语句或存储过程名</param>  
+        /// <param name="commandType">执行类型</param>  
+        /// <param name="cmdParms">SQL参数对象</param>  
+        /// <returns>查询所得的第1行第1列数据</returns>  
+        public static object ExecuteScalar(string connectionString, string commandText, CommandType commandType, params SQLiteParameter[] cmdParms)
+        {
+            object result = 0;
+            if (connectionString == null || connectionString.Length == 0)
+                throw new ArgumentNullException("connectionString");
+            if (commandText == null || commandText.Length == 0)
+                throw new ArgumentNullException("commandText");
+
+            SQLiteCommand cmd = new SQLiteCommand();
+            using (SQLiteConnection con = new SQLiteConnection(connectionString))
+            {
+                SQLiteTransaction trans = null;
+                PrepareCommand(cmd, con, ref trans, true, commandType, commandText);
+                try
+                {
+                    result = cmd.ExecuteScalar();
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    throw ex;
+                }
+            }
+            return result;
+        }
+        #endregion
+
+        #region ExecuteReader  
+        /// <summary>  
+        /// 执行数据库查询，返回SqlDataReader对象  
+        /// </summary>  
+        /// <param name="connectionString">连接字符串</param>  
+        /// <param name="cmd">SqlCommand对象</param>  
+        /// <returns>SqlDataReader对象</returns>  
+        public static DbDataReader ExecuteReader(string connectionString, SQLiteCommand cmd)
+        {
+            DbDataReader reader = null;
+            if (connectionString == null || connectionString.Length == 0)
+                throw new ArgumentNullException("connectionString");
+
+            SQLiteConnection con = new SQLiteConnection(connectionString);
+            SQLiteTransaction trans = null;
+            PrepareCommand(cmd, con, ref trans, false, cmd.CommandType, cmd.CommandText);
             try
             {
-                dbConnection = new SQLiteConnection("data source=" + AllConstant.DB);
-                dbConnection.Open();
+                reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Log(e.ToString());
+                throw ex;
             }
+            return reader;
         }
-        /// <summary>
-        /// 关闭数据库连接
-        /// </summary>
-        private void CloseConnection()
-        {
-            //销毁Commend
-            if (dbCommand != null)
-            {
-                dbCommand.Cancel();
-            }
-            dbCommand = null;
-            //销毁Reader
-            if (dataReader != null)
-            {
-                dataReader.Close();
-            }
-            dataReader = null;
-            //销毁Connection
-            if (dbConnection != null)
-            {
-                dbConnection.Close();
-            }
-            dbConnection = null;
 
-        }
-        /// <summary>
-        /// 执行SQL命令
-        /// </summary>
-        /// <returns>The query.</returns>
-        /// <param name="queryString">SQL命令字符串</param>
-        public SQLiteDataReader ExecuteQuery(string queryString)
+        /// <summary>  
+        /// 执行数据库查询，返回SqlDataReader对象  
+        /// </summary>  
+        /// <param name="connectionString">连接字符串</param>  
+        /// <param name="commandText">执行语句或存储过程名</param>  
+        /// <param name="commandType">执行类型</param>  
+        /// <returns>SqlDataReader对象</returns>  
+        public static DbDataReader ExecuteReader(string connectionString, string commandText, CommandType commandType)
         {
+            DbDataReader reader = null;
+            if (connectionString == null || connectionString.Length == 0)
+                throw new ArgumentNullException("connectionString");
+            if (commandText == null || commandText.Length == 0)
+                throw new ArgumentNullException("commandText");
+
+            SQLiteConnection con = new SQLiteConnection(connectionString);
+            SQLiteCommand cmd = new SQLiteCommand();
+            SQLiteTransaction trans = null;
+            PrepareCommand(cmd, con, ref trans, false, commandType, commandText);
             try
-            {                
-                dbCommand = dbConnection.CreateCommand();
-                dbCommand.CommandText = queryString;
-                dataReader = dbCommand.ExecuteReader();
-            }
-            catch (Exception e)
             {
-                Log(e.Message);
+                reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
             }
-
-            return dataReader;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return reader;
         }
-        
-        /// <summary>
-        /// 读取整张数据表
-        /// </summary>
-        /// <returns>The full table.</returns>
-        /// <param name="tableName">数据表名称</param>
-        private SQLiteDataReader ReadFullTable(string tableName)
+
+        /// <summary>  
+        /// 执行数据库查询，返回SqlDataReader对象  
+        /// </summary>  
+        /// <param name="connectionString">连接字符串</param>  
+        /// <param name="commandText">执行语句或存储过程名</param>  
+        /// <param name="commandType">执行类型</param>  
+        /// <param name="cmdParms">SQL参数对象</param>  
+        /// <returns>SqlDataReader对象</returns>  
+        public static DbDataReader ExecuteReader(string connectionString, string commandText, CommandType commandType, params SQLiteParameter[] cmdParms)
         {
-            string queryString = "SELECT * FROM " + tableName;
-            return ExecuteQuery(queryString);
-        }
+            DbDataReader reader = null;
+            if (connectionString == null || connectionString.Length == 0)
+                throw new ArgumentNullException("connectionString");
+            if (commandText == null || commandText.Length == 0)
+                throw new ArgumentNullException("commandText");
 
-        /// <summary>
-        /// 判断tableName表中是否有id
-        /// </summary>
-        /// <param name="tableName"></param>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public bool HasRow(string tableName,string id)
+            SQLiteConnection con = new SQLiteConnection(connectionString);
+            SQLiteCommand cmd = new SQLiteCommand();
+            SQLiteTransaction trans = null;
+            PrepareCommand(cmd, con, ref trans, false, commandType, commandText, cmdParms);
+            try
+            {
+                reader = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return reader;
+        }
+        #endregion
+
+        #region ExecuteDataSet  
+        /// <summary>  
+        /// 执行数据库查询，返回DataSet对象  
+        /// </summary>  
+        /// <param name="connectionString">连接字符串</param>  
+        /// <param name="cmd">SqlCommand对象</param>  
+        /// <returns>DataSet对象</returns>  
+        public static DataSet ExecuteDataSet(string connectionString, SQLiteCommand cmd)
         {
-            bool hasRow = false;
-            OpenConnection();
-            string queryString = "SELECT * FROM " + tableName+ " where id="+id;
-            SQLiteDataReader sql= ExecuteQuery(queryString);
-            if (sql == null) {
-                hasRow = false;
-            }
-            else
+            DataSet ds = new DataSet();
+            SQLiteConnection con = new SQLiteConnection(connectionString);
+            SQLiteTransaction trans = null;
+            PrepareCommand(cmd, con, ref trans, false, cmd.CommandType, cmd.CommandText);
+            try
             {
-                hasRow = sql.HasRows;
+                SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+                sda.Fill(ds);
             }
-            CloseConnection();
-            return hasRow;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (cmd.Connection != null)
+                {
+                    if (cmd.Connection.State == ConnectionState.Open)
+                    {
+                        cmd.Connection.Close();
+                    }
+                }
+            }
+            return ds;
         }
 
-
-        /// <summary>
-        /// 向指定数据表中插入数据
-        /// </summary>
-        /// <returns>The values.</returns>
-        /// <param name="tableName">数据表名称</param>
-        /// <param name="values">插入的数值</param>
-        public void InsertValues(string tableName, string[] values)
+        /// <summary>  
+        /// 执行数据库查询，返回DataSet对象  
+        /// </summary>  
+        /// <param name="connectionString">连接字符串</param>  
+        /// <param name="commandText">执行语句或存储过程名</param>  
+        /// <param name="commandType">执行类型</param>  
+        /// <returns>DataSet对象</returns>  
+        public static DataSet ExecuteDataSet(string connectionString, string commandText, CommandType commandType)
         {
-            OpenConnection();
-            //获取数据表中字段数目
-            int fieldCount = ReadFullTable(tableName).FieldCount;
-            //当插入的数据长度不等于字段数目时引发异常
-            if (values.Length != fieldCount)
+            if (connectionString == null || connectionString.Length == 0)
+                throw new ArgumentNullException("connectionString");
+            if (commandText == null || commandText.Length == 0)
+                throw new ArgumentNullException("commandText");
+            DataSet ds = new DataSet();
+            SQLiteConnection con = new SQLiteConnection(connectionString);
+            SQLiteCommand cmd = new SQLiteCommand();
+            SQLiteTransaction trans = null;
+            PrepareCommand(cmd, con, ref trans, false, commandType, commandText);
+            try
             {
-                throw new SQLiteException("values.Length!=fieldCount");
+                SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+                sda.Fill(ds);
             }
-
-            string queryString = "INSERT INTO " + tableName + " VALUES (" + "'" + values[0] + "'";
-            for (int i = 1; i < values.Length; i++)
+            catch (Exception ex)
             {
-                queryString += ", " + "'" + values[i] + "'";
+                throw ex;
             }
-            queryString += " )";
-            ExecuteQuery(queryString);
-            CloseConnection();
+            finally
+            {
+                if (con != null)
+                {
+                    if (con.State == ConnectionState.Open)
+                    {
+                        con.Close();
+                    }
+                }
+            }
+            return ds;
         }
 
-        /// <summary>
-        /// 更新指定数据表内的数据
-        /// </summary>
-        /// <returns>The values.</returns>
-        /// <param name="tableName">数据表名称</param>
-        /// <param name="colNames">字段名</param>
-        /// <param name="colValues">字段名对应的数据</param>
-        /// <param name="key">关键字</param>
-        /// <param name="value">关键字对应的值</param>
-        /// <param name="operation">运算符：=,<,>,...，默认“=”</param>
-        public void UpdateValues(string tableName, string[] colNames, string[] colValues, string key, string value, string operation = "=")
+        /// <summary>  
+        /// 执行数据库查询，返回DataSet对象  
+        /// </summary>  
+        /// <param name="connectionString">连接字符串</param>  
+        /// <param name="commandText">执行语句或存储过程名</param>  
+        /// <param name="commandType">执行类型</param>  
+        /// <param name="cmdParms">SQL参数对象</param>  
+        /// <returns>DataSet对象</returns>  
+        public static DataSet ExecuteDataSet(string connectionString, string commandText, CommandType commandType, params SQLiteParameter[] cmdParms)
         {
-            OpenConnection();
-            //当字段名称和字段数值不对应时引发异常
-            if (colNames.Length != colValues.Length)
+            if (connectionString == null || connectionString.Length == 0)
+                throw new ArgumentNullException("connectionString");
+            if (commandText == null || commandText.Length == 0)
+                throw new ArgumentNullException("commandText");
+            DataSet ds = new DataSet();
+            SQLiteConnection con = new SQLiteConnection(connectionString);
+            SQLiteCommand cmd = new SQLiteCommand();
+            SQLiteTransaction trans = null;
+            PrepareCommand(cmd, con, ref trans, false, commandType, commandText, cmdParms);
+            try
             {
-                throw new SQLiteException("colNames.Length!=colValues.Length");
+                SQLiteDataAdapter sda = new SQLiteDataAdapter(cmd);
+                sda.Fill(ds);
             }
-
-            string queryString = "UPDATE " + tableName + " SET " + colNames[0] + "=" + "'" + colValues[0] + "'";
-            for (int i = 1; i < colValues.Length; i++)
+            catch (Exception ex)
             {
-                queryString += ", " + colNames[i] + "=" + "'" + colValues[i] + "'";
+                throw ex;
             }
-            queryString += " WHERE " + key + operation + "'" + value + "'";
-            ExecuteQuery(queryString);
-            CloseConnection();
+            finally
+            {
+                if (con != null)
+                {
+                    if (con.State == ConnectionState.Open)
+                    {
+                        con.Close();
+                    }
+                }
+            }
+            return ds;
         }
+        #endregion
 
-        /// <summary>
-        /// 删除指定数据表内的数据
-        /// </summary>
-        /// <returns>The values.</returns>
-        /// <param name="tableName">数据表名称</param>
-        /// <param name="colNames">字段名</param>
-        /// <param name="colValues">字段名对应的数据</param>
-        public void DeleteValuesOR(string tableName, string[] colNames, string[] colValues, string[] operations)
+        #region 通用分页查询方法  
+        /// <summary>  
+        /// 通用分页查询方法  
+        /// </summary>  
+        /// <param name="connString">连接字符串</param>  
+        /// <param name="tableName">表名</param>  
+        /// <param name="strColumns">查询字段名</param>  
+        /// <param name="strWhere">where条件</param>  
+        /// <param name="strOrder">排序条件</param>  
+        /// <param name="pageSize">每页数据数量</param>  
+        /// <param name="currentIndex">当前页数</param>  
+        /// <param name="recordOut">数据总量</param>  
+        /// <returns>DataTable数据表</returns>  
+        public static DataTable SelectPaging(string connString, string tableName, string strColumns, string strWhere, string strOrder, int pageSize, int currentIndex, out int recordOut)
         {
-            OpenConnection();
-            //当字段名称和字段数值不对应时引发异常
-            if (colNames.Length != colValues.Length || operations.Length != colNames.Length || operations.Length != colValues.Length)
+            DataTable dt = new DataTable();
+            recordOut = Convert.ToInt32(ExecuteScalar(connString, "select count(*) from " + tableName, CommandType.Text));
+            string pagingTemplate = "select {0} from {1} where {2} order by {3} limit {4} offset {5} ";
+            int offsetCount = (currentIndex - 1) * pageSize;
+            string commandText = String.Format(pagingTemplate, strColumns, tableName, strWhere, strOrder, pageSize.ToString(), offsetCount.ToString());
+            using (DbDataReader reader = ExecuteReader(connString, commandText, CommandType.Text))
             {
-                throw new SQLiteException("colNames.Length!=colValues.Length || operations.Length!=colNames.Length || operations.Length!=colValues.Length");
+                if (reader != null)
+                {
+                    dt.Load(reader);
+                }
             }
-
-            string queryString = "DELETE FROM " + tableName + " WHERE " + colNames[0] + operations[0] + "'" + colValues[0] + "'";
-            for (int i = 1; i < colValues.Length; i++)
-            {
-                queryString += "OR " + colNames[i] + operations[0] + "'" + colValues[i] + "'";
-            }
-            ExecuteQuery(queryString);
-            CloseConnection();
+            return dt;
         }
+        #endregion
 
-        /// <summary>
-        /// 删除指定数据表内的数据
-        /// </summary>
-        /// <returns>The values.</returns>
-        /// <param name="tableName">数据表名称</param>
-        /// <param name="colNames">字段名</param>
-        /// <param name="colValues">字段名对应的数据</param>
-        public void DeleteValuesAND(string tableName, string[] colNames, string[] colValues, string[] operations)
+        #region  预处理Command对象,数据库链接,事务,需要执行的对象,参数等的初始化  
+        /// <summary>  
+        /// 预处理Command对象,数据库链接,事务,需要执行的对象,参数等的初始化  
+        /// </summary>  
+        /// <param name="cmd">Command对象</param>  
+        /// <param name="conn">Connection对象</param>  
+        /// <param name="trans">Transcation对象</param>  
+        /// <param name="useTrans">是否使用事务</param>  
+        /// <param name="cmdType">SQL字符串执行类型</param>  
+        /// <param name="cmdText">SQL Text</param>  
+        /// <param name="cmdParms">SQLiteParameters to use in the command</param>  
+        private static void PrepareCommand(SQLiteCommand cmd, SQLiteConnection conn, ref SQLiteTransaction trans, bool useTrans, CommandType cmdType, string cmdText, params SQLiteParameter[] cmdParms)
         {
-            OpenConnection();
-            //当字段名称和字段数值不对应时引发异常
-            if (colNames.Length != colValues.Length || operations.Length != colNames.Length || operations.Length != colValues.Length)
+
+            if (conn.State != ConnectionState.Open)
+                conn.Open();
+
+            cmd.Connection = conn;
+            cmd.CommandText = cmdText;
+
+            if (useTrans)
             {
-                throw new SQLiteException("colNames.Length!=colValues.Length || operations.Length!=colNames.Length || operations.Length!=colValues.Length");
+                trans = conn.BeginTransaction(IsolationLevel.ReadCommitted);
+                cmd.Transaction = trans;
             }
 
-            string queryString = "DELETE FROM " + tableName + " WHERE " + colNames[0] + operations[0] + "'" + colValues[0] + "'";
-            for (int i = 1; i < colValues.Length; i++)
+
+            cmd.CommandType = cmdType;
+
+            if (cmdParms != null)
             {
-                queryString += " AND " + colNames[i] + operations[i] + "'" + colValues[i] + "'";
+                foreach (SQLiteParameter parm in cmdParms)
+                    cmd.Parameters.Add(parm);
             }
-            ExecuteQuery(queryString);
-            CloseConnection();
         }
 
-
-        /// <summary>
-        /// 创建数据表
-        /// </summary> +
-        /// <returns>The table.</returns>
-        /// <param name="tableName">数据表名</param>
-        /// <param name="colNames">字段名</param>
-        /// <param name="colTypes">字段名类型</param>
-        public void CreateTable(string tableName, string[] colNames, string[] colTypes)
-        {
-            OpenConnection();
-            string queryString = "CREATE TABLE IF NOT EXISTS " + tableName + "( " + colNames[0] + " " + colTypes[0];
-            for (int i = 1; i < colNames.Length; i++)
-            {
-                queryString += ", " + colNames[i] + " " + colTypes[i];
-            }
-            queryString += "  ) ";
-            ExecuteQuery(queryString);
-            CloseConnection();
-        }
-
-        /// <summary>
-        /// Reads the table.
-        /// </summary>
-        /// <returns>The table.</returns>
-        /// <param name="tableName">Table name.</param>
-        /// <param name="items">Items.</param>
-        /// <param name="colNames">Col names.</param>
-        /// <param name="operations">Operations.</param>
-        /// <param name="colValues">Col values.</param>
-        public SQLiteDataReader ReadTable(string tableName, string[] items, string[] colNames, string[] operations, string[] colValues)
-        {
-            string queryString = "SELECT " + items[0];
-            for (int i = 1; i < items.Length; i++)
-            {
-                queryString += ", " + items[i];
-            }
-            queryString += " FROM " + tableName + " WHERE " + colNames[0] + " " + operations[0] + " " + colValues[0];
-            for (int i = 0; i < colNames.Length; i++)
-            {
-                queryString += " AND " + colNames[i] + " " + operations[i] + " " + colValues[0] + " ";
-            }
-            return ExecuteQuery(queryString);
-        }
-
-        /// <summary>
-        /// 本类log
-        /// </summary>
-        /// <param name="s"></param>
-        static void Log(string s)
-        {
-            Console.WriteLine("class SqLiteHelper:::" + s);
-        }
+        #endregion
 
     }
 }

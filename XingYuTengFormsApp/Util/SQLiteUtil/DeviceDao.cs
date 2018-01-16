@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,35 +35,20 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
 
         public void CreateDeviceTable()
         {
-            SQLiteHelper.Instance.CreateTable(AllConstant.DEVICEDATA_TABLE,
-                new string[] { "auth_info", "create_time", "id", "location", "online", "isPrivate", "protocol", "title", "desc",
-                    "datastreams" },
-                new string[] { "VARCHAR(255)", "VARCHAR(255)", "INT PRIMARY KEY NOT NULL", " VARCHAR(255)", "BOOLEAN", "BOOLEAN",
-                    " VARCHAR(255)", "VARCHAR(255)", "VARCHAR(255)", "VARCHAR(255)" });
+            string sql = "CREATE TABLE IF NOT EXISTS DeviceData (auth_info VARCHAR(255),create_time VARCHAR(255),id INT PRIMARY KEY NOT NULL," +
+                        "location  VARCHAR(255), online BOOLEAN, isPrivate BOOLEAN, protocol VARCHAR(255),title VARCHAR(255)," +
+                        "[desc] VARCHAR(255),datastreams VARCHAR(255));";
+            SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString,sql,CommandType.Text);
         }
 
         public void Insert(DeviceData deviceData)
         {
             string location = JsonHelper.SerializeObject(deviceData.location);
             string datastreams = JsonHelper.SerializeObject(deviceData.datastreams);
+            string sql = "INSERT OR REPLACE INTO DeviceData VALUES('" + deviceData.auth_info+"','"+deviceData.create_time+"',"+deviceData.id+",'"+location+"','"
+                +deviceData.online+"','"+deviceData.isPrivate+"','"+deviceData.protocol+"','"+deviceData.title+"','"+deviceData.desc+"','"+datastreams+"');";
+            SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
 
-            if (SQLiteHelper.Instance.HasRow(AllConstant.DEVICEDATA_TABLE, deviceData.id)) {
-
-                SQLiteHelper.Instance.DeleteValuesOR(AllConstant.DEVICEDATA_TABLE, new string[] { "id" }, new string[] { deviceData.id }, new string[] { "=" });
-                
-
-                SQLiteHelper.Instance.InsertValues(AllConstant.DEVICEDATA_TABLE, new string[] {deviceData.auth_info,
-                deviceData.create_time,deviceData.id,location,deviceData.online.ToString(),deviceData.isPrivate.ToString(),
-                deviceData.protocol,deviceData.title,deviceData.desc,datastreams});
-            } else
-            {
-                
-                SQLiteHelper.Instance.InsertValues(AllConstant.DEVICEDATA_TABLE, new string[] {deviceData.auth_info,
-                deviceData.create_time,deviceData.id,location,deviceData.online.ToString(),deviceData.isPrivate.ToString(),
-                deviceData.protocol,deviceData.title,deviceData.desc,datastreams});
-            }
-            
-            
         }
     }
 }
