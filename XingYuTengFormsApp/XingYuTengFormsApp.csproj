@@ -94,10 +94,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AllConstant.cs" />
+    <Compile Include="Entity\DataPoints.cs" />
+    <Compile Include="Entity\DataStreams.cs" />
     <Compile Include="Entity\Device.cs" />
     <Compile Include="Entity\DeviceData.cs" />
     <Compile Include="Entity\DeviceDataStreams.cs" />
+    <Compile Include="Entity\ItemPoint.cs" />
     <Compile Include="Entity\Location.cs" />
+    <Compile Include="Entity\AppPoint.cs" />
+    <Compile Include="Entity\PointData.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

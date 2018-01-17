@@ -32,7 +32,7 @@ namespace XingYuTengFormsApp
         const int Guying_HTBOTTOM = 15;
         const int Guying_HTBOTTOMLEFT = 0x10;
         const int Guying_HTBOTTOMRIGHT = 17;
-        private List<DeviceData> deviceDatas;
+        private List<ItemPoint> items;
         #endregion
 
         #region
@@ -55,11 +55,7 @@ namespace XingYuTengFormsApp
             this.deviceList.UseAlternatingBackColors = false;
 
             // Make and display a list of tasks
-            deviceDatas = CreateDeviceDatas();
-            if (deviceDatas != null && deviceDatas.Count > 0)
-            {
-                this.deviceList.SetObjects(deviceDatas);
-            }
+            CreateDeviceDatas();
         }
 
         /// <summary>
@@ -180,7 +176,7 @@ namespace XingYuTengFormsApp
                         panel.PerformLayout();
                         this.Controls.Add(panel);
                         panel.BringToFront();
-                        DeviceData oLVListItem = (DeviceData)deviceList.GetItem(args.HotRowIndex).RowObject;
+                        ItemPoint oLVListItem = (ItemPoint)deviceList.GetItem(args.HotRowIndex).RowObject;
                         break;
                 }
             };
@@ -281,7 +277,7 @@ namespace XingYuTengFormsApp
             DescribedTaskRenderer renderer = new DescribedTaskRenderer();
 
             // Tell the renderer which property holds the text to be used as a description
-            renderer.DescriptionAspectName = "create_time";
+            renderer.DescriptionAspectName = "dataStrams";
 
             // Change the formatting slightly
             renderer.TitleFont = new Font("Tahoma", 9);
@@ -301,9 +297,11 @@ namespace XingYuTengFormsApp
             return renderer;
         }
 
-        private static List<DeviceData> CreateDeviceDatas()
+        private void CreateDeviceDatas()
         {
-            return DeviceDataDao.Instance.GetAll();
+            foreach (DeviceData deviceData in DeviceDataDao.Instance.GetAll()) {
+                NetWorkUtil.Instance.GetDataPoint(deviceData, this);
+            }
         }
 
         private void pictureBoxLagest_Click(object sender, EventArgs e)
@@ -358,13 +356,13 @@ namespace XingYuTengFormsApp
             }
         }
 
-        void InetworkResult.onSuccess(DeviceData deviceData)
+        void InetworkResult.onSuccess(ItemPoint item)
         {
-            if (deviceDatas == null) {
-                deviceDatas = new List<DeviceData>();
+            if (items == null) {
+                items = new List<ItemPoint>();
             }
-            deviceDatas.Add(deviceData);
-            deviceList.SetObjects(deviceDatas);
+            items.Add(item);
+            deviceList.SetObjects(items);
         }
 
         void InetworkResult.onFailure(string error)
@@ -376,8 +374,8 @@ namespace XingYuTengFormsApp
     /// <summary>
     /// 添加设备返回结果
     /// </summary>
-    public interface InetworkResult{
-        void onSuccess(DeviceData devicedata);
+    interface InetworkResult{
+        void onSuccess(ItemPoint item);
 
         void onFailure(string error);
     }
