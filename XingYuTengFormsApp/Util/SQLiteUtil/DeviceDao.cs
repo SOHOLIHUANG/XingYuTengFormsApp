@@ -36,6 +36,9 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
             }
         }
 
+        /// <summary>
+        /// 创建表
+        /// </summary>
         public void CreateDeviceTable()
         {
             string sql = "CREATE TABLE IF NOT EXISTS DeviceData (auth_info VARCHAR(255),create_time VARCHAR(255),id INT PRIMARY KEY NOT NULL," +
@@ -44,6 +47,10 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
             SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString,sql,CommandType.Text);
         }
 
+        /// <summary>
+        /// 插入数据
+        /// </summary>
+        /// <param name="deviceData"></param>
         public void Insert(DeviceData deviceData)
         {
             string location = JsonHelper.SerializeObject(deviceData.location);
@@ -54,6 +61,10 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
 
         }
 
+        /// <summary>
+        /// 获取表中所有信息
+        /// </summary>
+        /// <returns></returns>
         public List<DeviceData> GetAll()
         {
             List<DeviceData> deviceDataList = new List<DeviceData>();
@@ -77,6 +88,20 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
             }
             dataReader.Close();
             return deviceDataList;
+        }
+
+        /// <summary>
+        /// 判断该id的设备是否存在
+        /// </summary>
+        /// <returns></returns>
+        public bool HasId(string id)
+        {
+            bool hasId = false;
+            string sql = "select * from " + AllConstant.DEVICEDATA_TABLE + " WHERE id ="+id+";";
+            SQLiteDataReader dataReader = (SQLiteDataReader)SQLiteHelper.ExecuteReader(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
+            hasId = dataReader.HasRows;
+            dataReader.Close();
+            return hasId;
         }
     }
 }

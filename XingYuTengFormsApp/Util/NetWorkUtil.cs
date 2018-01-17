@@ -65,7 +65,7 @@ namespace XingYuTengFormsApp
                 if (device.error.Equals("succ"))
                 {
                     DeviceDataDao.Instance.Insert(device.data);
-                    result.onSuccess(device_id);
+                    result.onSuccess(device.data);
                 }
                 else {
                     result.onFailure(device.error);

@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using XingYuTengFormsApp.Entity;
@@ -31,6 +32,7 @@ namespace XingYuTengFormsApp
         const int Guying_HTBOTTOM = 15;
         const int Guying_HTBOTTOMLEFT = 0x10;
         const int Guying_HTBOTTOMRIGHT = 17;
+        private List<DeviceData> deviceDatas;
         #endregion
 
         #region
@@ -53,7 +55,7 @@ namespace XingYuTengFormsApp
             this.deviceList.UseAlternatingBackColors = false;
 
             // Make and display a list of tasks
-            List<DeviceData> deviceDatas = CreateDeviceDatas();
+            deviceDatas = CreateDeviceDatas();
             if (deviceDatas != null && deviceDatas.Count > 0)
             {
                 this.deviceList.SetObjects(deviceDatas);
@@ -335,16 +337,34 @@ namespace XingYuTengFormsApp
 
         private void AddDevice_Click(object sender, EventArgs e)
         {
-            string DeviceId = deviceID.Text;
-            if (!String.IsNullOrEmpty(DeviceId))
+            string deviceId = deviceID.Text;
+            if (!String.IsNullOrEmpty(deviceId))
             {
-                NetWorkUtil.Instance.addDevice(DeviceId,this);
+                if (Regex.IsMatch(deviceId, @"\d{7}"))
+                {
+                    if (DeviceDataDao.Instance.HasId(deviceId))
+                    {
+                        MessageBox.Show("该设备已存在");
+                    }
+                    else
+                    {
+                        NetWorkUtil.Instance.addDevice(deviceId, this);
+                    }
+                }
+                else {
+                    MessageBox.Show("请输入7位有效ID");
+                }
+                               
             }
         }
 
-        void InetworkResult.onSuccess(string id)
+        void InetworkResult.onSuccess(DeviceData deviceData)
         {
-            MessageBox.Show(id);
+            if (deviceDatas == null) {
+                deviceDatas = new List<DeviceData>();
+            }
+            deviceDatas.Add(deviceData);
+            deviceList.SetObjects(deviceDatas);
         }
 
         void InetworkResult.onFailure(string error)
@@ -357,7 +377,7 @@ namespace XingYuTengFormsApp
     /// 添加设备返回结果
     /// </summary>
     public interface InetworkResult{
-        void onSuccess(string id);
+        void onSuccess(DeviceData devicedata);
 
         void onFailure(string error);
     }
