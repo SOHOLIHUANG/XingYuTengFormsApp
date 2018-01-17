@@ -118,9 +118,12 @@ namespace XingYuTengFormsApp
         /// <param name="e"></param>
         private void Panel_MouseLeave(object sender, EventArgs e)
         {
-            Control control = (Control)sender;
-            this.Controls.Remove(control);
-            control.Dispose();
+            Point p = this.PointToClient(MousePosition);
+            Point conPoint = detail.Location;
+            if (!(p.X >= deviceList.Width + 2 && p.X < deviceList.Width + 2 + detail.Width && p.Y >= conPoint.Y && p.Y <= conPoint.Y + detail.Height))
+            {
+                detail.Visible = false;
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -155,27 +158,20 @@ namespace XingYuTengFormsApp
                         break;
                     default:
                         ClearAddedcomponent();
+                        detail.Visible = true;
                         Point point = deviceList.GetItem(args.HotRowIndex).Position;
-                        panel = new Panel();
-                        panel.Name = "panel";
-                        panel.Size = new Size(422, 432);
+                        detail.Size = new Size(422, 432);
                         if (point.Y < 2 + Panel.Height)
                         {
-                            panel.Location = new Point(2 + deviceList.Width, 2 + Panel.Height);
+                            detail.Location = new Point(2 + deviceList.Width, 2 + Panel.Height);
                         }
-                        else if (point.Y + panel.Height > Height - 2)
+                        else if (point.Y + detail.Height > Height - 2)
                         {
-                            panel.Location = new Point(2 + deviceList.Width, Height - 2 - panel.Height);
+                            detail.Location = new Point(2 + deviceList.Width, Height - 2 - detail.Height);
                         }
                         else {
-                            panel.Location = new Point(2 + deviceList.Width, point.Y);
+                            detail.Location = new Point(2 + deviceList.Width, point.Y);
                         }
-                        panel.BackColor = Color.Yellow;
-                        panel.SuspendLayout();
-                        panel.ResumeLayout(false);
-                        panel.PerformLayout();
-                        this.Controls.Add(panel);
-                        panel.BringToFront();
                         ItemPoint oLVListItem = (ItemPoint)deviceList.GetItem(args.HotRowIndex).RowObject;
                         break;
                 }
@@ -187,23 +183,15 @@ namespace XingYuTengFormsApp
         /// </summary>
         private void ClearAddedcomponent()
         {
-            foreach (Control control in this.Controls)
+            Point p = this.PointToClient(MousePosition);
+            Point conPoint = detail.Location;
+            if (p.X >= deviceList.Width + 2 && p.X < deviceList.Width + 2 + detail.Width && p.Y >= conPoint.Y && p.Y <= conPoint.Y + detail.Height)
             {
-                if (control.Name.Equals(AllConstant.panel))
-                {
-                    Point p = this.PointToClient(MousePosition);
-                    Point conPoint = control.Location;
-                    if (p.X >= deviceList.Width + 2 && p.X < deviceList.Width + 2 + control.Width && p.Y >= conPoint.Y && p.Y <= conPoint.Y + control.Height)
-                    {
-                        control.MouseLeave += new EventHandler(Panel_MouseLeave);
-                    }
-                    else
-                    {
-                        this.Controls.Remove(control);
-                        control.Dispose();
-                    }
-                }
-
+                detail.MouseLeave += new EventHandler(Panel_MouseLeave);
+            }
+            else
+            {
+                detail.Visible = false;
             }
 
         }

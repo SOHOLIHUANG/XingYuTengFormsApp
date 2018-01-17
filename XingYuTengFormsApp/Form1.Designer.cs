@@ -42,6 +42,8 @@
             this.olvColumnDesk = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.deviceList = new BrightIdeasSoftware.ObjectListView();
             this.listView2 = new System.Windows.Forms.ListView();
+            this.detail = new System.Windows.Forms.Panel();
+            this.detailInfo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AddDevice)).BeginInit();
@@ -50,6 +52,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             this.Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceList)).BeginInit();
+            this.detail.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox
@@ -251,6 +254,29 @@
             this.listView2.TabIndex = 1;
             this.listView2.UseCompatibleStateImageBehavior = false;
             // 
+            // detail
+            // 
+            this.detail.BackColor = System.Drawing.Color.White;
+            this.detail.Controls.Add(this.detailInfo);
+            this.detail.ForeColor = System.Drawing.Color.Black;
+            this.detail.Location = new System.Drawing.Point(307, 112);
+            this.detail.Name = "detail";
+            this.detail.Size = new System.Drawing.Size(242, 380);
+            this.detail.TabIndex = 4;
+            this.detail.Visible = false;
+            // 
+            // detailInfo
+            // 
+            this.detailInfo.AutoSize = true;
+            this.detailInfo.BackColor = System.Drawing.Color.White;
+            this.detailInfo.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.detailInfo.ForeColor = System.Drawing.Color.Black;
+            this.detailInfo.Location = new System.Drawing.Point(16, 87);
+            this.detailInfo.Name = "detailInfo";
+            this.detailInfo.Size = new System.Drawing.Size(104, 16);
+            this.detailInfo.TabIndex = 0;
+            this.detailInfo.Text = "温湿度测试仪";
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -258,6 +284,7 @@
             this.BackColor = System.Drawing.Color.LavenderBlush;
             this.ClientSize = new System.Drawing.Size(920, 580);
             this.ControlBox = false;
+            this.Controls.Add(this.detail);
             this.Controls.Add(this.Panel);
             this.Controls.Add(this.deviceList);
             this.Controls.Add(this.listView2);
@@ -280,6 +307,8 @@
             this.Panel.ResumeLayout(false);
             this.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceList)).EndInit();
+            this.detail.ResumeLayout(false);
+            this.detail.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -299,6 +328,8 @@
         private BrightIdeasSoftware.OLVColumn olvColumnDesk;
         private BrightIdeasSoftware.ObjectListView deviceList;
         private System.Windows.Forms.ListView listView2;
+        private System.Windows.Forms.Panel detail;
+        private System.Windows.Forms.Label detailInfo;
     }
 }
 

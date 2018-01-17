@@ -8,7 +8,7 @@ namespace XingYuTengFormsApp
 {
     class AllConstant
     {
-        public static string panel = "panel";//动态添加的组件name
+        public static string panel = "detail";//动态显示的容器
 
         /// <summary>
         /// 以下为数据库常量

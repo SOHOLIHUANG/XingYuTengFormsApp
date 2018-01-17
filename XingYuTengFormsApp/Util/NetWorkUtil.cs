@@ -128,6 +128,7 @@ namespace XingYuTengFormsApp
                         }
                     }
                     item.dataStreamsList = point.data.datastreams;
+                    item.deviceDatastreams = deviceData.datastreams;
                     item.dataStrams = builder.ToString();
 
                     result.onSuccess(item);
