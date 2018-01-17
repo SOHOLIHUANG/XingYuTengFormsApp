@@ -9,7 +9,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using XingYuTengFormsApp.Entity;
 using XingYuTengFormsApp.Util;
+using XingYuTengFormsApp.Util.SQLiteUtil;
 
 namespace XingYuTengFormsApp
 {
@@ -51,8 +53,11 @@ namespace XingYuTengFormsApp
             this.deviceList.UseAlternatingBackColors = false;
 
             // Make and display a list of tasks
-            List<ServiceTask> tasks = CreateTasks();
-            this.deviceList.SetObjects(tasks);
+            List<DeviceData> deviceDatas = CreateDeviceDatas();
+            if (deviceDatas != null && deviceDatas.Count > 0)
+            {
+                this.deviceList.SetObjects(deviceDatas);
+            }
         }
 
         /// <summary>
@@ -173,7 +178,7 @@ namespace XingYuTengFormsApp
                         panel.PerformLayout();
                         this.Controls.Add(panel);
                         panel.BringToFront();
-                        ServiceTask oLVListItem = (ServiceTask)deviceList.GetItem(args.HotRowIndex).RowObject;
+                        DeviceData oLVListItem = (DeviceData)deviceList.GetItem(args.HotRowIndex).RowObject;
                         break;
                 }
             };
@@ -262,7 +267,7 @@ namespace XingYuTengFormsApp
             // Now let's setup the couple of other bits that the column needs
 
             // Tell the column which property should be used to get the title
-            this.olvColumnDesk.AspectName = "Task";
+            this.olvColumnDesk.AspectName = "title";
             // Put a little bit of space around the task and its description
             this.olvColumnDesk.CellPadding = new Rectangle(4, 2, 4, 2);
         }
@@ -274,7 +279,7 @@ namespace XingYuTengFormsApp
             DescribedTaskRenderer renderer = new DescribedTaskRenderer();
 
             // Tell the renderer which property holds the text to be used as a description
-            renderer.DescriptionAspectName = "Description";
+            renderer.DescriptionAspectName = "create_time";
 
             // Change the formatting slightly
             renderer.TitleFont = new Font("Tahoma", 9);
@@ -294,19 +299,9 @@ namespace XingYuTengFormsApp
             return renderer;
         }
 
-        private static List<ServiceTask> CreateTasks()
+        private static List<DeviceData> CreateDeviceDatas()
         {
-            List<ServiceTask> tasks = new List<ServiceTask>();
-
-            tasks.Add(new ServiceTask("1111温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
-            tasks.Add(new ServiceTask("2222温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
-            tasks.Add(new ServiceTask("3333温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
-            tasks.Add(new ServiceTask("4444温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
-            tasks.Add(new ServiceTask("5555温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
-            tasks.Add(new ServiceTask("6666温湿度+PM2.5传感器4656216  2013-12-29", "P=25%   H=35%   T=65℃ "));
-            tasks.Add(new ServiceTask("7777温湿度测试仪4656512   2013-12-29", "P=25%   H=35%   T=65℃ "));
-
-            return tasks;
+            return DeviceDataDao.Instance.GetAll();
         }
 
         private void pictureBoxLagest_Click(object sender, EventArgs e)
@@ -355,33 +350,6 @@ namespace XingYuTengFormsApp
         void InetworkResult.onFailure(string error)
         {
             MessageBox.Show(error);
-        }
-    }
-
-    /// <summary>
-    /// Dumb model class
-    /// </summary>
-    public class ServiceTask
-    {
-        private string task;
-        private string description;
-
-        public ServiceTask(string task, string description)
-        {
-            this.Task = task;
-            this.Description = description;
-        }
-
-        public string Task
-        {
-            get { return this.task; }
-            set { this.task = value; }
-        }
-
-        public string Description
-        {
-            get { return this.description; }
-            set { this.description = value; }
         }
     }
 

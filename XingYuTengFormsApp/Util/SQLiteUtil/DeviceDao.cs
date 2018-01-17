@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,6 +52,31 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
                 +deviceData.online+"','"+deviceData.isPrivate+"','"+deviceData.protocol+"','"+deviceData.title+"','"+deviceData.desc+"','"+datastreams+"');";
             SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
 
+        }
+
+        public List<DeviceData> GetAll()
+        {
+            List<DeviceData> deviceDataList = new List<DeviceData>();
+            string sql = "select * from "+AllConstant.DEVICEDATA_TABLE+";";
+            SQLiteDataReader dataReader =(SQLiteDataReader)SQLiteHelper.ExecuteReader(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
+            while (dataReader.Read()) {
+                DeviceData deviceData = new DeviceData();
+                deviceData.auth_info = dataReader["auth_info"].ToString();
+                deviceData.create_time = dataReader["create_time"].ToString();
+                deviceData.id = dataReader["id"].ToString();
+                string location = dataReader["location"].ToString();
+                deviceData.location =(Location) JsonHelper.DeserializeJsonToObject<Location>(location);
+                deviceData.online = bool.Parse(dataReader["online"].ToString());
+                deviceData.isPrivate= bool.Parse(dataReader["isPrivate"].ToString());
+                deviceData.protocol = dataReader["protocol"].ToString();
+                deviceData.title = dataReader["title"].ToString();
+                deviceData.desc = dataReader["desc"].ToString();
+                string datastreams = dataReader["datastreams"].ToString();
+                deviceData.datastreams = JsonHelper.DeserializeJsonToList<DeviceDataStreams>(datastreams);
+                deviceDataList.Add(deviceData);
+            }
+            dataReader.Close();
+            return deviceDataList;
         }
     }
 }
