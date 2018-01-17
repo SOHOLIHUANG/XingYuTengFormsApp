@@ -44,6 +44,13 @@
             this.listView2 = new System.Windows.Forms.ListView();
             this.detail = new System.Windows.Forms.Panel();
             this.detailInfo = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.修改设备ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.备注信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.objectListView1 = new BrightIdeasSoftware.ObjectListView();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AddDevice)).BeginInit();
@@ -53,6 +60,8 @@
             this.Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceList)).BeginInit();
             this.detail.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox
@@ -256,26 +265,93 @@
             // 
             // detail
             // 
-            this.detail.BackColor = System.Drawing.Color.White;
+            this.detail.BackColor = System.Drawing.Color.RoyalBlue;
+            this.detail.Controls.Add(this.label2);
+            this.detail.Controls.Add(this.label1);
+            this.detail.Controls.Add(this.objectListView1);
             this.detail.Controls.Add(this.detailInfo);
+            this.detail.Controls.Add(this.menuStrip1);
             this.detail.ForeColor = System.Drawing.Color.Black;
             this.detail.Location = new System.Drawing.Point(307, 112);
             this.detail.Name = "detail";
-            this.detail.Size = new System.Drawing.Size(242, 380);
+            this.detail.Size = new System.Drawing.Size(281, 380);
             this.detail.TabIndex = 4;
             this.detail.Visible = false;
             // 
             // detailInfo
             // 
             this.detailInfo.AutoSize = true;
-            this.detailInfo.BackColor = System.Drawing.Color.White;
+            this.detailInfo.BackColor = System.Drawing.Color.RoyalBlue;
             this.detailInfo.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.detailInfo.ForeColor = System.Drawing.Color.Black;
-            this.detailInfo.Location = new System.Drawing.Point(16, 87);
+            this.detailInfo.ForeColor = System.Drawing.Color.White;
+            this.detailInfo.Location = new System.Drawing.Point(86, 25);
             this.detailInfo.Name = "detailInfo";
             this.detailInfo.Size = new System.Drawing.Size(104, 16);
             this.detailInfo.TabIndex = 0;
             this.detailInfo.Text = "温湿度测试仪";
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.BackColor = System.Drawing.Color.RoyalBlue;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.设置ToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(281, 25);
+            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // 设置ToolStripMenuItem
+            // 
+            this.设置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.修改设备ToolStripMenuItem,
+            this.备注信息ToolStripMenuItem});
+            this.设置ToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
+            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.设置ToolStripMenuItem.Text = "设置";
+            // 
+            // 修改设备ToolStripMenuItem
+            // 
+            this.修改设备ToolStripMenuItem.Name = "修改设备ToolStripMenuItem";
+            this.修改设备ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.修改设备ToolStripMenuItem.Text = "修改设备";
+            // 
+            // 备注信息ToolStripMenuItem
+            // 
+            this.备注信息ToolStripMenuItem.Name = "备注信息ToolStripMenuItem";
+            this.备注信息ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.备注信息ToolStripMenuItem.Text = "备注信息";
+            // 
+            // objectListView1
+            // 
+            this.objectListView1.CellEditUseWholeCell = false;
+            this.objectListView1.Location = new System.Drawing.Point(0, 70);
+            this.objectListView1.Name = "objectListView1";
+            this.objectListView1.Size = new System.Drawing.Size(281, 273);
+            this.objectListView1.TabIndex = 2;
+            this.objectListView1.UseCompatibleStateImageBehavior = false;
+            this.objectListView1.View = System.Windows.Forms.View.Details;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(3, 346);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "更新时间";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(62, 346);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(65, 12);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "2017.12.13";
             // 
             // Form
             // 
@@ -291,6 +367,7 @@
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(920, 580);
             this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -309,6 +386,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.deviceList)).EndInit();
             this.detail.ResumeLayout(false);
             this.detail.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -330,6 +410,13 @@
         private System.Windows.Forms.ListView listView2;
         private System.Windows.Forms.Panel detail;
         private System.Windows.Forms.Label detailInfo;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private BrightIdeasSoftware.ObjectListView objectListView1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem 设置ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 修改设备ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 备注信息ToolStripMenuItem;
     }
 }
 

@@ -160,7 +160,6 @@ namespace XingYuTengFormsApp
                         ClearAddedcomponent();
                         detail.Visible = true;
                         Point point = deviceList.GetItem(args.HotRowIndex).Position;
-                        detail.Size = new Size(422, 432);
                         if (point.Y < 2 + Panel.Height)
                         {
                             detail.Location = new Point(2 + deviceList.Width, 2 + Panel.Height);
