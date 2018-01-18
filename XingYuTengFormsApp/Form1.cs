@@ -22,7 +22,6 @@ namespace XingYuTengFormsApp
         #region 窗体边框移动改变大小
         private float X;
         private float Y;
-        private Panel panel;
         private bool isMax;//最大化为true,否则为false
         const int Guying_HTLEFT = 10;
         const int Guying_HTRIGHT = 11;
@@ -210,6 +209,19 @@ namespace XingYuTengFormsApp
                         }
                         updateTime.Text=time;
                         detailObject.SetObjects(list);
+                        tabControl1.Controls.Clear();
+                        foreach (DeviceDataStreams stream in oLVListItem.deviceDatastreams)
+                        {
+                            TabPage tabPage1=new TabPage(); ;
+                            tabPage1.BackColor = System.Drawing.Color.White;
+                            tabPage1.Location = new System.Drawing.Point(4, 25);
+                            tabPage1.Name = stream.id;
+                            tabPage1.Padding = new System.Windows.Forms.Padding(3);
+                            tabPage1.Size = new System.Drawing.Size(611, 443);
+                            tabPage1.TabIndex = 0;
+                            tabPage1.Text = stream.id+"曲线";
+                            this.tabControl1.Controls.Add(tabPage1);
+                        }
                         break;
                 }
             };

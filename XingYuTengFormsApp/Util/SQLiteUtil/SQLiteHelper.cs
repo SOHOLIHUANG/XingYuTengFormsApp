@@ -13,21 +13,6 @@ namespace XingYuTengFormsApp.Util
 {
     class SQLiteHelper
     {
-        /// <summary>
-        /// 数据库连接定义
-        /// </summary>
-        private SQLiteConnection dbConnection;
-
-        /// <summary>
-        /// SQL命令定义
-        /// </summary>
-        private SQLiteCommand dbCommand;
-
-        /// <summary>
-        /// 数据读取定义
-        /// </summary>
-        private SQLiteDataReader dataReader;
-
         private static SQLiteHelper instance;
         private static readonly object obj = new object();
 
