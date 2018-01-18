@@ -127,6 +127,12 @@ namespace XingYuTengFormsApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.deviceList.SelectionChanged += delegate (object listSender, EventArgs args)
+            {
+                HandleSelectionChanged(deviceList);
+            };
+
+
             this.Resize += new EventHandler(Form1_Resize);
             X = this.Width;
             Y = this.Height;
@@ -227,6 +233,11 @@ namespace XingYuTengFormsApp
             };
         }
 
+        public void HandleSelectionChanged(ObjectListView listView)
+        {
+            MessageBox.Show("fsdfdsfsdffs");
+        }
+
         /// <summary>
         /// 删除列表详细信息控件
         /// </summary>
@@ -289,7 +300,12 @@ namespace XingYuTengFormsApp
             tabControl1.Width = Width - deviceList.Width - 4;
         }
 
-        private void SetupDescibedTaskColumn()
+        private void HandleHotItemChanged(object sender, HotItemChangedEventArgs args)
+        {
+
+        }
+
+            private void SetupDescibedTaskColumn()
         {
             // Setup a described task renderer, which draws a large icon
             // with a title, and a description under the title.
