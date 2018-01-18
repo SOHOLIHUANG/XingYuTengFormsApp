@@ -171,7 +171,45 @@ namespace XingYuTengFormsApp
                         else {
                             detail.Location = new Point(2 + deviceList.Width, point.Y);
                         }
+
                         ItemPoint oLVListItem = (ItemPoint)deviceList.GetItem(args.HotRowIndex).RowObject;
+                        detailInfo.Text = oLVListItem.title;
+                        List<DetailValue> list = new List<DetailValue>();
+                        string time = null;
+                        foreach (DataStreams dataStream in oLVListItem.dataStreamsList)
+                        {
+                            DetailValue detailValue = new DetailValue();
+                            foreach (DataPoints dataPoints in dataStream.datapoints)
+                            {
+                                detailValue.Name = dataStream.id;
+                                StringBuilder builder = new StringBuilder();
+                                if (time == null)
+                                {
+                                    time = dataPoints.at;
+                                }
+                                else
+                                {
+                                    if (time.CompareTo(dataPoints.at) < 0) {
+                                        time = dataPoints.at;
+                                    }
+                                }
+                                builder.Append(dataPoints.value);
+                                foreach (DeviceDataStreams stream in oLVListItem.deviceDatastreams)
+                                {
+                                    if (dataStream.id.Equals(stream.id))
+                                    {
+                                        builder.Append(stream.unit);
+                                        detailValue.Value =builder.ToString();
+                                        list.Add(detailValue);
+                                        detailObject.SetObjects(list);
+                                        break;
+                                    }
+                                }
+                            }
+                            
+                        }
+                        updateTime.Text=time;
+                        detailObject.SetObjects(list);
                         break;
                 }
             };

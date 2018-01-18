@@ -39,18 +39,20 @@
             this.pictureBoxSize = new System.Windows.Forms.PictureBox();
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
             this.Panel = new System.Windows.Forms.Panel();
+            this.columnName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.columnValue = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumnDesk = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.deviceList = new BrightIdeasSoftware.ObjectListView();
             this.listView2 = new System.Windows.Forms.ListView();
             this.detail = new System.Windows.Forms.Panel();
-            this.detailInfo = new System.Windows.Forms.Label();
+            this.detailInfo = new System.Windows.Forms.TextBox();
+            this.updateTime = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.detailObject = new BrightIdeasSoftware.ObjectListView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.修改设备ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.备注信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.objectListView1 = new BrightIdeasSoftware.ObjectListView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AddDevice)).BeginInit();
@@ -60,8 +62,8 @@
             this.Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceList)).BeginInit();
             this.detail.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.detailObject)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox
@@ -200,6 +202,30 @@
             this.Panel.TabIndex = 3;
             this.Panel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Panel_MouseDown);
             // 
+            // columnName
+            // 
+            this.columnName.AspectName = "Name";
+            this.columnName.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnName.MinimumWidth = 140;
+            this.columnName.Text = "测量属性";
+            this.columnName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnName.ToolTipText = "This is a long tooltip text that should appear when the mouse is over this column" +
+    " header but contains absolutely no useful information :)";
+            this.columnName.UseInitialLetterForGroup = true;
+            this.columnName.Width = 140;
+            // 
+            // columnValue
+            // 
+            this.columnValue.AspectName = "Value";
+            this.columnValue.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnValue.MinimumWidth = 140;
+            this.columnValue.Text = "测量值";
+            this.columnValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnValue.ToolTipText = "This is a long tooltip text that should appear when the mouse is over this column" +
+    " header but contains absolutely no useful information :)";
+            this.columnValue.UseInitialLetterForGroup = true;
+            this.columnValue.Width = 140;
+            // 
             // olvColumnDesk
             // 
             this.olvColumnDesk.AspectName = "设备列表";
@@ -266,29 +292,88 @@
             // detail
             // 
             this.detail.BackColor = System.Drawing.Color.RoyalBlue;
-            this.detail.Controls.Add(this.label2);
-            this.detail.Controls.Add(this.label1);
-            this.detail.Controls.Add(this.objectListView1);
             this.detail.Controls.Add(this.detailInfo);
+            this.detail.Controls.Add(this.updateTime);
+            this.detail.Controls.Add(this.label1);
+            this.detail.Controls.Add(this.detailObject);
             this.detail.Controls.Add(this.menuStrip1);
             this.detail.ForeColor = System.Drawing.Color.Black;
             this.detail.Location = new System.Drawing.Point(307, 112);
             this.detail.Name = "detail";
-            this.detail.Size = new System.Drawing.Size(281, 380);
+            this.detail.Size = new System.Drawing.Size(280, 368);
             this.detail.TabIndex = 4;
             this.detail.Visible = false;
             // 
             // detailInfo
             // 
-            this.detailInfo.AutoSize = true;
             this.detailInfo.BackColor = System.Drawing.Color.RoyalBlue;
-            this.detailInfo.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.detailInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.detailInfo.ForeColor = System.Drawing.Color.White;
-            this.detailInfo.Location = new System.Drawing.Point(86, 25);
+            this.detailInfo.Location = new System.Drawing.Point(0, 25);
             this.detailInfo.Name = "detailInfo";
-            this.detailInfo.Size = new System.Drawing.Size(104, 16);
-            this.detailInfo.TabIndex = 0;
-            this.detailInfo.Text = "温湿度测试仪";
+            this.detailInfo.Size = new System.Drawing.Size(281, 14);
+            this.detailInfo.TabIndex = 31;
+            this.detailInfo.Text = "eeeee";
+            this.detailInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // updateTime
+            // 
+            this.updateTime.AutoSize = true;
+            this.updateTime.ForeColor = System.Drawing.Color.White;
+            this.updateTime.Location = new System.Drawing.Point(62, 346);
+            this.updateTime.Name = "updateTime";
+            this.updateTime.Size = new System.Drawing.Size(65, 12);
+            this.updateTime.TabIndex = 4;
+            this.updateTime.Text = "2017.12.13";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(3, 346);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "更新时间";
+            // 
+            // detailObject
+            // 
+            this.detailObject.AllColumns.Add(this.columnName);
+            this.detailObject.AllColumns.Add(this.columnValue);
+            this.detailObject.AllowColumnReorder = true;
+            this.detailObject.AllowDrop = true;
+            this.detailObject.CellEditUseWholeCell = false;
+            this.detailObject.CheckedAspectName = "";
+            this.detailObject.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnName,
+            this.columnValue});
+            this.detailObject.Cursor = System.Windows.Forms.Cursors.Default;
+            this.detailObject.FullRowSelect = true;
+            this.detailObject.HeaderWordWrap = true;
+            this.detailObject.HideSelection = false;
+            this.detailObject.IncludeColumnHeadersInCopy = true;
+            this.detailObject.Location = new System.Drawing.Point(1, 52);
+            this.detailObject.Name = "detailObject";
+            this.detailObject.OverlayText.Alignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.detailObject.OverlayText.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.detailObject.OverlayText.BorderWidth = 2F;
+            this.detailObject.OverlayText.Rotation = -20;
+            this.detailObject.OverlayText.Text = "";
+            this.detailObject.SelectColumnsOnRightClickBehaviour = BrightIdeasSoftware.ObjectListView.ColumnSelectBehaviour.Submenu;
+            this.detailObject.ShowCommandMenuOnRightClick = true;
+            this.detailObject.ShowGroups = false;
+            this.detailObject.ShowHeaderInAllViews = false;
+            this.detailObject.ShowItemToolTips = true;
+            this.detailObject.Size = new System.Drawing.Size(280, 279);
+            this.detailObject.SortGroupItemsByPrimaryColumn = false;
+            this.detailObject.TabIndex = 30;
+            this.detailObject.UseAlternatingBackColors = true;
+            this.detailObject.UseCellFormatEvents = true;
+            this.detailObject.UseCompatibleStateImageBehavior = false;
+            this.detailObject.UseFilterIndicator = true;
+            this.detailObject.UseFiltering = true;
+            this.detailObject.UseHotItem = true;
+            this.detailObject.View = System.Windows.Forms.View.Details;
             // 
             // menuStrip1
             // 
@@ -297,7 +382,7 @@
             this.设置ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(281, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(280, 25);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -314,44 +399,14 @@
             // 修改设备ToolStripMenuItem
             // 
             this.修改设备ToolStripMenuItem.Name = "修改设备ToolStripMenuItem";
-            this.修改设备ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.修改设备ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.修改设备ToolStripMenuItem.Text = "修改设备";
             // 
             // 备注信息ToolStripMenuItem
             // 
             this.备注信息ToolStripMenuItem.Name = "备注信息ToolStripMenuItem";
-            this.备注信息ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.备注信息ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.备注信息ToolStripMenuItem.Text = "备注信息";
-            // 
-            // objectListView1
-            // 
-            this.objectListView1.CellEditUseWholeCell = false;
-            this.objectListView1.Location = new System.Drawing.Point(0, 70);
-            this.objectListView1.Name = "objectListView1";
-            this.objectListView1.Size = new System.Drawing.Size(281, 273);
-            this.objectListView1.TabIndex = 2;
-            this.objectListView1.UseCompatibleStateImageBehavior = false;
-            this.objectListView1.View = System.Windows.Forms.View.Details;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(3, 346);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 12);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "更新时间";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(62, 346);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 12);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "2017.12.13";
             // 
             // Form
             // 
@@ -386,9 +441,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.deviceList)).EndInit();
             this.detail.ResumeLayout(false);
             this.detail.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.detailObject)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.objectListView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -406,17 +461,19 @@
         private System.Windows.Forms.PictureBox pictureBoxClose;
         private System.Windows.Forms.Panel Panel;
         private BrightIdeasSoftware.OLVColumn olvColumnDesk;
+        private BrightIdeasSoftware.OLVColumn columnName;
+        private BrightIdeasSoftware.OLVColumn columnValue;
         private BrightIdeasSoftware.ObjectListView deviceList;
         private System.Windows.Forms.ListView listView2;
         private System.Windows.Forms.Panel detail;
-        private System.Windows.Forms.Label detailInfo;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label updateTime;
         private System.Windows.Forms.Label label1;
-        private BrightIdeasSoftware.ObjectListView objectListView1;
+        private BrightIdeasSoftware.ObjectListView detailObject;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 设置ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 修改设备ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 备注信息ToolStripMenuItem;
+        private System.Windows.Forms.TextBox detailInfo;
     }
 }
 

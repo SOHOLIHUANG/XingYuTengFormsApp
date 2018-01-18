@@ -109,14 +109,17 @@ namespace XingYuTengFormsApp
                 {
                     ItemPoint item = new ItemPoint();
                     item.deviceId = deviceData.id;
-                    item.title = deviceData.title+deviceData.id;
+                    item.title = deviceData.title;
                     StringBuilder builder = new StringBuilder();
                     foreach (DataStreams dataStream in point.data.datastreams) {
-                        if(dataStream.id.Equals("P")|| dataStream.id.Equals("T")|| dataStream.id.Equals("H"))
+                        foreach (DataPoints dataPoints in dataStream.datapoints)
+                        {
+                            dataPoints.at = dataPoints.at.Substring(0, dataPoints.at.Length - 4);
+                        }
+                        if (dataStream.id.Equals("P")|| dataStream.id.Equals("T")|| dataStream.id.Equals("H"))
                         {
                             foreach (DataPoints dataPoints in dataStream.datapoints)
                             {
-                                dataPoints.at = dataPoints.at.Substring(0, dataPoints.at.Length - 4);
                                 builder.Append(dataStream.id + "=" + dataPoints.value);
                                 foreach (DeviceDataStreams stream in deviceData.datastreams) {
                                     if (dataStream.id.Equals(stream.id)) {
