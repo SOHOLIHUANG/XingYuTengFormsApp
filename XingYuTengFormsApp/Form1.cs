@@ -273,8 +273,8 @@ namespace XingYuTengFormsApp
             float newx = (this.Width) / X;
             float newy = this.Height / Y;
             setControls(newx, newy, this);
-            listView2.Location = new Point(2 + deviceList.Width, listView2.Location.Y);
-            listView2.Width = Width - deviceList.Width - 4;
+            tabControl1.Location = new Point(2 + deviceList.Width, tabControl1.Location.Y);
+            tabControl1.Width = Width - deviceList.Width - 4;
         }
 
         private void SetupDescibedTaskColumn()

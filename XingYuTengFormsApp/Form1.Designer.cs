@@ -39,18 +39,20 @@
             this.pictureBoxSize = new System.Windows.Forms.PictureBox();
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
             this.Panel = new System.Windows.Forms.Panel();
+            this.olvColumnDesk = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.columnName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.columnValue = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColumnDesk = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.deviceList = new BrightIdeasSoftware.ObjectListView();
-            this.listView2 = new System.Windows.Forms.ListView();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.detail = new System.Windows.Forms.Panel();
-            this.detailInfo = new System.Windows.Forms.TextBox();
             this.updateTime = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.detailObject = new BrightIdeasSoftware.ObjectListView();
+            this.detailInfo = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.设置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.设备ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.修改设备ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.备注信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
@@ -61,6 +63,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             this.Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceList)).BeginInit();
+            this.tabControl1.SuspendLayout();
             this.detail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.detailObject)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -100,9 +103,9 @@
             this.panel1.Controls.Add(this.AddDevice);
             this.panel1.Controls.Add(this.deviceID);
             this.panel1.Controls.Add(this.labelAdd);
-            this.panel1.Location = new System.Drawing.Point(252, 34);
+            this.panel1.Location = new System.Drawing.Point(240, 34);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(422, 32);
+            this.panel1.Size = new System.Drawing.Size(434, 32);
             this.panel1.TabIndex = 2;
             // 
             // AddDevice
@@ -110,7 +113,7 @@
             this.AddDevice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.AddDevice.Image = ((System.Drawing.Image)(resources.GetObject("AddDevice.Image")));
-            this.AddDevice.Location = new System.Drawing.Point(395, 4);
+            this.AddDevice.Location = new System.Drawing.Point(407, 4);
             this.AddDevice.Name = "AddDevice";
             this.AddDevice.Size = new System.Drawing.Size(23, 23);
             this.AddDevice.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -128,7 +131,7 @@
             this.deviceID.Font = new System.Drawing.Font("宋体", 15F);
             this.deviceID.Location = new System.Drawing.Point(115, 5);
             this.deviceID.Name = "deviceID";
-            this.deviceID.Size = new System.Drawing.Size(254, 23);
+            this.deviceID.Size = new System.Drawing.Size(266, 23);
             this.deviceID.TabIndex = 0;
             // 
             // labelAdd
@@ -136,7 +139,8 @@
             this.labelAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.labelAdd.AutoSize = true;
             this.labelAdd.Font = new System.Drawing.Font("宋体", 15F);
-            this.labelAdd.Location = new System.Drawing.Point(1, 5);
+            this.labelAdd.ForeColor = System.Drawing.Color.Black;
+            this.labelAdd.Location = new System.Drawing.Point(7, 5);
             this.labelAdd.Name = "labelAdd";
             this.labelAdd.Size = new System.Drawing.Size(89, 20);
             this.labelAdd.TabIndex = 0;
@@ -202,30 +206,6 @@
             this.Panel.TabIndex = 3;
             this.Panel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Panel_MouseDown);
             // 
-            // columnName
-            // 
-            this.columnName.AspectName = "Name";
-            this.columnName.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnName.MinimumWidth = 140;
-            this.columnName.Text = "测量属性";
-            this.columnName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnName.ToolTipText = "This is a long tooltip text that should appear when the mouse is over this column" +
-    " header but contains absolutely no useful information :)";
-            this.columnName.UseInitialLetterForGroup = true;
-            this.columnName.Width = 140;
-            // 
-            // columnValue
-            // 
-            this.columnValue.AspectName = "Value";
-            this.columnValue.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnValue.MinimumWidth = 140;
-            this.columnValue.Text = "测量值";
-            this.columnValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnValue.ToolTipText = "This is a long tooltip text that should appear when the mouse is over this column" +
-    " header but contains absolutely no useful information :)";
-            this.columnValue.UseInitialLetterForGroup = true;
-            this.columnValue.Width = 140;
-            // 
             // olvColumnDesk
             // 
             this.olvColumnDesk.AspectName = "设备列表";
@@ -233,6 +213,30 @@
             this.olvColumnDesk.Text = "设备列表";
             this.olvColumnDesk.ToolTipText = "";
             this.olvColumnDesk.Width = 302;
+            // 
+            // columnName
+            // 
+            this.columnName.AspectName = "Name";
+            this.columnName.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnName.MaximumWidth = 200;
+            this.columnName.MinimumWidth = 100;
+            this.columnName.Text = "测量属性";
+            this.columnName.ToolTipText = "This is a long tooltip text that should appear when the mouse is over this column" +
+    " header but contains absolutely no useful information :)";
+            this.columnName.UseInitialLetterForGroup = true;
+            this.columnName.Width = 120;
+            // 
+            // columnValue
+            // 
+            this.columnValue.AspectName = "Value";
+            this.columnValue.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnValue.Hyperlink = true;
+            this.columnValue.MaximumWidth = 180;
+            this.columnValue.MinimumWidth = 50;
+            this.columnValue.Text = "测量值";
+            this.columnValue.Width = 120;
             // 
             // deviceList
             // 
@@ -278,59 +282,65 @@
             this.deviceList.UseTranslucentHotItem = true;
             this.deviceList.View = System.Windows.Forms.View.Details;
             // 
-            // listView2
+            // tabControl1
             // 
-            this.listView2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.listView2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.listView2.Location = new System.Drawing.Point(299, 106);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(619, 472);
-            this.listView2.TabIndex = 1;
-            this.listView2.UseCompatibleStateImageBehavior = false;
+            this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(299, 106);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(619, 472);
+            this.tabControl1.TabIndex = 4;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.White;
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(611, 443);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(611, 443);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // detail
             // 
             this.detail.BackColor = System.Drawing.Color.RoyalBlue;
-            this.detail.Controls.Add(this.detailInfo);
             this.detail.Controls.Add(this.updateTime);
             this.detail.Controls.Add(this.label1);
             this.detail.Controls.Add(this.detailObject);
+            this.detail.Controls.Add(this.detailInfo);
             this.detail.Controls.Add(this.menuStrip1);
-            this.detail.ForeColor = System.Drawing.Color.Black;
-            this.detail.Location = new System.Drawing.Point(307, 112);
+            this.detail.Location = new System.Drawing.Point(290, 137);
             this.detail.Name = "detail";
-            this.detail.Size = new System.Drawing.Size(280, 368);
-            this.detail.TabIndex = 4;
+            this.detail.Size = new System.Drawing.Size(240, 307);
+            this.detail.TabIndex = 0;
             this.detail.Visible = false;
-            // 
-            // detailInfo
-            // 
-            this.detailInfo.BackColor = System.Drawing.Color.RoyalBlue;
-            this.detailInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.detailInfo.ForeColor = System.Drawing.Color.White;
-            this.detailInfo.Location = new System.Drawing.Point(0, 25);
-            this.detailInfo.Name = "detailInfo";
-            this.detailInfo.Size = new System.Drawing.Size(281, 14);
-            this.detailInfo.TabIndex = 31;
-            this.detailInfo.Text = "eeeee";
-            this.detailInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // updateTime
             // 
             this.updateTime.AutoSize = true;
-            this.updateTime.ForeColor = System.Drawing.Color.White;
-            this.updateTime.Location = new System.Drawing.Point(62, 346);
+            this.updateTime.Location = new System.Drawing.Point(62, 278);
             this.updateTime.Name = "updateTime";
             this.updateTime.Size = new System.Drawing.Size(65, 12);
             this.updateTime.TabIndex = 4;
-            this.updateTime.Text = "2017.12.13";
+            this.updateTime.Text = "2012.12.31";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(3, 346);
+            this.label1.Location = new System.Drawing.Point(3, 278);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 3;
@@ -342,6 +352,9 @@
             this.detailObject.AllColumns.Add(this.columnValue);
             this.detailObject.AllowColumnReorder = true;
             this.detailObject.AllowDrop = true;
+            this.detailObject.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.detailObject.CellEditUseWholeCell = false;
             this.detailObject.CheckedAspectName = "";
             this.detailObject.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -354,7 +367,7 @@
             this.detailObject.IncludeColumnHeadersInCopy = true;
             this.detailObject.Location = new System.Drawing.Point(1, 52);
             this.detailObject.Name = "detailObject";
-            this.detailObject.OverlayText.Alignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.detailObject.OverlayText.Alignment = System.Drawing.ContentAlignment.BottomLeft;
             this.detailObject.OverlayText.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.detailObject.OverlayText.BorderWidth = 2F;
             this.detailObject.OverlayText.Rotation = -20;
@@ -364,7 +377,7 @@
             this.detailObject.ShowGroups = false;
             this.detailObject.ShowHeaderInAllViews = false;
             this.detailObject.ShowItemToolTips = true;
-            this.detailObject.Size = new System.Drawing.Size(280, 279);
+            this.detailObject.Size = new System.Drawing.Size(239, 223);
             this.detailObject.SortGroupItemsByPrimaryColumn = false;
             this.detailObject.TabIndex = 30;
             this.detailObject.UseAlternatingBackColors = true;
@@ -375,26 +388,38 @@
             this.detailObject.UseHotItem = true;
             this.detailObject.View = System.Windows.Forms.View.Details;
             // 
+            // detailInfo
+            // 
+            this.detailInfo.BackColor = System.Drawing.Color.RoyalBlue;
+            this.detailInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.detailInfo.ForeColor = System.Drawing.Color.White;
+            this.detailInfo.Location = new System.Drawing.Point(0, 28);
+            this.detailInfo.Name = "detailInfo";
+            this.detailInfo.Size = new System.Drawing.Size(240, 14);
+            this.detailInfo.TabIndex = 1;
+            this.detailInfo.Text = "eeeeee";
+            this.detailInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.RoyalBlue;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.设置ToolStripMenuItem});
+            this.设备ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(280, 25);
-            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.Size = new System.Drawing.Size(240, 25);
+            this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // 设置ToolStripMenuItem
+            // 设备ToolStripMenuItem
             // 
-            this.设置ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.设备ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.修改设备ToolStripMenuItem,
             this.备注信息ToolStripMenuItem});
-            this.设置ToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
-            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
-            this.设置ToolStripMenuItem.Text = "设置";
+            this.设备ToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.设备ToolStripMenuItem.Name = "设备ToolStripMenuItem";
+            this.设备ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.设备ToolStripMenuItem.Text = "设置";
             // 
             // 修改设备ToolStripMenuItem
             // 
@@ -412,21 +437,21 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.LavenderBlush;
+            this.BackColor = System.Drawing.Color.Lavender;
             this.ClientSize = new System.Drawing.Size(920, 580);
             this.ControlBox = false;
             this.Controls.Add(this.detail);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.Panel);
             this.Controls.Add(this.deviceList);
-            this.Controls.Add(this.listView2);
             this.DoubleBuffered = true;
+            this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(920, 580);
             this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.TransparencyKey = System.Drawing.Color.LavenderBlush;
+            this.TransparencyKey = System.Drawing.Color.Lavender;
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
@@ -439,6 +464,7 @@
             this.Panel.ResumeLayout(false);
             this.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceList)).EndInit();
+            this.tabControl1.ResumeLayout(false);
             this.detail.ResumeLayout(false);
             this.detail.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.detailObject)).EndInit();
@@ -464,15 +490,17 @@
         private BrightIdeasSoftware.OLVColumn columnName;
         private BrightIdeasSoftware.OLVColumn columnValue;
         private BrightIdeasSoftware.ObjectListView deviceList;
-        private System.Windows.Forms.ListView listView2;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Panel detail;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem 设备ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 修改设备ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 备注信息ToolStripMenuItem;
         private System.Windows.Forms.Label updateTime;
         private System.Windows.Forms.Label label1;
         private BrightIdeasSoftware.ObjectListView detailObject;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem 设置ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 修改设备ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 备注信息ToolStripMenuItem;
         private System.Windows.Forms.TextBox detailInfo;
     }
 }
