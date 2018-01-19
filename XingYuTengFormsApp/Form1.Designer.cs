@@ -61,7 +61,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             this.Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceList)).BeginInit();
-            this.tabControl1.SuspendLayout();
             this.detail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.detailObject)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -174,7 +173,8 @@
             // 
             // pictureBoxClose
             // 
-            this.pictureBoxClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxClose.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxClose.BackColor = System.Drawing.Color.Transparent;
             this.pictureBoxClose.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxClose.Image")));
             this.pictureBoxClose.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxClose.InitialImage")));
@@ -216,10 +216,10 @@
             // 
             this.columnName.AspectName = "Name";
             this.columnName.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnName.MaximumWidth = 200;
             this.columnName.MinimumWidth = 100;
             this.columnName.Text = "测量属性";
+            this.columnName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnName.ToolTipText = "This is a long tooltip text that should appear when the mouse is over this column" +
     " header but contains absolutely no useful information :)";
             this.columnName.UseInitialLetterForGroup = true;
@@ -229,11 +229,11 @@
             // 
             this.columnValue.AspectName = "Value";
             this.columnValue.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnValue.Hyperlink = true;
             this.columnValue.MaximumWidth = 180;
             this.columnValue.MinimumWidth = 50;
             this.columnValue.Text = "测量值";
+            this.columnValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnValue.Width = 120;
             // 
             // deviceList
@@ -282,13 +282,15 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
             this.tabControl1.Location = new System.Drawing.Point(299, 106);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(619, 472);
             this.tabControl1.TabIndex = 4;
-            
             // 
             // detail
             // 
@@ -298,7 +300,7 @@
             this.detail.Controls.Add(this.detailObject);
             this.detail.Controls.Add(this.detailInfo);
             this.detail.Controls.Add(this.menuStrip1);
-            this.detail.Location = new System.Drawing.Point(290, 137);
+            this.detail.Location = new System.Drawing.Point(289, 167);
             this.detail.Name = "detail";
             this.detail.Size = new System.Drawing.Size(240, 307);
             this.detail.TabIndex = 0;
@@ -441,7 +443,6 @@
             this.Panel.ResumeLayout(false);
             this.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceList)).EndInit();
-            this.tabControl1.ResumeLayout(false);
             this.detail.ResumeLayout(false);
             this.detail.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.detailObject)).EndInit();

@@ -1,4 +1,7 @@
-﻿using BrightIdeasSoftware;
+﻿
+using BrightIdeasSoftware;
+using LiveCharts;
+using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -242,6 +245,50 @@ namespace XingYuTengFormsApp
                     tabPage1.TabIndex = 0;
                     tabPage1.Text = stream.id + "曲线";
                     this.tabControl1.Controls.Add(tabPage1);
+
+
+                    // 
+                    // cartesianChart1
+                    // 
+                    LiveCharts.WinForms.CartesianChart cartesianChart1= new LiveCharts.WinForms.CartesianChart();
+                    cartesianChart1.Dock = System.Windows.Forms.DockStyle.Fill;
+                    cartesianChart1.Location = new System.Drawing.Point(0, 0);
+                    cartesianChart1.Name = "cartesianChart1";
+                    cartesianChart1.Size = new System.Drawing.Size(734, 435);
+                    cartesianChart1.TabIndex = 1;
+                    cartesianChart1.Text = "cartesianChart1";
+                    cartesianChart1.Series = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Title = "Series 1",
+                            Values = new ChartValues<double> {4, 6, 5, 2, 7}
+                        }
+                    };
+
+                    cartesianChart1.AxisX.Add(new Axis
+                    {
+                        Title = "Month",
+                        Labels = new[] { "Jan", "Feb", "Mar", "Apr", "May" }
+                    });
+
+                    cartesianChart1.AxisY.Add(new Axis
+                    {
+                        Title = "Sales",
+                        LabelFormatter = value => value.ToString("C")
+                    });
+
+                    cartesianChart1.LegendLocation = LegendLocation.Top;
+                    tabPage1.Controls.Add(cartesianChart1);
+                }
+                foreach (Control con in this.Controls)
+                {
+                    if (!con.Name.Equals("Panel"))
+                    {
+                        con.Tag = con.Width + ":" + con.Height + ":" + con.Left + ":" + con.Top + ":" + con.Font.Size;
+                        if (con.Controls.Count > 0)
+                            setTag(con);
+                    }
                 }
             }
         }
@@ -283,7 +330,7 @@ namespace XingYuTengFormsApp
         {
             foreach (Control con in cons.Controls)
             {
-                if (con.Name.Equals("deviceList")) {
+                if (con.Name.Equals("deviceList")|| con.Name.Equals("detail")) {
                     continue;
                 }
                 string[] mytag = con.Tag.ToString().Split(new char[] { ':' });
