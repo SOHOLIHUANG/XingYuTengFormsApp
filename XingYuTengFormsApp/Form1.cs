@@ -183,9 +183,14 @@ namespace XingYuTengFormsApp
                         string time = null;
                         foreach (DataStreams dataStream in oLVListItem.dataStreamsList)
                         {
+                            //只获取最新的一个点在弹框中显示
+                            bool m = false;
                             DetailValue detailValue = new DetailValue();
                             foreach (DataPoints dataPoints in dataStream.datapoints)
                             {
+                                if (m) {
+                                    break;
+                                }
                                 detailValue.Name = dataStream.id;
                                 StringBuilder builder = new StringBuilder();
                                 if (time == null)
@@ -206,7 +211,7 @@ namespace XingYuTengFormsApp
                                         builder.Append(stream.unit);
                                         detailValue.Value =builder.ToString();
                                         list.Add(detailValue);
-                                        detailObject.SetObjects(list);
+                                        m = true;
                                         break;
                                     }
                                 }
@@ -215,19 +220,6 @@ namespace XingYuTengFormsApp
                         }
                         updateTime.Text=time;
                         detailObject.SetObjects(list);
-                        tabControl1.Controls.Clear();
-                        foreach (DeviceDataStreams stream in oLVListItem.deviceDatastreams)
-                        {
-                            TabPage tabPage1=new TabPage(); ;
-                            tabPage1.BackColor = System.Drawing.Color.White;
-                            tabPage1.Location = new System.Drawing.Point(4, 25);
-                            tabPage1.Name = stream.id;
-                            tabPage1.Padding = new System.Windows.Forms.Padding(3);
-                            tabPage1.Size = new System.Drawing.Size(611, 443);
-                            tabPage1.TabIndex = 0;
-                            tabPage1.Text = stream.id+"曲线";
-                            this.tabControl1.Controls.Add(tabPage1);
-                        }
                         break;
                 }
             };
@@ -235,7 +227,23 @@ namespace XingYuTengFormsApp
 
         public void HandleSelectionChanged(ObjectListView listView)
         {
-            MessageBox.Show("fsdfdsfsdffs");
+            ItemPoint oLVListItem = listView.SelectedObject as ItemPoint;
+            if (oLVListItem != null)
+            {
+                tabControl1.Controls.Clear();
+                foreach (DeviceDataStreams stream in oLVListItem.deviceDatastreams)
+                {
+                    TabPage tabPage1 = new TabPage(); ;
+                    tabPage1.BackColor = System.Drawing.Color.White;
+                    tabPage1.Location = new System.Drawing.Point(4, 25);
+                    tabPage1.Name = stream.id;
+                    tabPage1.Padding = new System.Windows.Forms.Padding(3);
+                    tabPage1.Size = new System.Drawing.Size(611, 443);
+                    tabPage1.TabIndex = 0;
+                    tabPage1.Text = stream.id + "曲线";
+                    this.tabControl1.Controls.Add(tabPage1);
+                }
+            }
         }
 
         /// <summary>
@@ -300,11 +308,6 @@ namespace XingYuTengFormsApp
             tabControl1.Width = Width - deviceList.Width - 4;
         }
 
-        private void HandleHotItemChanged(object sender, HotItemChangedEventArgs args)
-        {
-
-        }
-
             private void SetupDescibedTaskColumn()
         {
             // Setup a described task renderer, which draws a large icon
@@ -353,7 +356,7 @@ namespace XingYuTengFormsApp
         private void CreateDeviceDatas()
         {
             foreach (DeviceData deviceData in DeviceDataDao.Instance.GetAll()) {
-                NetWorkUtil.Instance.GetDataPoint(deviceData, this);
+                NetWorkUtil.Instance.GetDataPoints(deviceData, this,null,AllConstant.POINTS,null,null,null,null);
             }
         }
 

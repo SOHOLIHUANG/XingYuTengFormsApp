@@ -69,7 +69,7 @@ namespace XingYuTengFormsApp
                 if (device.error.Equals("succ"))
                 {
                     DeviceDataDao.Instance.Insert(device.data);
-                    GetDataPoint(device.data, result);
+                    GetDataPoints(device.data, result, null, AllConstant.POINTS, null, null, null, null);
                 }
                 else {
                     result.onFailure(device.error);
@@ -80,7 +80,13 @@ namespace XingYuTengFormsApp
             }
         }
 
-        public void GetDataPoint(DeviceData deviceData, InetworkResult result)
+        /// <summary>
+        /// 获取绘制图表的数据点
+        /// </summary>
+        /// <param name="deviceData"></param>
+        /// <param name="result"></param>
+        public void GetDataPoints(DeviceData deviceData, InetworkResult result,string datastream_id,
+            string limit,string start,string end,string cursor,string duration)
         {
 
             // client.Authenticator = new HttpBasicAuthenticator(username, password);
@@ -97,7 +103,35 @@ namespace XingYuTengFormsApp
             // easily add HTTP Headers
             request.AddHeader("api-key", "VtaeS4yK3Fk6xiOljgw69lYcH9k=");
 
-            request.AddParameter("newadd", "true");
+            if (!string.IsNullOrEmpty(datastream_id))
+            {
+                request.AddParameter("datastream_id", datastream_id);
+            }
+
+            if (!string.IsNullOrEmpty(limit))
+            {
+                request.AddParameter("limit", limit);
+            }
+
+            if (!string.IsNullOrEmpty(start))
+            {
+                request.AddParameter("start", start);
+            }
+
+            if (!string.IsNullOrEmpty(end))
+            {
+                request.AddParameter("end", end);
+            }
+
+            if (!string.IsNullOrEmpty(cursor))
+            {
+                request.AddParameter("cursor", cursor);
+            }
+
+            if (!string.IsNullOrEmpty(duration))
+            {
+                request.AddParameter("duration", duration);
+            }
 
             IRestResponse response = client.Execute(request);
             var content = response.Content; // raw content as string
@@ -111,19 +145,28 @@ namespace XingYuTengFormsApp
                     item.deviceId = deviceData.id;
                     item.title = deviceData.title;
                     StringBuilder builder = new StringBuilder();
-                    foreach (DataStreams dataStream in point.data.datastreams) {
+                    foreach (DataStreams dataStream in point.data.datastreams)
+                    {
                         foreach (DataPoints dataPoints in dataStream.datapoints)
                         {
                             dataPoints.at = dataPoints.at.Substring(0, dataPoints.at.Length - 4);
                         }
-                        if (dataStream.id.Equals("P")|| dataStream.id.Equals("T")|| dataStream.id.Equals("H"))
+                        if (dataStream.id.Equals("P") || dataStream.id.Equals("T") || dataStream.id.Equals("H"))
                         {
+                            //只获取最新的一个点在列表里显示
+                            bool m = false;
                             foreach (DataPoints dataPoints in dataStream.datapoints)
                             {
+                                if (m) {
+                                    break;
+                                }
                                 builder.Append(dataStream.id + "=" + dataPoints.value);
-                                foreach (DeviceDataStreams stream in deviceData.datastreams) {
-                                    if (dataStream.id.Equals(stream.id)) {
+                                foreach (DeviceDataStreams stream in deviceData.datastreams)
+                                {
+                                    if (dataStream.id.Equals(stream.id))
+                                    {
                                         builder.Append(stream.unit + "  ");
+                                        m = true;
                                         break;
                                     }
                                 }
@@ -145,7 +188,7 @@ namespace XingYuTengFormsApp
             }
             else
             {
-                result.onFailure("获取"+deviceData.title+"的数据失败");
+                result.onFailure("获取" + deviceData.title + "的数据失败");
             }
         }
     }
