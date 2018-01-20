@@ -1,21 +1,17 @@
 ﻿
 using BrightIdeasSoftware;
-using LiveCharts;
-using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using XingYuTengFormsApp.Entity;
-using XingYuTengFormsApp.Util;
 using XingYuTengFormsApp.Util.SQLiteUtil;
+using LiveCharts;
+using LiveCharts.Wpf;
+using System.Windows.Media;
 
 namespace XingYuTengFormsApp
 {
@@ -234,7 +230,7 @@ namespace XingYuTengFormsApp
             if (oLVListItem != null)
             {
                 tabControl1.Controls.Clear();
-                foreach (DeviceDataStreams stream in oLVListItem.deviceDatastreams)
+                foreach (DataStreams stream in oLVListItem.dataStreamsList)
                 {
                     TabPage tabPage1 = new TabPage(); ;
                     tabPage1.BackColor = System.Drawing.Color.White;
@@ -257,25 +253,53 @@ namespace XingYuTengFormsApp
                     cartesianChart1.Size = new System.Drawing.Size(734, 435);
                     cartesianChart1.TabIndex = 1;
                     cartesianChart1.Text = "cartesianChart1";
+
+                    List<DataPoints> dataPointsList = stream.datapoints;
+                    double[] values= new double [dataPointsList.Count];
+                    string[] labels = new string[dataPointsList.Count];
+                    int m = 0;
+                    foreach(DataPoints dataPoints in dataPointsList) {
+                        values[m] = double.Parse(dataPoints.value);
+                        labels[m] = dataPoints.at;
+                        m++;
+                    }
                     cartesianChart1.Series = new SeriesCollection
                     {
                         new LineSeries
                         {
-                            Title = "Series 1",
-                            Values = new ChartValues<double> {4, 6, 5, 2, 7}
+                            Title = stream.id + "曲线",
+                            Values = new ChartValues<double>(values),
+                             PointGeometry = DefaultGeometries.None,
+                             Fill = new SolidColorBrush
+                                    {
+                                        Color = System.Windows.Media.Color.FromRgb(105,204,104),
+                                        Opacity = .4
+                                    },
+                             Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(248, 213, 72)),
+
                         }
                     };
 
                     cartesianChart1.AxisX.Add(new Axis
                     {
-                        Title = "Month",
-                        Labels = new[] { "Jan", "Feb", "Mar", "Apr", "May" }
+                        Title = "时间",
+                        Labels = labels
                     });
+
+                    string unit=null;
+                    foreach (DeviceDataStreams devicestream in oLVListItem.deviceDatastreams)
+                    {
+                        if (devicestream.id.Equals(stream.id))
+                        {
+                            unit=devicestream.unit;
+                            break;
+                        }
+                    }
 
                     cartesianChart1.AxisY.Add(new Axis
                     {
-                        Title = "Sales",
-                        LabelFormatter = value => value.ToString("C")
+                        //Title = "Sales",
+                        LabelFormatter = value => value.ToString("")+unit
                     });
 
                     cartesianChart1.LegendLocation = LegendLocation.Top;
@@ -387,8 +411,8 @@ namespace XingYuTengFormsApp
             renderer.DescriptionFont = new Font("Tahoma", 11, FontStyle.Bold);
             renderer.ImageTextSpace = 8;
             renderer.TitleDescriptionSpace = 1;
-            renderer.TitleColor = Color.Gray;
-            renderer.DescriptionColor = Color.Black;
+            renderer.TitleColor = System.Drawing.Color.Gray;
+            renderer.DescriptionColor = System.Drawing.Color.Black;
 
             // Use older Gdi renderering, since most people think the text looks clearer
             renderer.UseGdiTextRendering = true;
