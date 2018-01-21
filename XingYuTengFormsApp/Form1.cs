@@ -116,12 +116,7 @@ namespace XingYuTengFormsApp
         /// <param name="e"></param>
         private void Panel_MouseLeave(object sender, EventArgs e)
         {
-            Point p = this.PointToClient(MousePosition);
-            Point conPoint = detail.Location;
-            if (!(p.X >= deviceList.Width + 2 && p.X < deviceList.Width + 2 + detail.Width && p.Y >= conPoint.Y && p.Y <= conPoint.Y + detail.Height))
-            {
-                detail.Visible = false;
-            }
+            ClearAddedcomponent();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -161,19 +156,18 @@ namespace XingYuTengFormsApp
                         //textBox1.Text = String.Format("Over group expander of '{0}'", args.HotGroup.Header);
                         break;
                     default:
-                        ClearAddedcomponent();
                         detail.Visible = true;
                         Point point = deviceList.GetItem(args.HotRowIndex).Position;
                         if (point.Y < 2 + Panel.Height)
                         {
-                            detail.Location = new Point(2 + deviceList.Width, 2 + Panel.Height);
+                            detail.Location = new Point(deviceList.Width, 2 + Panel.Height);
                         }
                         else if (point.Y + detail.Height > Height - 2)
                         {
-                            detail.Location = new Point(2 + deviceList.Width, Height - 2 - detail.Height);
+                            detail.Location = new Point(deviceList.Width, Height - 2 - detail.Height);
                         }
                         else {
-                            detail.Location = new Point(2 + deviceList.Width, point.Y);
+                            detail.Location = new Point(deviceList.Width, point.Y);
                         }
 
                         ItemPoint oLVListItem = (ItemPoint)deviceList.GetItem(args.HotRowIndex).RowObject;
@@ -326,15 +320,10 @@ namespace XingYuTengFormsApp
         {
             Point p = this.PointToClient(MousePosition);
             Point conPoint = detail.Location;
-            if (p.X >= deviceList.Width + 2 && p.X < deviceList.Width + 2 + detail.Width && p.Y >= conPoint.Y && p.Y <= conPoint.Y + detail.Height)
-            {
-                detail.MouseLeave += new EventHandler(Panel_MouseLeave);
-            }
-            else
+            if (p.X< conPoint.X||p.X > conPoint.X + detail.Width || p.Y < conPoint.Y || p.Y > conPoint.Y + detail.Height)
             {
                 detail.Visible = false;
             }
-
         }
 
         private void Form1_Activated(object sender, EventArgs e)

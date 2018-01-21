@@ -202,7 +202,6 @@
             this.Panel.Name = "Panel";
             this.Panel.Size = new System.Drawing.Size(916, 104);
             this.Panel.TabIndex = 3;
-            this.Panel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Panel_MouseDown);
             // 
             // olvColumnDesk
             // 
@@ -254,11 +253,12 @@
             this.detail.Controls.Add(this.detailObject);
             this.detail.Controls.Add(this.detailInfo);
             this.detail.Controls.Add(this.menuStrip1);
-            this.detail.Location = new System.Drawing.Point(289, 167);
+            this.detail.Location = new System.Drawing.Point(290, 152);
             this.detail.Name = "detail";
             this.detail.Size = new System.Drawing.Size(240, 307);
             this.detail.TabIndex = 0;
             this.detail.Visible = false;
+            this.detail.MouseLeave += new System.EventHandler(this.Panel_MouseLeave);
             // 
             // updateTime
             // 
@@ -298,7 +298,7 @@
             this.detailObject.HeaderWordWrap = true;
             this.detailObject.HideSelection = false;
             this.detailObject.IncludeColumnHeadersInCopy = true;
-            this.detailObject.Location = new System.Drawing.Point(1, 52);
+            this.detailObject.Location = new System.Drawing.Point(0, 52);
             this.detailObject.Name = "detailObject";
             this.detailObject.OverlayText.Alignment = System.Drawing.ContentAlignment.BottomLeft;
             this.detailObject.OverlayText.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
@@ -310,7 +310,7 @@
             this.detailObject.ShowGroups = false;
             this.detailObject.ShowHeaderInAllViews = false;
             this.detailObject.ShowItemToolTips = true;
-            this.detailObject.Size = new System.Drawing.Size(239, 223);
+            this.detailObject.Size = new System.Drawing.Size(240, 223);
             this.detailObject.SortGroupItemsByPrimaryColumn = false;
             this.detailObject.TabIndex = 30;
             this.detailObject.UseAlternatingBackColors = true;
@@ -320,6 +320,7 @@
             this.detailObject.UseFiltering = true;
             this.detailObject.UseHotItem = true;
             this.detailObject.View = System.Windows.Forms.View.Details;
+            this.detailObject.MouseLeave += new System.EventHandler(this.Panel_MouseLeave);
             // 
             // detailInfo
             // 
@@ -343,6 +344,7 @@
             this.menuStrip1.Size = new System.Drawing.Size(240, 25);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.MouseLeave += new System.EventHandler(this.Panel_MouseLeave);
             // 
             // 设备ToolStripMenuItem
             // 
@@ -416,8 +418,8 @@
             this.BackColor = System.Drawing.Color.Lavender;
             this.ClientSize = new System.Drawing.Size(920, 580);
             this.ControlBox = false;
-            this.Controls.Add(this.deviceList);
             this.Controls.Add(this.detail);
+            this.Controls.Add(this.deviceList);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.Panel);
             this.DoubleBuffered = true;
@@ -430,6 +432,7 @@
             this.TransparencyKey = System.Drawing.Color.Lavender;
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Panel_MouseLeave);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
