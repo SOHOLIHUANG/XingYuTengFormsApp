@@ -42,7 +42,6 @@
             this.olvColumnDesk = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.columnName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.columnValue = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.deviceList = new BrightIdeasSoftware.ObjectListView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.detail = new System.Windows.Forms.Panel();
             this.updateTime = new System.Windows.Forms.Label();
@@ -53,6 +52,7 @@
             this.设备ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.修改设备ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.备注信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deviceList = new BrightIdeasSoftware.ObjectListView();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AddDevice)).BeginInit();
@@ -60,10 +60,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSize)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             this.Panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.deviceList)).BeginInit();
             this.detail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.detailObject)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.deviceList)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox
@@ -84,7 +84,7 @@
             // 
             this.label.AutoSize = true;
             this.label.Font = new System.Drawing.Font("宋体", 15F);
-            this.label.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label.ForeColor = System.Drawing.Color.White;
             this.label.Location = new System.Drawing.Point(85, 43);
             this.label.Name = "label";
             this.label.Size = new System.Drawing.Size(109, 20);
@@ -96,7 +96,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.Controls.Add(this.AddDevice);
             this.panel1.Controls.Add(this.deviceID);
             this.panel1.Controls.Add(this.labelAdd);
@@ -236,55 +236,9 @@
             this.columnValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnValue.Width = 120;
             // 
-            // deviceList
-            // 
-            this.deviceList.AllColumns.Add(this.olvColumnDesk);
-            this.deviceList.AllowColumnReorder = true;
-            this.deviceList.AllowDrop = true;
-            this.deviceList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.deviceList.BackColor = System.Drawing.SystemColors.Window;
-            this.deviceList.CellEditUseWholeCell = false;
-            this.deviceList.CheckBoxes = true;
-            this.deviceList.CheckedAspectName = "";
-            this.deviceList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.olvColumnDesk});
-            this.deviceList.Cursor = System.Windows.Forms.Cursors.Default;
-            this.deviceList.EmptyListMsg = "未添加设备";
-            this.deviceList.FullRowSelect = true;
-            this.deviceList.HeaderWordWrap = true;
-            this.deviceList.HideSelection = false;
-            this.deviceList.IncludeColumnHeadersInCopy = true;
-            this.deviceList.Location = new System.Drawing.Point(2, 106);
-            this.deviceList.Name = "deviceList";
-            this.deviceList.OverlayText.Alignment = System.Drawing.ContentAlignment.BottomLeft;
-            this.deviceList.OverlayText.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.deviceList.OverlayText.BorderWidth = 2F;
-            this.deviceList.OverlayText.Rotation = -20;
-            this.deviceList.OverlayText.Text = "";
-            this.deviceList.SelectColumnsOnRightClickBehaviour = BrightIdeasSoftware.ObjectListView.ColumnSelectBehaviour.Submenu;
-            this.deviceList.ShowCommandMenuOnRightClick = true;
-            this.deviceList.ShowGroups = false;
-            this.deviceList.ShowHeaderInAllViews = false;
-            this.deviceList.ShowItemToolTips = true;
-            this.deviceList.Size = new System.Drawing.Size(299, 472);
-            this.deviceList.SortGroupItemsByPrimaryColumn = false;
-            this.deviceList.TabIndex = 2;
-            this.deviceList.TriStateCheckBoxes = true;
-            this.deviceList.UseAlternatingBackColors = true;
-            this.deviceList.UseCellFormatEvents = true;
-            this.deviceList.UseCompatibleStateImageBehavior = false;
-            this.deviceList.UseFilterIndicator = true;
-            this.deviceList.UseFiltering = true;
-            this.deviceList.UseHotItem = true;
-            this.deviceList.UseTranslucentHotItem = true;
-            this.deviceList.View = System.Windows.Forms.View.Details;
-            // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.FlatButtons;
             this.tabControl1.Location = new System.Drawing.Point(299, 106);
             this.tabControl1.Name = "tabControl1";
@@ -412,6 +366,49 @@
             this.备注信息ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.备注信息ToolStripMenuItem.Text = "备注信息";
             // 
+            // deviceList
+            // 
+            this.deviceList.AllColumns.Add(this.olvColumnDesk);
+            this.deviceList.AllowColumnReorder = true;
+            this.deviceList.AllowDrop = true;
+            this.deviceList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.deviceList.BackColor = System.Drawing.SystemColors.Window;
+            this.deviceList.CellEditUseWholeCell = false;
+            this.deviceList.CheckBoxes = true;
+            this.deviceList.CheckedAspectName = "";
+            this.deviceList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.olvColumnDesk});
+            this.deviceList.Cursor = System.Windows.Forms.Cursors.Default;
+            this.deviceList.EmptyListMsg = "未添加设备";
+            this.deviceList.FullRowSelect = true;
+            this.deviceList.HeaderWordWrap = true;
+            this.deviceList.HideSelection = false;
+            this.deviceList.IncludeColumnHeadersInCopy = true;
+            this.deviceList.Location = new System.Drawing.Point(2, 106);
+            this.deviceList.Name = "deviceList";
+            this.deviceList.OverlayText.Alignment = System.Drawing.ContentAlignment.BottomLeft;
+            this.deviceList.OverlayText.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.deviceList.OverlayText.BorderWidth = 2F;
+            this.deviceList.OverlayText.Rotation = -20;
+            this.deviceList.OverlayText.Text = "";
+            this.deviceList.SelectColumnsOnRightClickBehaviour = BrightIdeasSoftware.ObjectListView.ColumnSelectBehaviour.Submenu;
+            this.deviceList.ShowCommandMenuOnRightClick = true;
+            this.deviceList.ShowGroups = false;
+            this.deviceList.ShowHeaderInAllViews = false;
+            this.deviceList.ShowItemToolTips = true;
+            this.deviceList.Size = new System.Drawing.Size(299, 472);
+            this.deviceList.SortGroupItemsByPrimaryColumn = false;
+            this.deviceList.TabIndex = 2;
+            this.deviceList.TriStateCheckBoxes = true;
+            this.deviceList.UseAlternatingBackColors = true;
+            this.deviceList.UseCellFormatEvents = true;
+            this.deviceList.UseCompatibleStateImageBehavior = false;
+            this.deviceList.UseFilterIndicator = true;
+            this.deviceList.UseFiltering = true;
+            this.deviceList.UseHotItem = true;
+            this.deviceList.UseTranslucentHotItem = true;
+            this.deviceList.View = System.Windows.Forms.View.Details;
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -419,10 +416,10 @@
             this.BackColor = System.Drawing.Color.Lavender;
             this.ClientSize = new System.Drawing.Size(920, 580);
             this.ControlBox = false;
+            this.Controls.Add(this.deviceList);
             this.Controls.Add(this.detail);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.Panel);
-            this.Controls.Add(this.deviceList);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -442,12 +439,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).EndInit();
             this.Panel.ResumeLayout(false);
             this.Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.deviceList)).EndInit();
             this.detail.ResumeLayout(false);
             this.detail.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.detailObject)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.deviceList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -464,10 +461,9 @@
         private System.Windows.Forms.PictureBox pictureBoxSize;
         private System.Windows.Forms.PictureBox pictureBoxClose;
         private System.Windows.Forms.Panel Panel;
-        private BrightIdeasSoftware.OLVColumn olvColumnDesk;
         private BrightIdeasSoftware.OLVColumn columnName;
+        private BrightIdeasSoftware.OLVColumn olvColumnDesk;
         private BrightIdeasSoftware.OLVColumn columnValue;
-        private BrightIdeasSoftware.ObjectListView deviceList;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.Panel detail;
         private System.Windows.Forms.MenuStrip menuStrip1;
@@ -478,6 +474,7 @@
         private System.Windows.Forms.Label label1;
         private BrightIdeasSoftware.ObjectListView detailObject;
         private System.Windows.Forms.TextBox detailInfo;
+        private BrightIdeasSoftware.ObjectListView deviceList;
     }
 }
 

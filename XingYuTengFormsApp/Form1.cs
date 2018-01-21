@@ -19,8 +19,8 @@ namespace XingYuTengFormsApp
     {
 
         #region 窗体边框移动改变大小
-        private float X;
-        private float Y;
+        private float width;
+        private float height;
         private bool isMax;//最大化为true,否则为false
         const int Guying_HTLEFT = 10;
         const int Guying_HTRIGHT = 11;
@@ -133,8 +133,8 @@ namespace XingYuTengFormsApp
 
 
             this.Resize += new EventHandler(Form1_Resize);
-            X = this.Width;
-            Y = this.Height;
+            width = this.Width;
+            height = this.Height;
             SetTag(this);
             Form1_Resize(new object(), new EventArgs());//x,y可在实例化时赋值,最后这句是新加的，在MDI时有用
 
@@ -356,17 +356,64 @@ namespace XingYuTengFormsApp
         {
             foreach (Control con in cons.Controls)
             {
+                if (con.Name.Equals("detail"))
+                {
+                    continue;
+                }
                 string[] mytag = con.Tag.ToString().Split(new char[] { ':' });
-                float a = System.Convert.ToSingle(mytag[0]) * newx;//根据窗体缩放比例确定控件的值，宽度
-                con.Width = (int)a;//宽度
-                a = System.Convert.ToSingle(mytag[1]) * newy;//高度
-                con.Height = (int)(a);
-                a = System.Convert.ToSingle(mytag[2]) * newx;//左边距离
-                con.Left = (int)(a);
-                a = System.Convert.ToSingle(mytag[3]) * newy;//上边缘距离
-                con.Top = (int)(a);
-                Single currentSize = System.Convert.ToSingle(mytag[4]) * newy;//字体大小
-                con.Font = new Font(con.Font.Name, currentSize, con.Font.Style, con.Font.Unit);
+                Control parent = con.Parent;
+                if(parent is Panel) {
+                    con.Top = parent.Height/2-con.Height/2;
+                    float a = System.Convert.ToSingle(mytag[2]) * newx;
+                    con.Left = (int)(a);
+                    a = System.Convert.ToSingle(mytag[0]) * newx;
+                    con.Width = (int)a;
+                } else
+                {
+                    float a = System.Convert.ToSingle(mytag[0]) * newx;//根据窗体缩放比例确定控件的值，宽度
+                    if (!con.Name.Equals("deviceList"))
+                    {
+                        if (con.Name.Equals("tabControl1"))
+                        {
+                            con.Width = Width - deviceList.Width - 4;
+                        }
+                        else
+                        {
+                            con.Width = (int)a;//宽度
+                        }
+                    }
+                    a = System.Convert.ToSingle(mytag[1]) * newy;//高度
+                    if (!con.Name.Equals("Panel"))
+                    {
+                        if (con.Name.Equals("deviceList") || con.Name.Equals("tabControl1"))
+                        {
+                            con.Height = Height - Panel.Height - 4;
+                        }
+                        else
+                        {
+                            con.Height = (int)(a);
+                        }
+                    }
+                    a = System.Convert.ToSingle(mytag[2]) * newx;//左边距离
+                    if (con.Name.Equals("tabControl1"))
+                    {
+                        con.Left = 2 + deviceList.Width;
+                    }
+                    else
+                    {
+                        con.Left = (int)(a);
+                    }
+                    a = System.Convert.ToSingle(mytag[3]) * newy;//上边缘距离
+                    if (con.Name.Equals("deviceList") || con.Name.Equals("tabControl1"))
+                    {
+                        con.Top = 2 + Panel.Height;
+                    }
+                    else
+                    {
+                        con.Top = (int)(a);
+                    }
+                }
+                
                 if (con.Controls.Count > 0)
                 {
                     SetControls(newx, newy, con);
@@ -377,54 +424,31 @@ namespace XingYuTengFormsApp
 
         void Form1_Resize(object sender, EventArgs e)
         {
-            float newx = (this.Width) / X;
-            float newy = this.Height / Y;
+            float newx = this.Width / width;
+            float newy = this.Height / height;
             SetControls(newx, newy, this);
         }
 
             private void SetupDescibedTaskColumn()
         {
-            // Setup a described task renderer, which draws a large icon
-            // with a title, and a description under the title.
-            // Almost all of this configuration could be done through the Designer
-            // but I've done it through code that make it clear what's going on.
-
-            // Create and install an appropriately configured renderer 
             this.olvColumnDesk.Renderer = CreateDescribedTaskRenderer();
-
-            // Now let's setup the couple of other bits that the column needs
-
-            // Tell the column which property should be used to get the title
             this.olvColumnDesk.AspectName = "title";
-            // Put a little bit of space around the task and its description
             this.olvColumnDesk.CellPadding = new Rectangle(4, 2, 4, 2);
         }
 
         private DescribedTaskRenderer CreateDescribedTaskRenderer()
         {
-
-            // Let's create an appropriately configured renderer.
             DescribedTaskRenderer renderer = new DescribedTaskRenderer
             {
-
-                // Tell the renderer which property holds the text to be used as a description
                 DescriptionAspectName = "dataStrams",
-
-                // Change the formatting slightly
                 TitleFont = new Font("Tahoma", 9),
                 DescriptionFont = new Font("Tahoma", 11, FontStyle.Bold),
                 ImageTextSpace = 8,
                 TitleDescriptionSpace = 1,
                 TitleColor = System.Drawing.Color.Gray,
                 DescriptionColor = System.Drawing.Color.Black,
-
-                // Use older Gdi renderering, since most people think the text looks clearer
                 UseGdiTextRendering = true
             };
-
-            // If you like colours other than black and grey, you could uncomment these
-            //            renderer.TitleColor = Color.DarkBlue;
-            //            renderer.DescriptionColor = Color.CornflowerBlue;
 
             return renderer;
         }
