@@ -15,7 +15,7 @@ using System.Windows.Media;
 
 namespace XingYuTengFormsApp
 {
-    public partial class Form : System.Windows.Forms.Form ,InetworkResult
+    public partial class Form : System.Windows.Forms.Form ,INetworkResult
     {
 
         #region 窗体边框移动改变大小
@@ -135,7 +135,7 @@ namespace XingYuTengFormsApp
             this.Resize += new EventHandler(Form1_Resize);
             X = this.Width;
             Y = this.Height;
-            setTag(this);
+            SetTag(this);
             Form1_Resize(new object(), new EventArgs());//x,y可在实例化时赋值,最后这句是新加的，在MDI时有用
 
             this.deviceList.HotItemChanged += delegate (object msender, HotItemChangedEventArgs args) {
@@ -226,8 +226,7 @@ namespace XingYuTengFormsApp
 
         public void HandleSelectionChanged(ObjectListView listView)
         {
-            ItemPoint oLVListItem = listView.SelectedObject as ItemPoint;
-            if (oLVListItem != null)
+            if (listView.SelectedObject is ItemPoint oLVListItem)
             {
                 tabControl1.Controls.Clear();
                 foreach (DataStreams stream in oLVListItem.dataStreamsList)
@@ -246,19 +245,22 @@ namespace XingYuTengFormsApp
                     // 
                     // cartesianChart1
                     // 
-                    LiveCharts.WinForms.CartesianChart cartesianChart1= new LiveCharts.WinForms.CartesianChart();
-                    cartesianChart1.Dock = System.Windows.Forms.DockStyle.Fill;
-                    cartesianChart1.Location = new System.Drawing.Point(0, 0);
-                    cartesianChart1.Name = "cartesianChart1";
-                    cartesianChart1.Size = new System.Drawing.Size(734, 435);
-                    cartesianChart1.TabIndex = 1;
-                    cartesianChart1.Text = "cartesianChart1";
+                    LiveCharts.WinForms.CartesianChart cartesianChart1 = new LiveCharts.WinForms.CartesianChart
+                    {
+                        Dock = System.Windows.Forms.DockStyle.Fill,
+                        Location = new System.Drawing.Point(0, 0),
+                        Name = "cartesianChart1",
+                        Size = new System.Drawing.Size(734, 435),
+                        TabIndex = 1,
+                        Text = "cartesianChart1"
+                    };
 
                     List<DataPoints> dataPointsList = stream.datapoints;
-                    double[] values= new double [dataPointsList.Count];
+                    double[] values = new double[dataPointsList.Count];
                     string[] labels = new string[dataPointsList.Count];
                     int m = 0;
-                    foreach(DataPoints dataPoints in dataPointsList) {
+                    foreach (DataPoints dataPoints in dataPointsList)
+                    {
                         values[m] = double.Parse(dataPoints.value);
                         labels[m] = dataPoints.at;
                         m++;
@@ -286,12 +288,12 @@ namespace XingYuTengFormsApp
                         Labels = labels
                     });
 
-                    string unit=null;
+                    string unit = null;
                     foreach (DeviceDataStreams devicestream in oLVListItem.deviceDatastreams)
                     {
                         if (devicestream.id.Equals(stream.id))
                         {
-                            unit=devicestream.unit;
+                            unit = devicestream.unit;
                             break;
                         }
                     }
@@ -299,7 +301,7 @@ namespace XingYuTengFormsApp
                     cartesianChart1.AxisY.Add(new Axis
                     {
                         //Title = "Sales",
-                        LabelFormatter = value => value.ToString("")+unit
+                        LabelFormatter = value => value.ToString("") + unit
                     });
 
                     cartesianChart1.LegendLocation = LegendLocation.Top;
@@ -311,7 +313,7 @@ namespace XingYuTengFormsApp
                     {
                         con.Tag = con.Width + ":" + con.Height + ":" + con.Left + ":" + con.Top + ":" + con.Font.Size;
                         if (con.Controls.Count > 0)
-                            setTag(con);
+                            SetTag(con);
                     }
                 }
             }
@@ -340,31 +342,34 @@ namespace XingYuTengFormsApp
             this.deviceID.Focus();
         }
 
-        private void setTag(Control cons)
+        private void SetTag(Control cons)
         {
             foreach (Control con in cons.Controls)
             {
                 con.Tag = con.Width + ":" + con.Height + ":" + con.Left + ":" + con.Top + ":" + con.Font.Size;
                 if (con.Controls.Count > 0)
-                    setTag(con);
+                    SetTag(con);
             }
         }
 
-        private void setControls(float newx, float newy, Control cons)
+        private void SetControls(float newx, float newy, Control cons)
         {
             foreach (Control con in cons.Controls)
             {
-                if (con.Name.Equals("deviceList")|| con.Name.Equals("detail")) {
-                    continue;
-                }
                 string[] mytag = con.Tag.ToString().Split(new char[] { ':' });
-                float a = Convert.ToSingle(mytag[0]) * newx;
-                con.Width = (int)a;
-                a = Convert.ToSingle(mytag[2]) * newx;
+                float a = System.Convert.ToSingle(mytag[0]) * newx;//根据窗体缩放比例确定控件的值，宽度
+                con.Width = (int)a;//宽度
+                a = System.Convert.ToSingle(mytag[1]) * newy;//高度
+                con.Height = (int)(a);
+                a = System.Convert.ToSingle(mytag[2]) * newx;//左边距离
                 con.Left = (int)(a);
+                a = System.Convert.ToSingle(mytag[3]) * newy;//上边缘距离
+                con.Top = (int)(a);
+                Single currentSize = System.Convert.ToSingle(mytag[4]) * newy;//字体大小
+                con.Font = new Font(con.Font.Name, currentSize, con.Font.Style, con.Font.Unit);
                 if (con.Controls.Count > 0)
                 {
-                    setControls(newx, newy, con);
+                    SetControls(newx, newy, con);
                 }
             }
 
@@ -374,9 +379,7 @@ namespace XingYuTengFormsApp
         {
             float newx = (this.Width) / X;
             float newy = this.Height / Y;
-            setControls(newx, newy, this);
-            tabControl1.Location = new Point(2 + deviceList.Width, tabControl1.Location.Y);
-            tabControl1.Width = Width - deviceList.Width - 4;
+            SetControls(newx, newy, this);
         }
 
             private void SetupDescibedTaskColumn()
@@ -401,21 +404,23 @@ namespace XingYuTengFormsApp
         {
 
             // Let's create an appropriately configured renderer.
-            DescribedTaskRenderer renderer = new DescribedTaskRenderer();
+            DescribedTaskRenderer renderer = new DescribedTaskRenderer
+            {
 
-            // Tell the renderer which property holds the text to be used as a description
-            renderer.DescriptionAspectName = "dataStrams";
+                // Tell the renderer which property holds the text to be used as a description
+                DescriptionAspectName = "dataStrams",
 
-            // Change the formatting slightly
-            renderer.TitleFont = new Font("Tahoma", 9);
-            renderer.DescriptionFont = new Font("Tahoma", 11, FontStyle.Bold);
-            renderer.ImageTextSpace = 8;
-            renderer.TitleDescriptionSpace = 1;
-            renderer.TitleColor = System.Drawing.Color.Gray;
-            renderer.DescriptionColor = System.Drawing.Color.Black;
+                // Change the formatting slightly
+                TitleFont = new Font("Tahoma", 9),
+                DescriptionFont = new Font("Tahoma", 11, FontStyle.Bold),
+                ImageTextSpace = 8,
+                TitleDescriptionSpace = 1,
+                TitleColor = System.Drawing.Color.Gray,
+                DescriptionColor = System.Drawing.Color.Black,
 
-            // Use older Gdi renderering, since most people think the text looks clearer
-            renderer.UseGdiTextRendering = true;
+                // Use older Gdi renderering, since most people think the text looks clearer
+                UseGdiTextRendering = true
+            };
 
             // If you like colours other than black and grey, you could uncomment these
             //            renderer.TitleColor = Color.DarkBlue;
@@ -431,7 +436,7 @@ namespace XingYuTengFormsApp
             }
         }
 
-        private void pictureBoxLagest_Click(object sender, EventArgs e)
+        private void PictureBoxLagest_Click(object sender, EventArgs e)
         {
             string Path = Util.Utils.GetPath();
             if (isMax)
@@ -450,12 +455,12 @@ namespace XingYuTengFormsApp
             }
         }
 
-        private void pictureBoxClose_Click(object sender, EventArgs e)
+        private void PictureBoxClose_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void pictureBoxSmall_Click(object sender, EventArgs e)
+        private void PictureBoxSmall_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;//最小化
         }
@@ -473,7 +478,7 @@ namespace XingYuTengFormsApp
                     }
                     else
                     {
-                        NetWorkUtil.Instance.addDevice(deviceId, this);
+                        NetWorkUtil.Instance.AddDevice(deviceId, this);
                     }
                 }
                 else {
@@ -483,7 +488,7 @@ namespace XingYuTengFormsApp
             }
         }
 
-        void InetworkResult.onSuccess(ItemPoint item)
+        void INetworkResult.OnSuccess(ItemPoint item)
         {
             if (items == null) {
                 items = new List<ItemPoint>();
@@ -492,7 +497,7 @@ namespace XingYuTengFormsApp
             deviceList.SetObjects(items);
         }
 
-        void InetworkResult.onFailure(string error)
+        void INetworkResult.OnFailure(string error)
         {
             MessageBox.Show(error);
         }
@@ -501,9 +506,9 @@ namespace XingYuTengFormsApp
     /// <summary>
     /// 添加设备返回结果
     /// </summary>
-    interface InetworkResult{
-        void onSuccess(ItemPoint item);
+    interface INetworkResult{
+        void OnSuccess(ItemPoint item);
 
-        void onFailure(string error);
+        void OnFailure(string error);
     }
 }

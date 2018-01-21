@@ -155,7 +155,7 @@
             this.pictureBoxSmall.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBoxSmall.TabIndex = 3;
             this.pictureBoxSmall.TabStop = false;
-            this.pictureBoxSmall.Click += new System.EventHandler(this.pictureBoxSmall_Click);
+            this.pictureBoxSmall.Click += new System.EventHandler(this.PictureBoxSmall_Click);
             // 
             // pictureBoxSize
             // 
@@ -169,7 +169,7 @@
             this.pictureBoxSize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBoxSize.TabIndex = 4;
             this.pictureBoxSize.TabStop = false;
-            this.pictureBoxSize.Click += new System.EventHandler(this.pictureBoxLagest_Click);
+            this.pictureBoxSize.Click += new System.EventHandler(this.PictureBoxLagest_Click);
             // 
             // pictureBoxClose
             // 
@@ -184,7 +184,7 @@
             this.pictureBoxClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBoxClose.TabIndex = 5;
             this.pictureBoxClose.TabStop = false;
-            this.pictureBoxClose.Click += new System.EventHandler(this.pictureBoxClose_Click);
+            this.pictureBoxClose.Click += new System.EventHandler(this.PictureBoxClose_Click);
             // 
             // Panel
             // 

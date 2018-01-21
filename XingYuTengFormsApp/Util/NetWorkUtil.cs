@@ -46,7 +46,7 @@ namespace XingYuTengFormsApp
         /// </summary>
         /// <param name="device_id"></param>
         /// <param name="result"></param>
-        public void addDevice(string device_id,InetworkResult result) {
+        public void AddDevice(string device_id,INetworkResult result) {
 
             // client.Authenticator = new HttpBasicAuthenticator(username, password);
 
@@ -72,11 +72,11 @@ namespace XingYuTengFormsApp
                     GetDataPoints(device.data, result, null, AllConstant.POINTS, null, null, null, null);
                 }
                 else {
-                    result.onFailure(device.error);
+                    result.OnFailure(device.error);
                 }
                 
             } else {
-                result.onFailure("获取设备信息失败");
+                result.OnFailure("获取设备信息失败");
             }
         }
 
@@ -85,7 +85,7 @@ namespace XingYuTengFormsApp
         /// </summary>
         /// <param name="deviceData"></param>
         /// <param name="result"></param>
-        public void GetDataPoints(DeviceData deviceData, InetworkResult result,string datastream_id,
+        public void GetDataPoints(DeviceData deviceData, INetworkResult result,string datastream_id,
             string limit,string start,string end,string cursor,string duration)
         {
 
@@ -141,9 +141,11 @@ namespace XingYuTengFormsApp
 
                 if (point.error.Equals("succ"))
                 {
-                    ItemPoint item = new ItemPoint();
-                    item.deviceId = deviceData.id;
-                    item.title = deviceData.title;
+                    ItemPoint item = new ItemPoint
+                    {
+                        deviceId = deviceData.id,
+                        title = deviceData.title
+                    };
                     StringBuilder builder = new StringBuilder();
                     foreach (DataStreams dataStream in point.data.datastreams)
                     {
@@ -177,18 +179,18 @@ namespace XingYuTengFormsApp
                     item.deviceDatastreams = deviceData.datastreams;
                     item.dataStrams = builder.ToString();
 
-                    result.onSuccess(item);
+                    result.OnSuccess(item);
 
                 }
                 else
                 {
-                    result.onFailure(point.error);
+                    result.OnFailure(point.error);
                 }
 
             }
             else
             {
-                result.onFailure("获取" + deviceData.title + "的数据失败");
+                result.OnFailure("获取" + deviceData.title + "的数据失败");
             }
         }
     }
