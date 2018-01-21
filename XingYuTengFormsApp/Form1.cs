@@ -366,6 +366,10 @@ namespace XingYuTengFormsApp
                         {
                             con.Width = Width - deviceList.Width - 4;
                         }
+                        else if(con.Name.Equals("Panel"))
+                        {
+                            con.Width = Width - 4;
+                        }
                         else
                         {
                             con.Width = (int)a;//宽度
