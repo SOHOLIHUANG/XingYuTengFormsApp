@@ -258,7 +258,6 @@
             this.detail.Size = new System.Drawing.Size(240, 307);
             this.detail.TabIndex = 0;
             this.detail.Visible = false;
-            this.detail.MouseLeave += new System.EventHandler(this.Panel_MouseLeave);
             // 
             // updateTime
             // 
@@ -320,7 +319,6 @@
             this.detailObject.UseFiltering = true;
             this.detailObject.UseHotItem = true;
             this.detailObject.View = System.Windows.Forms.View.Details;
-            this.detailObject.MouseLeave += new System.EventHandler(this.Panel_MouseLeave);
             // 
             // detailInfo
             // 
