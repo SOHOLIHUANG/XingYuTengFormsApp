@@ -22,6 +22,7 @@ namespace XingYuTengFormsApp
         private float width;
         private float height;
         private bool isMax;//最大化为true,否则为false
+        private bool isAdd;//添加设备true，否则为false
         const int Guying_HTLEFT = 10;
         const int Guying_HTRIGHT = 11;
         const int Guying_HTTOP = 12;
@@ -30,8 +31,9 @@ namespace XingYuTengFormsApp
         const int Guying_HTBOTTOM = 15;
         const int Guying_HTBOTTOMLEFT = 0x10;
         const int Guying_HTBOTTOMRIGHT = 17;
-        private List<ItemPoint> items;
+        private List<ItemPoint> items=new List<ItemPoint>();
         private string mDeviceId;
+        private int count;
         #endregion
 
         #region
@@ -60,12 +62,11 @@ namespace XingYuTengFormsApp
                 if (mDeviceId != null && mDeviceId.Equals(task.deviceId))
                 {
                     tabControl1.Controls.Clear();
+                    mDeviceId = null;
                 }
                 deviceList.SetObjects(items);
                 MessageBox.Show(task.title+"已删除");
             };
-
-            // Make and display a list of tasks
             CreateDeviceDatas();
         }
 
@@ -236,45 +237,51 @@ namespace XingYuTengFormsApp
         {
             if (listView.SelectedObject is ItemPoint oLVListItem)
             {
-                tabControl1.Controls.Clear();
                 mDeviceId = oLVListItem.deviceId;
-                foreach (DataStreams stream in oLVListItem.dataStreamsList)
+                AddTabPages(oLVListItem);
+            }
+        }
+
+        private void AddTabPages(ItemPoint oLVListItem)
+        {
+            tabControl1.Controls.Clear();
+            foreach (DataStreams stream in oLVListItem.dataStreamsList)
+            {
+                TabPage tabPage1 = new TabPage(); ;
+                tabPage1.BackColor = System.Drawing.Color.White;
+                tabPage1.Location = new System.Drawing.Point(4, 25);
+                tabPage1.Name = stream.id;
+                tabPage1.Padding = new System.Windows.Forms.Padding(3);
+                tabPage1.Size = new System.Drawing.Size(611, 443);
+                tabPage1.TabIndex = 0;
+                tabPage1.Text = stream.id + "曲线";
+                this.tabControl1.Controls.Add(tabPage1);
+
+
+                // 
+                // cartesianChart1
+                // 
+                LiveCharts.WinForms.CartesianChart cartesianChart1 = new LiveCharts.WinForms.CartesianChart
                 {
-                    TabPage tabPage1 = new TabPage(); ;
-                    tabPage1.BackColor = System.Drawing.Color.White;
-                    tabPage1.Location = new System.Drawing.Point(4, 25);
-                    tabPage1.Name = stream.id;
-                    tabPage1.Padding = new System.Windows.Forms.Padding(3);
-                    tabPage1.Size = new System.Drawing.Size(611, 443);
-                    tabPage1.TabIndex = 0;
-                    tabPage1.Text = stream.id + "曲线";
-                    this.tabControl1.Controls.Add(tabPage1);
+                    Dock = System.Windows.Forms.DockStyle.Fill,
+                    Location = new System.Drawing.Point(0, 0),
+                    Name = "cartesianChart1",
+                    Size = new System.Drawing.Size(734, 435),
+                    TabIndex = 1,
+                    Text = "cartesianChart1"
+                };
 
-
-                    // 
-                    // cartesianChart1
-                    // 
-                    LiveCharts.WinForms.CartesianChart cartesianChart1 = new LiveCharts.WinForms.CartesianChart
-                    {
-                        Dock = System.Windows.Forms.DockStyle.Fill,
-                        Location = new System.Drawing.Point(0, 0),
-                        Name = "cartesianChart1",
-                        Size = new System.Drawing.Size(734, 435),
-                        TabIndex = 1,
-                        Text = "cartesianChart1"
-                    };
-
-                    List<DataPoints> dataPointsList = stream.datapoints;
-                    double[] values = new double[dataPointsList.Count];
-                    string[] labels = new string[dataPointsList.Count];
-                    int m = 0;
-                    foreach (DataPoints dataPoints in dataPointsList)
-                    {
-                        values[m] = double.Parse(dataPoints.value);
-                        labels[m] = dataPoints.at;
-                        m++;
-                    }
-                    cartesianChart1.Series = new SeriesCollection
+                List<DataPoints> dataPointsList = stream.datapoints;
+                double[] values = new double[dataPointsList.Count];
+                string[] labels = new string[dataPointsList.Count];
+                int m = 0;
+                foreach (DataPoints dataPoints in dataPointsList)
+                {
+                    values[m] = double.Parse(dataPoints.value);
+                    labels[m] = dataPoints.at;
+                    m++;
+                }
+                cartesianChart1.Series = new SeriesCollection
                     {
                         new LineSeries
                         {
@@ -291,39 +298,38 @@ namespace XingYuTengFormsApp
                         }
                     };
 
-                    cartesianChart1.AxisX.Add(new Axis
-                    {
-                        Title = "时间",
-                        Labels = labels
-                    });
-
-                    string unit = null;
-                    foreach (DeviceDataStreams devicestream in oLVListItem.deviceDatastreams)
-                    {
-                        if (devicestream.id.Equals(stream.id))
-                        {
-                            unit = devicestream.unit;
-                            break;
-                        }
-                    }
-
-                    cartesianChart1.AxisY.Add(new Axis
-                    {
-                        //Title = "Sales",
-                        LabelFormatter = value => value.ToString("") + unit
-                    });
-
-                    cartesianChart1.LegendLocation = LegendLocation.Top;
-                    tabPage1.Controls.Add(cartesianChart1);
-                }
-                foreach (Control con in this.Controls)
+                cartesianChart1.AxisX.Add(new Axis
                 {
-                    if (!con.Name.Equals("Panel"))
+                    Title = "时间",
+                    Labels = labels
+                });
+
+                string unit = null;
+                foreach (DeviceDataStreams devicestream in oLVListItem.deviceDatastreams)
+                {
+                    if (devicestream.id.Equals(stream.id))
                     {
-                        con.Tag = con.Width + ":" + con.Height + ":" + con.Left + ":" + con.Top + ":" + con.Font.Size;
-                        if (con.Controls.Count > 0)
-                            SetTag(con);
+                        unit = devicestream.unit;
+                        break;
                     }
+                }
+
+                cartesianChart1.AxisY.Add(new Axis
+                {
+                    //Title = "Sales",
+                    LabelFormatter = value => value.ToString("") + unit
+                });
+
+                cartesianChart1.LegendLocation = LegendLocation.Top;
+                tabPage1.Controls.Add(cartesianChart1);
+            }
+            foreach (Control con in this.Controls)
+            {
+                if (!con.Name.Equals("Panel"))
+                {
+                    con.Tag = con.Width + ":" + con.Height + ":" + con.Left + ":" + con.Top + ":" + con.Font.Size;
+                    if (con.Controls.Count > 0)
+                        SetTag(con);
                 }
             }
         }
@@ -462,6 +468,9 @@ namespace XingYuTengFormsApp
 
         private void CreateDeviceDatas()
         {
+            items.Clear();
+            isAdd = false;
+            count = DeviceDataDao.Instance.Count();
             foreach (DeviceData deviceData in DeviceDataDao.Instance.GetAll()) {
                 ShowLoading();
                 NetWorkUtil.Instance.GetDataPoints(deviceData, this,null,AllConstant.POINTS,null,null,null,null);
@@ -511,6 +520,7 @@ namespace XingYuTengFormsApp
                     else
                     {
                         ShowLoading();
+                        isAdd = true;
                         NetWorkUtil.Instance.AddDevice(deviceId, this);
                     }
                 }
@@ -535,16 +545,27 @@ namespace XingYuTengFormsApp
 
         void INetworkResult.OnSuccess(ItemPoint item)
         {
-            if (items == null) {
-                items = new List<ItemPoint>();
-            }
             items.Add(item);
             HideLoading();
-            deviceList.SetObjects(items);
+            if (mDeviceId != null && mDeviceId.Equals(item.deviceId))
+            {
+                AddTabPages(item);
+            }
+            if (isAdd) {
+                deviceList.SetObjects(items);
+            } else
+            {
+                count--;
+                if (count == 0)
+                {
+                    deviceList.SetObjects(items);
+                }
+            }
         }
 
         void INetworkResult.OnFailure(string error)
         {
+            count--;
             HideLoading();
             MessageBox.Show(error);
         }
@@ -552,6 +573,11 @@ namespace XingYuTengFormsApp
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             detail.Visible = false;
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            CreateDeviceDatas();
         }
     }
 

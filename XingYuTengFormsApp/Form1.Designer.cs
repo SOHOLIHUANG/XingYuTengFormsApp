@@ -31,6 +31,7 @@ namespace XingYuTengFormsApp
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form));
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.label = new System.Windows.Forms.Label();
@@ -59,6 +60,7 @@ namespace XingYuTengFormsApp
             this.备注信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deviceList = new BrightIdeasSoftware.ObjectListView();
             this.loading = new System.Windows.Forms.PictureBox();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AddDevice)).BeginInit();
@@ -460,6 +462,12 @@ namespace XingYuTengFormsApp
             this.loading.TabStop = false;
             this.loading.Visible = false;
             // 
+            // timer
+            // 
+            this.timer.Enabled = true;
+            this.timer.Interval = 245000;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -532,6 +540,7 @@ namespace XingYuTengFormsApp
         private BrightIdeasSoftware.ObjectListView deviceList;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox loading;
+        private System.Windows.Forms.Timer timer;
     }
 }
 

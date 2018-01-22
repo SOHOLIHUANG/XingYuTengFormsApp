@@ -103,6 +103,14 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
             return hasId;
         }
 
+        public int Count()
+        {
+            int num = 0;
+            string sql = "select count(*) from " + AllConstant.DEVICEDATA_TABLE +";";
+            num = Convert.ToInt32(SQLiteHelper.ExecuteScalar(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text));
+            return num;
+        }
+
         public void Delete(string deviceId)
         {
             string sql = "DELETE FROM "+AllConstant.DEVICEDATA_TABLE+" WHERE id = "+deviceId;
