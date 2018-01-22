@@ -31,6 +31,14 @@ namespace XingYuTengFormsApp
         const int Guying_HTBOTTOMLEFT = 0x10;
         const int Guying_HTBOTTOMRIGHT = 17;
         private List<ItemPoint> items;
+
+
+        /// <summary>
+        /// 关闭最大化还原
+        /// </summary>
+        const int SC_CLOSE = 0xF060;
+        const int SC_MINIMIZE = 0xF020;
+        const int SC_MAXIMIZE = 0xF030;
         #endregion
 
         #region
@@ -62,7 +70,24 @@ namespace XingYuTengFormsApp
         /// <param name="m"></param>
         protected override void WndProc(ref Message m)
         {
-            switch (m.Msg)
+            if (m.Msg == WM_SYSCOMMAND)
+            {
+                if (m.WParam.ToInt32() == SC_MINIMIZE) //是否点击最小化
+                {
+                    //这里写操作代码
+                    this.Visible = false; //隐藏窗体
+                    return;
+                }
+                if (m.WParam.ToInt32() == SC_MAXIMIZE) //是否点击最大化
+                {
+                    //.....................
+                }
+                if (m.WParam.ToInt32() == SC_CLOSE) //是否点击关闭
+                {  //.....................}
+
+                }
+            }
+                switch (m.Msg)
             {
                 case 0x0084:
                     base.WndProc(ref m);
@@ -517,6 +542,11 @@ namespace XingYuTengFormsApp
         void INetworkResult.OnFailure(string error)
         {
             MessageBox.Show(error);
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            detail.Visible = false;
         }
     }
 

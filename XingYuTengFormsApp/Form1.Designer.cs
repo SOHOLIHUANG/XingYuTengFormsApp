@@ -44,6 +44,7 @@
             this.columnValue = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.detail = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.updateTime = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.detailObject = new BrightIdeasSoftware.ObjectListView();
@@ -61,6 +62,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             this.Panel.SuspendLayout();
             this.detail.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.detailObject)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceList)).BeginInit();
@@ -123,7 +125,7 @@
             this.deviceID.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.deviceID.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.deviceID.BackColor = System.Drawing.Color.White;
             this.deviceID.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.deviceID.Font = new System.Drawing.Font("宋体", 15F);
             this.deviceID.Location = new System.Drawing.Point(115, 5);
@@ -249,6 +251,7 @@
             // detail
             // 
             this.detail.BackColor = System.Drawing.Color.RoyalBlue;
+            this.detail.Controls.Add(this.pictureBox1);
             this.detail.Controls.Add(this.updateTime);
             this.detail.Controls.Add(this.label1);
             this.detail.Controls.Add(this.detailObject);
@@ -259,6 +262,18 @@
             this.detail.Size = new System.Drawing.Size(240, 307);
             this.detail.TabIndex = 0;
             this.detail.Visible = false;
+            this.detail.MouseLeave += new System.EventHandler(this.Panel_MouseLeave);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(220, 5);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(13, 13);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 31;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // updateTime
             // 
@@ -320,6 +335,7 @@
             this.detailObject.UseFiltering = true;
             this.detailObject.UseHotItem = true;
             this.detailObject.View = System.Windows.Forms.View.Details;
+            this.detailObject.MouseLeave += new System.EventHandler(this.Panel_MouseLeave);
             // 
             // detailInfo
             // 
@@ -332,6 +348,7 @@
             this.detailInfo.TabIndex = 1;
             this.detailInfo.Text = "eeeeee";
             this.detailInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.detailInfo.MouseLeave += new System.EventHandler(this.Panel_MouseLeave);
             // 
             // menuStrip1
             // 
@@ -431,7 +448,6 @@
             this.TransparencyKey = System.Drawing.Color.Lavender;
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Panel_MouseLeave);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -443,6 +459,7 @@
             this.Panel.PerformLayout();
             this.detail.ResumeLayout(false);
             this.detail.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.detailObject)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -477,6 +494,7 @@
         private BrightIdeasSoftware.ObjectListView detailObject;
         private System.Windows.Forms.TextBox detailInfo;
         private BrightIdeasSoftware.ObjectListView deviceList;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
