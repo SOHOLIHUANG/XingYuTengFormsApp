@@ -360,7 +360,7 @@ namespace XingYuTengFormsApp
         {
             foreach (Control con in cons.Controls)
             {
-                if (con.Name.Equals("detail"))
+                if (con.Name.Equals("detail")||con.Name.Equals("loading"))
                 {
                     continue;
                 }
@@ -463,6 +463,7 @@ namespace XingYuTengFormsApp
         private void CreateDeviceDatas()
         {
             foreach (DeviceData deviceData in DeviceDataDao.Instance.GetAll()) {
+                ShowLoading();
                 NetWorkUtil.Instance.GetDataPoints(deviceData, this,null,AllConstant.POINTS,null,null,null,null);
             }
         }
@@ -509,6 +510,7 @@ namespace XingYuTengFormsApp
                     }
                     else
                     {
+                        ShowLoading();
                         NetWorkUtil.Instance.AddDevice(deviceId, this);
                     }
                 }
@@ -519,17 +521,31 @@ namespace XingYuTengFormsApp
             }
         }
 
+        private void ShowLoading()
+        {
+            Point point = tabControl1.Location;
+            loading.Location = new Point(point.X+(tabControl1.Width-loading.Width)/2, point.Y +(tabControl1.Height-loading.Height)/2);
+            loading.Visible = true;
+        }
+
+        private void HideLoading()
+        {
+            loading.Visible = false;
+        }
+
         void INetworkResult.OnSuccess(ItemPoint item)
         {
             if (items == null) {
                 items = new List<ItemPoint>();
             }
             items.Add(item);
+            HideLoading();
             deviceList.SetObjects(items);
         }
 
         void INetworkResult.OnFailure(string error)
         {
+            HideLoading();
             MessageBox.Show(error);
         }
 

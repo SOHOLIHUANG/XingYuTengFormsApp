@@ -58,6 +58,7 @@ namespace XingYuTengFormsApp
             this.修改设备ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.备注信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deviceList = new BrightIdeasSoftware.ObjectListView();
+            this.loading = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AddDevice)).BeginInit();
@@ -70,6 +71,7 @@ namespace XingYuTengFormsApp
             ((System.ComponentModel.ISupportInitialize)(this.detailObject)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loading)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox
@@ -445,6 +447,19 @@ namespace XingYuTengFormsApp
             this.deviceList.UseTranslucentHotItem = true;
             this.deviceList.View = System.Windows.Forms.View.Details;
             // 
+            // loading
+            // 
+            this.loading.BackColor = System.Drawing.Color.White;
+            this.loading.ErrorImage = null;
+            this.loading.Image = global::XingYuTengFormsApp.Properties.Resources.waiting;
+            this.loading.Location = new System.Drawing.Point(91, 233);
+            this.loading.Name = "loading";
+            this.loading.Size = new System.Drawing.Size(128, 128);
+            this.loading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.loading.TabIndex = 5;
+            this.loading.TabStop = false;
+            this.loading.Visible = false;
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -452,6 +467,7 @@ namespace XingYuTengFormsApp
             this.BackColor = System.Drawing.Color.Lavender;
             this.ClientSize = new System.Drawing.Size(920, 580);
             this.ControlBox = false;
+            this.Controls.Add(this.loading);
             this.Controls.Add(this.detail);
             this.Controls.Add(this.deviceList);
             this.Controls.Add(this.tabControl1);
@@ -482,6 +498,7 @@ namespace XingYuTengFormsApp
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.loading)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -514,6 +531,7 @@ namespace XingYuTengFormsApp
         private System.Windows.Forms.TextBox detailInfo;
         private BrightIdeasSoftware.ObjectListView deviceList;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox loading;
     }
 }
 

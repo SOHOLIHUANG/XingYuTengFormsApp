@@ -67,5 +67,15 @@ namespace XingYuTengFormsApp.Properties
                 resourceCulture = value;
             }
         }
+
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        public static System.Drawing.Bitmap waiting {
+            get {
+                object obj = ResourceManager.GetObject("waiting", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
