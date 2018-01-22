@@ -1,4 +1,7 @@
-﻿namespace XingYuTengFormsApp
+﻿using BrightIdeasSoftware;
+using System.Drawing;
+
+namespace XingYuTengFormsApp
 {
     partial class Form
     {
@@ -42,6 +45,7 @@
             this.olvColumnDesk = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.columnName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.columnValue = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.olvColumnDelete = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.detail = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -212,7 +216,7 @@
             this.olvColumnDesk.MinimumWidth = 40;
             this.olvColumnDesk.Text = "设备列表";
             this.olvColumnDesk.ToolTipText = "";
-            this.olvColumnDesk.Width = 302;
+            this.olvColumnDesk.Width = 245;
             // 
             // columnName
             // 
@@ -237,6 +241,18 @@
             this.columnValue.Text = "测量值";
             this.columnValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnValue.Width = 120;
+            // 
+            // olvColumnDelete
+            // 
+            this.olvColumnDelete.AspectName = "delete";
+            this.olvColumnDelete.ButtonSize = new System.Drawing.Size(35, 20);
+            this.olvColumnDelete.ButtonSizing = BrightIdeasSoftware.OLVColumn.ButtonSizingMode.FixedBounds;
+            this.olvColumnDelete.EnableButtonWhenItemIsDisabled = true;
+            this.olvColumnDelete.HeaderTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.olvColumnDelete.IsButton = true;
+            this.olvColumnDelete.Text = "删除";
+            this.olvColumnDelete.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.olvColumnDelete.Width = 55;
             // 
             // tabControl1
             // 
@@ -387,15 +403,17 @@
             // deviceList
             // 
             this.deviceList.AllColumns.Add(this.olvColumnDesk);
+            this.deviceList.AllColumns.Add(this.olvColumnDelete);
             this.deviceList.AllowColumnReorder = true;
             this.deviceList.AllowDrop = true;
             this.deviceList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.deviceList.BackColor = System.Drawing.SystemColors.Window;
+            this.deviceList.BackColor = System.Drawing.Color.White;
             this.deviceList.CellEditUseWholeCell = false;
             this.deviceList.CheckBoxes = true;
             this.deviceList.CheckedAspectName = "";
             this.deviceList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.olvColumnDesk});
+            this.olvColumnDesk,
+            this.olvColumnDelete});
             this.deviceList.Cursor = System.Windows.Forms.Cursors.Default;
             this.deviceList.EmptyListMsg = "未添加设备";
             this.deviceList.FullRowSelect = true;
@@ -483,6 +501,7 @@
         private BrightIdeasSoftware.OLVColumn columnName;
         private BrightIdeasSoftware.OLVColumn olvColumnDesk;
         private BrightIdeasSoftware.OLVColumn columnValue;
+        private BrightIdeasSoftware.OLVColumn olvColumnDelete;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.Panel detail;
         private System.Windows.Forms.MenuStrip menuStrip1;

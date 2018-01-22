@@ -31,14 +31,7 @@ namespace XingYuTengFormsApp
         const int Guying_HTBOTTOMLEFT = 0x10;
         const int Guying_HTBOTTOMRIGHT = 17;
         private List<ItemPoint> items;
-
-
-        /// <summary>
-        /// 关闭最大化还原
-        /// </summary>
-        const int SC_CLOSE = 0xF060;
-        const int SC_MINIMIZE = 0xF020;
-        const int SC_MAXIMIZE = 0xF030;
+        private string mDeviceId;
         #endregion
 
         #region
@@ -59,6 +52,18 @@ namespace XingYuTengFormsApp
             // the height of the images used by the renderer
             this.deviceList.RowHeight = 54;
             this.deviceList.UseAlternatingBackColors = false;
+            this.deviceList.ButtonClick += delegate (object sender, CellClickEventArgs e)
+            {
+                ItemPoint task = (ItemPoint)e.Model;
+                DeviceDataDao.Instance.Delete(task.deviceId);
+                items.Remove(task);
+                if (mDeviceId != null && mDeviceId.Equals(task.deviceId))
+                {
+                    tabControl1.Controls.Clear();
+                }
+                deviceList.SetObjects(items);
+                MessageBox.Show(task.title+"已删除");
+            };
 
             // Make and display a list of tasks
             CreateDeviceDatas();
@@ -70,24 +75,7 @@ namespace XingYuTengFormsApp
         /// <param name="m"></param>
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == WM_SYSCOMMAND)
-            {
-                if (m.WParam.ToInt32() == SC_MINIMIZE) //是否点击最小化
-                {
-                    //这里写操作代码
-                    this.Visible = false; //隐藏窗体
-                    return;
-                }
-                if (m.WParam.ToInt32() == SC_MAXIMIZE) //是否点击最大化
-                {
-                    //.....................
-                }
-                if (m.WParam.ToInt32() == SC_CLOSE) //是否点击关闭
-                {  //.....................}
-
-                }
-            }
-                switch (m.Msg)
+            switch (m.Msg)
             {
                 case 0x0084:
                     base.WndProc(ref m);
@@ -146,6 +134,7 @@ namespace XingYuTengFormsApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
             this.deviceList.SelectionChanged += delegate (object listSender, EventArgs args)
             {
                 HandleSelectionChanged(deviceList);
@@ -248,6 +237,7 @@ namespace XingYuTengFormsApp
             if (listView.SelectedObject is ItemPoint oLVListItem)
             {
                 tabControl1.Controls.Clear();
+                mDeviceId = oLVListItem.deviceId;
                 foreach (DataStreams stream in oLVListItem.dataStreamsList)
                 {
                     TabPage tabPage1 = new TabPage(); ;
@@ -459,11 +449,10 @@ namespace XingYuTengFormsApp
             DescribedTaskRenderer renderer = new DescribedTaskRenderer
             {
                 DescriptionAspectName = "dataStrams",
-                TitleFont = new Font("Tahoma", 9),
-                DescriptionFont = new Font("Tahoma", 11, FontStyle.Bold),
+                TitleFont = new Font("Tahoma", 8),
+                DescriptionFont = new Font("Tahoma", 10, FontStyle.Bold),
                 ImageTextSpace = 8,
                 TitleDescriptionSpace = 1,
-                TitleColor = System.Drawing.Color.Gray,
                 DescriptionColor = System.Drawing.Color.Black,
                 UseGdiTextRendering = true
             };

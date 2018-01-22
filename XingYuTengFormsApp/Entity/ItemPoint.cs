@@ -13,5 +13,9 @@ namespace XingYuTengFormsApp.Entity
         public List<DataStreams> dataStreamsList { set; get; }
         public List<DeviceDataStreams> deviceDatastreams { get; set; }
         public string dataStrams { set; get; }
+
+        public string delete { get {
+                return "×";
+            } }
     }
 }

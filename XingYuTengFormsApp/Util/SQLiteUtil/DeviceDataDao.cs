@@ -58,7 +58,6 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
             string sql = "INSERT OR REPLACE INTO DeviceData VALUES('" + deviceData.auth_info+"','"+deviceData.create_time+"',"+deviceData.id+",'"+location+"','"
                 +deviceData.online+"','"+deviceData.isPrivate+"','"+deviceData.protocol+"','"+deviceData.title+"','"+deviceData.desc+"','"+datastreams+"');";
             SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
-
         }
 
         /// <summary>
@@ -102,6 +101,12 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
             hasId = dataReader.HasRows;
             dataReader.Close();
             return hasId;
+        }
+
+        public void Delete(string deviceId)
+        {
+            string sql = "DELETE FROM "+AllConstant.DEVICEDATA_TABLE+" WHERE id = "+deviceId;
+            SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
         }
     }
 }
