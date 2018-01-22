@@ -202,6 +202,7 @@
             this.Panel.Name = "Panel";
             this.Panel.Size = new System.Drawing.Size(916, 104);
             this.Panel.TabIndex = 3;
+            this.Panel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Panel_MouseDown);
             // 
             // olvColumnDesk
             // 
