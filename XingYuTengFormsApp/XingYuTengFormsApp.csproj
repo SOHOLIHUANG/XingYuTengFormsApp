@@ -124,6 +124,10 @@
     <Compile Include="Entity\Location.cs" />
     <Compile Include="Entity\AppPoint.cs" />
     <Compile Include="Entity\PointData.cs" />
+    <Compile Include="Entity\UpdateDevice.cs" />
+    <Compile Include="Entity\UpdateDesc.cs" />
+    <Compile Include="Entity\UpdateResponse.cs" />
+    <Compile Include="Entity\UpdateTitle.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

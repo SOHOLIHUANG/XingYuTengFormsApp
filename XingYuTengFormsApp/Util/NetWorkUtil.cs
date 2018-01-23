@@ -81,6 +81,76 @@ namespace XingYuTengFormsApp
         }
 
         /// <summary>
+        /// 更新设备信息
+        /// </summary>
+        /// <param name="device_id"></param>
+        /// <param name="result"></param>
+        public void UpdateDevice(string device_id,string title,string desc, IUpdateDeviceResult result)
+        {
+
+            // client.Authenticator = new HttpBasicAuthenticator(username, password);
+
+            var request = new RestRequest("devices/{device_id}", Method.PUT);
+            request.AddUrlSegment("device_id", device_id); // replaces matching token in request.Resource
+
+            // add parameters for all properties on an object
+            //request.AddObject(object);
+
+            // or just whitelisted properties
+            //request.AddObject(object, "PersonId", "Name", ...);
+
+            // easily add HTTP Headers
+            request.AddHeader("api-key", "VtaeS4yK3Fk6xiOljgw69lYcH9k=");
+            request.AddHeader("Content-Type", "application/json");
+            request.AddHeader("Accept", "application/json");
+            string[] keys = null;
+            string[] values = null;
+            if (!string.IsNullOrEmpty(title)&& !string.IsNullOrEmpty(desc))
+            {
+                UpdateDevice updateDevice = new Entity.UpdateDevice();
+                updateDevice.title = title;
+                updateDevice.desc = desc;
+                keys= new string[] {"title","desc"};
+                values= new string[] { title, desc };
+                request.AddJsonBody(updateDevice);
+            }
+            else if (!string.IsNullOrEmpty(title))
+            {
+                UpdateTitle updateTitle = new Entity.UpdateTitle();
+                updateTitle.title = title;
+                keys = new string[] {"title"};
+                values = new string[] {title};
+                request.AddJsonBody(updateTitle);
+            }else if(!string.IsNullOrEmpty(desc))
+            {
+                UpdateDesc updateDesc = new UpdateDesc();
+                updateDesc.desc = desc;
+                keys = new string[] { "desc" };
+                values = new string[] { desc };
+                request.AddJsonBody(updateDesc);
+            }
+
+            IRestResponse response = client.Execute(request);
+            var content = response.Content; // raw content as string
+            if (response.IsSuccessful)
+            {
+                UpdateResponse updateResponse= JsonHelper.DeserializeJsonToObject<UpdateResponse>(content);
+                if (updateResponse.error.Equals("succ"))
+                {
+                    DeviceDataDao.Instance.Update(device_id, keys, values);
+                    result.OnSuccess("更新成功");
+                }
+                else
+                {
+                    result.OnFailure(updateResponse.error);
+                }
+            }
+            else
+            {
+                result.OnFailure("更新设备信息失败");
+            }
+        }
+        /// <summary>
         /// 获取绘制图表的数据点
         /// </summary>
         /// <param name="deviceData"></param>

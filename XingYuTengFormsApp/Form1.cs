@@ -608,7 +608,7 @@ namespace XingYuTengFormsApp
 
         private void 修改设备ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form2 item = Form2.GetSingle(dialogDeviceId);
+            Form2 item =new Form2(dialogDeviceId);
             item.Location =Location;
             if (!item.IsDisposed)
             {

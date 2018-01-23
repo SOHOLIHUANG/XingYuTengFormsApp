@@ -60,6 +60,21 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
             SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
         }
 
+        public void Update(string deviceId,string[] keys,string[] values)
+        {
+            StringBuilder builder = new StringBuilder("UPDATE " + AllConstant.DEVICEDATA_TABLE + " SET ");
+            for(int i = 0; i < keys.Length; i++)
+            {
+                if (i == keys.Length - 1) {
+                    builder.Append(keys[i] + " = '" + values[i] + "' WHERE id = '"+deviceId+"';");
+                } else
+                {
+                    builder.Append(keys[i] + " = '" + values[i] + "',");
+                }
+            }
+            SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString, builder.ToString(), CommandType.Text);
+        }
+
         public DeviceData GetDeviceDataById(string deviceId)
         {
             DeviceData deviceData = null;

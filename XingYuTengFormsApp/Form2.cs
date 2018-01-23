@@ -12,39 +12,83 @@ using XingYuTengFormsApp.Util.SQLiteUtil;
 
 namespace XingYuTengFormsApp
 {
-    public partial class Form2 : System.Windows.Forms.Form
+    public partial class Form2 : System.Windows.Forms.Form, IUpdateDeviceResult
     {
-        
-        public static Form2 SingleForm = null;
 
-        private string Id;
+        private DeviceData deviceData;
+        private string oldTitle;
+        private string oldDesc;
         public Form2(String deviceId)
         {
             InitializeComponent();
 
-            Id = deviceId;
+            deviceData = DeviceDataDao.Instance.GetDeviceDataById(deviceId);
         }
 
-        public static Form2 GetSingle(String deviceId)
+        public void OnFailure(string error)
         {
-            if (SingleForm == null || SingleForm.IsDisposed)
-            {
-                SingleForm = new Form2(deviceId);
-            }
-            return SingleForm;
+            MessageBox.Show(error);
+        }
+
+        public void OnSuccess(string item)
+        {
+            MessageBox.Show(item);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (!string.IsNullOrEmpty(title.Text) || !string.IsNullOrEmpty(desc.Text)) {
+                string mTitle=null,mDesc=null;
+                if (!string.IsNullOrEmpty(title.Text))
+                {
+                    if (string.IsNullOrEmpty(oldTitle)) {
+                        mTitle = title.Text;
+                    }
+                    else
+                    {
+                        if (!title.Text.Equals(oldTitle))
+                        {
+                            mTitle = title.Text;
+                        }
+                    }
+                }
 
+                if (!string.IsNullOrEmpty(desc.Text))
+                {
+                    if (string.IsNullOrEmpty(oldDesc))
+                    {
+                        mDesc = desc.Text;
+                    }
+                    else
+                    {
+                        if (!desc.Text.Equals(oldDesc))
+                        {
+                            mDesc = desc.Text;
+                        }
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(mTitle) || !string.IsNullOrEmpty(mDesc))
+                {
+                    NetWorkUtil.Instance.UpdateDevice(deviceData.id, mTitle, mDesc, this);
+                }
+            }
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            label2.Text = Id;
-            DeviceData deviceData=DeviceDataDao.Instance.GetDeviceDataById(Id);
-            textBox1.Text = deviceData.title;
-            richTextBox1.Text = deviceData.desc;
+            label2.Text = deviceData.id;
+            title.Text = deviceData.title;
+            oldTitle = deviceData.title;
+            desc.Text = deviceData.desc;
+            oldDesc = deviceData.desc;
         }
+    }
+
+    interface IUpdateDeviceResult
+    {
+        void OnSuccess(string item);
+
+        void OnFailure(string error);
     }
 }
