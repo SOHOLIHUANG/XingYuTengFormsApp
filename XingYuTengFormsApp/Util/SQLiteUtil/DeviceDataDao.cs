@@ -60,6 +60,31 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
             SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
         }
 
+        public DeviceData GetDeviceDataById(string deviceId)
+        {
+            DeviceData deviceData = null;
+            string sql = "select * from " + AllConstant.DEVICEDATA_TABLE +" WHERE id = "+deviceId+ ";";
+            SQLiteDataReader dataReader = (SQLiteDataReader)SQLiteHelper.ExecuteReader(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
+            while (dataReader.Read())
+            {
+                deviceData = new DeviceData();
+                deviceData.auth_info = dataReader["auth_info"].ToString();
+                deviceData.create_time = dataReader["create_time"].ToString();
+                deviceData.id = dataReader["id"].ToString();
+                string location = dataReader["location"].ToString();
+                deviceData.location = (Location)JsonHelper.DeserializeJsonToObject<Location>(location);
+                deviceData.online = bool.Parse(dataReader["online"].ToString());
+                deviceData.isPrivate = bool.Parse(dataReader["isPrivate"].ToString());
+                deviceData.protocol = dataReader["protocol"].ToString();
+                deviceData.title = dataReader["title"].ToString();
+                deviceData.desc = dataReader["desc"].ToString();
+                string datastreams = dataReader["datastreams"].ToString();
+                deviceData.datastreams = JsonHelper.DeserializeJsonToList<DeviceDataStreams>(datastreams);
+            }
+            dataReader.Close();
+            return deviceData;
+        }
+
         /// <summary>
         /// 获取表中所有信息
         /// </summary>

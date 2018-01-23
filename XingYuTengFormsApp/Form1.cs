@@ -12,6 +12,7 @@ using XingYuTengFormsApp.Util.SQLiteUtil;
 using LiveCharts;
 using LiveCharts.Wpf;
 using System.Windows.Media;
+using System.Threading;
 
 namespace XingYuTengFormsApp
 {
@@ -32,8 +33,10 @@ namespace XingYuTengFormsApp
         const int Guying_HTBOTTOMLEFT = 0x10;
         const int Guying_HTBOTTOMRIGHT = 17;
         private List<ItemPoint> items=new List<ItemPoint>();
-        private string mDeviceId;
+        private string mDeviceId;//存储正在显示图表的设备id
+        private string dialogDeviceId;//存储弹框里的设备id
         private int count;
+        private Thread thread;
         #endregion
 
         #region
@@ -67,7 +70,14 @@ namespace XingYuTengFormsApp
                 deviceList.SetObjects(items);
                 MessageBox.Show(task.title+"已删除");
             };
-            CreateDeviceDatas();
+            Control.CheckForIllegalCrossThreadCalls = false;
+            BackThread();
+        }
+
+        private void BackThread()
+        {
+            thread = new Thread(new ThreadStart(CreateDeviceDatas));
+            thread.Start();
         }
 
         /// <summary>
@@ -187,6 +197,7 @@ namespace XingYuTengFormsApp
 
                         ItemPoint oLVListItem = (ItemPoint)deviceList.GetItem(args.HotRowIndex).RowObject;
                         detailInfo.Text = oLVListItem.title;
+                        dialogDeviceId = oLVListItem.deviceId;
                         List<DetailValue> list = new List<DetailValue>();
                         string time = null;
                         foreach (DataStreams dataStream in oLVListItem.dataStreamsList)
@@ -468,12 +479,16 @@ namespace XingYuTengFormsApp
 
         private void CreateDeviceDatas()
         {
+            ShowLoading();
             items.Clear();
             isAdd = false;
             count = DeviceDataDao.Instance.Count();
             foreach (DeviceData deviceData in DeviceDataDao.Instance.GetAll()) {
-                ShowLoading();
                 NetWorkUtil.Instance.GetDataPoints(deviceData, this,null,AllConstant.POINTS,null,null,null,null);
+            }
+            if (count == 0)
+            {
+                HideLoading();
             }
         }
 
@@ -521,7 +536,9 @@ namespace XingYuTengFormsApp
                     {
                         ShowLoading();
                         isAdd = true;
-                        NetWorkUtil.Instance.AddDevice(deviceId, this);
+                        thread = new Thread(new ParameterizedThreadStart(AddDeviceThread));
+                        thread.Start(deviceId);
+                        
                     }
                 }
                 else {
@@ -529,6 +546,11 @@ namespace XingYuTengFormsApp
                 }
                                
             }
+        }
+
+        private void AddDeviceThread(object obj)
+        {
+            NetWorkUtil.Instance.AddDevice((string)obj, this);
         }
 
         private void ShowLoading()
@@ -551,14 +573,18 @@ namespace XingYuTengFormsApp
             {
                 AddTabPages(item);
             }
-            if (isAdd) {
-                deviceList.SetObjects(items);
-            } else
-            {
-                count--;
-                if (count == 0)
+            if (!deviceList.IsDisposed) {
+                if (isAdd)
                 {
                     deviceList.SetObjects(items);
+                }
+                else
+                {
+                    count--;
+                    if (count == 0)
+                    {
+                        deviceList.SetObjects(items);
+                    }
                 }
             }
         }
@@ -577,7 +603,18 @@ namespace XingYuTengFormsApp
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            CreateDeviceDatas();
+            BackThread();
+        }
+
+        private void 修改设备ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form2 item = Form2.GetSingle(dialogDeviceId);
+            item.Location =Location;
+            if (!item.IsDisposed)
+            {
+                item.Hide();
+                item.Show();
+            }
         }
     }
 

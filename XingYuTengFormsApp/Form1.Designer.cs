@@ -395,13 +395,14 @@ namespace XingYuTengFormsApp
             // 修改设备ToolStripMenuItem
             // 
             this.修改设备ToolStripMenuItem.Name = "修改设备ToolStripMenuItem";
-            this.修改设备ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.修改设备ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.修改设备ToolStripMenuItem.Text = "修改设备";
+            this.修改设备ToolStripMenuItem.Click += new System.EventHandler(this.修改设备ToolStripMenuItem_Click);
             // 
             // 备注信息ToolStripMenuItem
             // 
             this.备注信息ToolStripMenuItem.Name = "备注信息ToolStripMenuItem";
-            this.备注信息ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.备注信息ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.备注信息ToolStripMenuItem.Text = "备注信息";
             // 
             // deviceList
