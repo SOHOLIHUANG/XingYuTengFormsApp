@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using XingYuTengFormsApp.Entity;
 using XingYuTengFormsApp.Util.SQLiteUtil;
@@ -11,7 +12,7 @@ namespace XingYuTengFormsApp
         private DeviceData deviceData;
         private string oldTitle;
         private string oldDesc;
-        private string oldTMax, oldTMin, oldHMax, oldHMin;
+        private Warning warning;
         public Form2(String deviceId)
         {
             InitializeComponent();
@@ -68,66 +69,97 @@ namespace XingYuTengFormsApp
                 }
             }
 
-            if (!string.IsNullOrEmpty(tMax.Text) || !string.IsNullOrEmpty(tMin.Text) ||
-                !string.IsNullOrEmpty(hMax.Text) || !string.IsNullOrEmpty(hMin.Text)) {
-                string mTMax = null, mTMin = null,mHMax=null,mHMin=null;
-                if (!string.IsNullOrEmpty(tMax.Text)) {
-                    if (string.IsNullOrEmpty(oldTMax)) {
-                        mTMax = tMax.Text;
-                    } else
-                    {
-                        if (!oldTMax.Equals(tMax.Text))
-                        {
-                            mTMax = tMax.Text;
-                        }
-                    }
-                }
+            if (warning == null)
+            {
+                warning = new Warning();
+                warning.id = deviceData.id;
+            }
 
-                if (!string.IsNullOrEmpty(tMin.Text))
+            if (!string.IsNullOrEmpty(tMax.Text))
+            {
+                if (Regex.IsMatch(tMax.Text, AllConstant.IS_TEMP))
                 {
-                    if (string.IsNullOrEmpty(oldTMin))
-                    {
-                        mTMin = tMin.Text;
-                    }
-                    else
-                    {
-                        if (!oldTMin.Equals(tMin.Text))
-                        {
-                            mTMin = tMin.Text;
-                        }
-                    }
+                    warning.temperatureMax = tMax.Text;
                 }
-
-                if (!string.IsNullOrEmpty(hMax.Text))
+                else
                 {
-                    if (string.IsNullOrEmpty(oldHMax))
-                    {
-                        mHMax = hMax.Text;
-                    }
-                    else
-                    {
-                        if (!oldHMax.Equals(hMax.Text))
-                        {
-                            mHMax = hMax.Text;
-                        }
-                    }
-                }
-
-                if (!string.IsNullOrEmpty(hMin.Text))
-                {
-                    if (string.IsNullOrEmpty(oldHMin))
-                    {
-                        mHMin = hMin.Text;
-                    }
-                    else
-                    {
-                        if (!oldHMin.Equals(hMin.Text))
-                        {
-                            mHMin = hMin.Text;
-                        }
-                    }
+                    MessageBox.Show("请输入最多两位小数的数字");
+                    return;
                 }
             }
+
+            if (!string.IsNullOrEmpty(tMin.Text))
+            {
+                if (Regex.IsMatch(tMin.Text, AllConstant.IS_TEMP))
+                {
+                    warning.temperatureMin = tMin.Text;
+                }
+                else
+                {
+                    MessageBox.Show("请输入最多两位小数的数字");
+                    return;
+                }
+            }
+
+            if(!string.IsNullOrEmpty(tMin.Text)&& !string.IsNullOrEmpty(tMax.Text))
+            {
+                if (double.Parse(tMin.Text)>double.Parse(tMax.Text))
+                {
+                    MessageBox.Show("温度最小值不能大于最大值");
+                    return;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(hMax.Text))
+            {
+                if (Regex.IsMatch(hMax.Text, AllConstant.IS_HUM))
+                {
+                    if (double.Parse(hMax.Text) > 100)
+                    {
+                        MessageBox.Show("湿度警戒值不能大于100");
+                        return;
+                    }
+                    else
+                    {
+                        warning.humidityMax = hMax.Text;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("请输入0-100之间的数字");
+                }
+            }
+
+            if (!string.IsNullOrEmpty(hMin.Text))
+            {
+                if (Regex.IsMatch(hMin.Text, AllConstant.IS_HUM))
+                {
+                    if (double.Parse(hMin.Text) > 100)
+                    {
+                        MessageBox.Show("湿度值在0-100之间");
+                        return;
+                    }
+                    else
+                    {
+                        warning.humidityMin = hMin.Text;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("湿度值在0-100之间");
+                }
+            }
+
+            if(!string.IsNullOrEmpty(hMin.Text)&& !string.IsNullOrEmpty(hMax.Text))
+            {
+                if (double.Parse(hMin.Text) > double.Parse(hMax.Text))
+                {
+                    MessageBox.Show("湿度最小值不能大于湿度最大值");
+                    return;
+                }
+            }
+
+            WarningDao.Instance.Insert(warning);
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -137,17 +169,13 @@ namespace XingYuTengFormsApp
             oldTitle = deviceData.title;
             desc.Text = deviceData.desc;
             oldDesc = deviceData.desc;
-            Warning warning=WarningDao.Instance.GetWarningById(deviceData.id);
+            warning=WarningDao.Instance.GetWarningById(deviceData.id);
             if (warning != null)
             {
                 tMax.Text = warning.temperatureMax;
-                oldTMax = warning.temperatureMax;
                 tMin.Text = warning.temperatureMin;
-                oldTMin = warning.temperatureMin;
                 hMax.Text = warning.humidityMax;
-                oldHMax = warning.humidityMax;
                 hMin.Text = warning.humidityMin;
-                oldHMin = warning.humidityMin;
             }
         }
     }
