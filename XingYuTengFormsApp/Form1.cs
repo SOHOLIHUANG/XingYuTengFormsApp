@@ -169,18 +169,7 @@ namespace XingYuTengFormsApp
 
                         ClearAddedcomponent();
                         break;
-                    case HitTestLocation.Header:
-                    case HitTestLocation.HeaderCheckBox:
-                    case HitTestLocation.HeaderDivider:
-                        //textBox1.Text = String.Format("Over {0} of column #{1}", "fdfdff", args.HotColumnIndex);
-                        break;
-                    case HitTestLocation.Group:
-                        //textBox1.Text = String.Format("Over group '{0}', {1}", args.HotGroup.Header, args.HotCellHitLocationEx);
-                        break;
-                    case HitTestLocation.GroupExpander:
-                        //textBox1.Text = String.Format("Over group expander of '{0}'", args.HotGroup.Header);
-                        break;
-                    default:
+                    case HitTestLocation.Text:
                         detail.Visible = true;
                         Point point = deviceList.GetItem(args.HotRowIndex).Position;
                         if (point.Y < 2 + Panel.Height)
