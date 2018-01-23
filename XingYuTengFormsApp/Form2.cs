@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using XingYuTengFormsApp.Entity;
 using XingYuTengFormsApp.Util.SQLiteUtil;
@@ -18,6 +11,7 @@ namespace XingYuTengFormsApp
         private DeviceData deviceData;
         private string oldTitle;
         private string oldDesc;
+        private string oldTMax, oldTMin, oldHMax, oldHMin;
         public Form2(String deviceId)
         {
             InitializeComponent();
@@ -73,6 +67,67 @@ namespace XingYuTengFormsApp
                     NetWorkUtil.Instance.UpdateDevice(deviceData.id, mTitle, mDesc, this);
                 }
             }
+
+            if (!string.IsNullOrEmpty(tMax.Text) || !string.IsNullOrEmpty(tMin.Text) ||
+                !string.IsNullOrEmpty(hMax.Text) || !string.IsNullOrEmpty(hMin.Text)) {
+                string mTMax = null, mTMin = null,mHMax=null,mHMin=null;
+                if (!string.IsNullOrEmpty(tMax.Text)) {
+                    if (string.IsNullOrEmpty(oldTMax)) {
+                        mTMax = tMax.Text;
+                    } else
+                    {
+                        if (!oldTMax.Equals(tMax.Text))
+                        {
+                            mTMax = tMax.Text;
+                        }
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(tMin.Text))
+                {
+                    if (string.IsNullOrEmpty(oldTMin))
+                    {
+                        mTMin = tMin.Text;
+                    }
+                    else
+                    {
+                        if (!oldTMin.Equals(tMin.Text))
+                        {
+                            mTMin = tMin.Text;
+                        }
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(hMax.Text))
+                {
+                    if (string.IsNullOrEmpty(oldHMax))
+                    {
+                        mHMax = hMax.Text;
+                    }
+                    else
+                    {
+                        if (!oldHMax.Equals(hMax.Text))
+                        {
+                            mHMax = hMax.Text;
+                        }
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(hMin.Text))
+                {
+                    if (string.IsNullOrEmpty(oldHMin))
+                    {
+                        mHMin = hMin.Text;
+                    }
+                    else
+                    {
+                        if (!oldHMin.Equals(hMin.Text))
+                        {
+                            mHMin = hMin.Text;
+                        }
+                    }
+                }
+            }
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -82,6 +137,18 @@ namespace XingYuTengFormsApp
             oldTitle = deviceData.title;
             desc.Text = deviceData.desc;
             oldDesc = deviceData.desc;
+            Warning warning=WarningDao.Instance.GetWarningById(deviceData.id);
+            if (warning != null)
+            {
+                tMax.Text = warning.temperatureMax;
+                oldTMax = warning.temperatureMax;
+                tMin.Text = warning.temperatureMin;
+                oldTMin = warning.temperatureMin;
+                hMax.Text = warning.humidityMax;
+                oldHMax = warning.humidityMax;
+                hMin.Text = warning.humidityMin;
+                oldHMin = warning.humidityMin;
+            }
         }
     }
 

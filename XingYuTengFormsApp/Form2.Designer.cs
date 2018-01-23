@@ -36,13 +36,13 @@
             this.label4 = new System.Windows.Forms.Label();
             this.desc = new System.Windows.Forms.RichTextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tMin = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.tMax = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.hMax = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.hMin = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -113,13 +113,13 @@
             this.label5.TabIndex = 6;
             this.label5.Text = "温度警戒值";
             // 
-            // textBox2
+            // tMin
             // 
-            this.textBox2.BackColor = System.Drawing.Color.White;
-            this.textBox2.Location = new System.Drawing.Point(307, 149);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 21);
-            this.textBox2.TabIndex = 7;
+            this.tMin.BackColor = System.Drawing.Color.White;
+            this.tMin.Location = new System.Drawing.Point(307, 149);
+            this.tMin.Name = "tMin";
+            this.tMin.Size = new System.Drawing.Size(100, 21);
+            this.tMin.TabIndex = 7;
             // 
             // label6
             // 
@@ -130,13 +130,13 @@
             this.label6.TabIndex = 8;
             this.label6.Text = "至";
             // 
-            // textBox3
+            // tMax
             // 
-            this.textBox3.BackColor = System.Drawing.Color.White;
-            this.textBox3.Location = new System.Drawing.Point(485, 149);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 21);
-            this.textBox3.TabIndex = 9;
+            this.tMax.BackColor = System.Drawing.Color.White;
+            this.tMax.Location = new System.Drawing.Point(485, 149);
+            this.tMax.Name = "tMax";
+            this.tMax.Size = new System.Drawing.Size(100, 21);
+            this.tMax.TabIndex = 9;
             // 
             // label7
             // 
@@ -146,15 +146,15 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(109, 20);
             this.label7.TabIndex = 10;
-            this.label7.Text = "温度警戒值";
+            this.label7.Text = "湿度警戒值";
             // 
-            // textBox4
+            // hMax
             // 
-            this.textBox4.BackColor = System.Drawing.Color.White;
-            this.textBox4.Location = new System.Drawing.Point(485, 208);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 21);
-            this.textBox4.TabIndex = 13;
+            this.hMax.BackColor = System.Drawing.Color.White;
+            this.hMax.Location = new System.Drawing.Point(485, 208);
+            this.hMax.Name = "hMax";
+            this.hMax.Size = new System.Drawing.Size(100, 21);
+            this.hMax.TabIndex = 13;
             // 
             // label8
             // 
@@ -165,13 +165,13 @@
             this.label8.TabIndex = 12;
             this.label8.Text = "至";
             // 
-            // textBox5
+            // hMin
             // 
-            this.textBox5.BackColor = System.Drawing.Color.White;
-            this.textBox5.Location = new System.Drawing.Point(307, 207);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 21);
-            this.textBox5.TabIndex = 11;
+            this.hMin.BackColor = System.Drawing.Color.White;
+            this.hMin.Location = new System.Drawing.Point(307, 207);
+            this.hMin.Name = "hMin";
+            this.hMin.Size = new System.Drawing.Size(100, 21);
+            this.hMin.TabIndex = 11;
             // 
             // button1
             // 
@@ -190,13 +190,13 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(904, 541);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.hMax);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.hMin);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.tMax);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.tMin);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.desc);
             this.Controls.Add(this.label4);
@@ -204,6 +204,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form2";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
@@ -224,13 +225,13 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RichTextBox desc;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tMin;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox tMax;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox hMax;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox hMin;
         private System.Windows.Forms.Button button1;
     }
 }

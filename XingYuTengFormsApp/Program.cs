@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using XingYuTengFormsApp.Util;
 using XingYuTengFormsApp.Util.SQLiteUtil;
 
 namespace XingYuTengFormsApp
@@ -28,6 +24,7 @@ namespace XingYuTengFormsApp
         private static void CreateOrUpdateDB()
         {
             DeviceDataDao.Instance.CreateDeviceTable();
+            WarningDao.Instance.CreateWarnningTable();
         }
     }
 }

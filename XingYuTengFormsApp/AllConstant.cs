@@ -15,6 +15,7 @@ namespace XingYuTengFormsApp
         /// </summary>
         public static string DB = "db_xingyuteng";//数据库名
         public static string DEVICEDATA_TABLE = "DeviceData";//表名
+        public static string WARNING_TABLE = "Warning";//表名
         public static string POINTS = "500";//首次绘制图表获取的点数
     }
 }
