@@ -10,8 +10,6 @@ namespace XingYuTengFormsApp
     {
 
         private DeviceData deviceData;
-        private string oldTitle;
-        private string oldDesc;
         private Warning warning;
         public Form2(String deviceId)
         {
@@ -27,46 +25,32 @@ namespace XingYuTengFormsApp
 
         public void OnSuccess(string item)
         {
+            DeviceDataDao.Instance.Update(deviceData.id, new string[] { "title", "desc" }, new string[] { title.Text,desc.Text});
             MessageBox.Show(item);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(title.Text) || !string.IsNullOrEmpty(desc.Text)) {
-                string mTitle=null,mDesc=null;
-                if (!string.IsNullOrEmpty(title.Text))
-                {
-                    if (string.IsNullOrEmpty(oldTitle)) {
-                        mTitle = title.Text;
-                    }
-                    else
-                    {
-                        if (!title.Text.Equals(oldTitle))
-                        {
-                            mTitle = title.Text;
-                        }
-                    }
-                }
+            if (string.IsNullOrEmpty(title.Text) && string.IsNullOrEmpty(desc.Text) && string.IsNullOrEmpty(tMax.Text) &&
+                string.IsNullOrEmpty(tMin.Text) && string.IsNullOrEmpty(hMax.Text) && string.IsNullOrEmpty(hMin.Text)) {
+                MessageBox.Show("修改数据不能为空");
+                return;
+            }
+           
+            string mTitle=null,mDesc=null;
+            if (!string.IsNullOrEmpty(title.Text))
+            {
+                 mTitle = title.Text;
+            }
 
-                if (!string.IsNullOrEmpty(desc.Text))
-                {
-                    if (string.IsNullOrEmpty(oldDesc))
-                    {
-                        mDesc = desc.Text;
-                    }
-                    else
-                    {
-                        if (!desc.Text.Equals(oldDesc))
-                        {
-                            mDesc = desc.Text;
-                        }
-                    }
-                }
+            if (!string.IsNullOrEmpty(desc.Text))
+            {
+                mDesc = desc.Text;
+            }
 
-                if (!string.IsNullOrEmpty(mTitle) || !string.IsNullOrEmpty(mDesc))
-                {
-                    NetWorkUtil.Instance.UpdateDevice(deviceData.id, mTitle, mDesc, this);
-                }
+            if (!string.IsNullOrEmpty(mTitle) || !string.IsNullOrEmpty(mDesc))
+            {
+                NetWorkUtil.Instance.UpdateDevice(deviceData.id, mTitle, mDesc, this);
             }
 
             if (warning == null)
@@ -160,15 +144,17 @@ namespace XingYuTengFormsApp
             }
 
             WarningDao.Instance.Insert(warning);
+            if (string.IsNullOrEmpty(title.Text)&& string.IsNullOrEmpty(desc.Text))
+            {
+                MessageBox.Show("警戒值修改成功");
+            }
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
             label2.Text = deviceData.id;
             title.Text = deviceData.title;
-            oldTitle = deviceData.title;
             desc.Text = deviceData.desc;
-            oldDesc = deviceData.desc;
             warning=WarningDao.Instance.GetWarningById(deviceData.id);
             if (warning != null)
             {
