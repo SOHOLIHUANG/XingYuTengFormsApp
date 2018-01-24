@@ -605,11 +605,11 @@ namespace XingYuTengFormsApp
                     }
                 }
             }
-            WarningInfo(item.deviceId, item.title, item.dataStreamsList);
+            WarningInfo(item.deviceId, item.title, item.dataStreamsList,item.deviceDatastreams);
             
         }
 
-        private void WarningInfo(string deviceId, string title, List<DataStreams> dataStreamsList)
+        private void WarningInfo(string deviceId, string title, List<DataStreams> dataStreamsList, List<DeviceDataStreams> deviceDatastreams)
         {
             Warning warning = WarningDao.Instance.GetWarningById(deviceId);
             if (warning != null && dataStreamsList != null && dataStreamsList.Count > 0)
@@ -617,15 +617,24 @@ namespace XingYuTengFormsApp
                 foreach (DataStreams dataStreams in dataStreamsList) {
                     AlertLib.AlertForm af = new AlertLib.AlertForm();
                     if (dataStreams.id.Equals("T")) {
+                        
                         foreach (DataPoints dataPoints in dataStreams.datapoints)
                         {
+                            StringBuilder builder = new StringBuilder(dataPoints.at + "的温度为" + dataPoints.value);
+                            foreach(DeviceDataStreams streams in deviceDatastreams)
+                            {
+                                if (streams.id.Equals("T"))
+                                {
+                                    builder.Append(streams.unit);
+                                }
+                            }
                             if (!string.IsNullOrEmpty(warning.temperatureMax) && double.Parse(dataPoints.value) > double.Parse(warning.temperatureMax)){
-                                af.Show(deviceId, title, dataPoints.at+"的温度为"+dataPoints.value);
+                                af.Show(deviceId, title, builder.ToString());
                             }
 
                             if (!string.IsNullOrEmpty(warning.temperatureMin) && double.Parse(dataPoints.value) < double.Parse(warning.temperatureMin))
                             {
-                                af.Show(deviceId, title, dataPoints.at + "的温度为" + dataPoints.value);
+                                af.Show(deviceId, title, builder.ToString());
                             }
                             break;
                         }
@@ -635,14 +644,23 @@ namespace XingYuTengFormsApp
                     {
                         foreach (DataPoints dataPoints in dataStreams.datapoints)
                         {
+                            StringBuilder builder = new StringBuilder(dataPoints.at + "的湿度为" + dataPoints.value);
+                            foreach (DeviceDataStreams streams in deviceDatastreams)
+                            {
+                                if (streams.id.Equals("P"))
+                                {
+                                    builder.Append(streams.unit);
+                                    break;
+                                }
+                            }
                             if (!string.IsNullOrEmpty(warning.humidityMax) && double.Parse(dataPoints.value) > double.Parse(warning.humidityMax))
                             {
-                                af.Show(deviceId, title, dataPoints.at + "的湿度为" + dataPoints.value);
+                                af.Show(deviceId, title, builder.ToString());
                             }
 
                             if (!string.IsNullOrEmpty(warning.humidityMin) && double.Parse(dataPoints.value) < double.Parse(warning.humidityMin))
                             {
-                                af.Show(deviceId, title, dataPoints.at + "的湿度为" + dataPoints.value);
+                                af.Show(deviceId, title, builder.ToString());
                             }
                             break;
                         }
@@ -673,6 +691,17 @@ namespace XingYuTengFormsApp
         {
             Form2 item =new Form2(dialogDeviceId,this);
             item.Location =Location;
+            if (!item.IsDisposed)
+            {
+                item.Hide();
+                item.Show();
+            }
+        }
+
+        private void 备注信息ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form3 item = new Form3(dialogDeviceId, this);
+            item.Location = Location;
             if (!item.IsDisposed)
             {
                 item.Hide();
