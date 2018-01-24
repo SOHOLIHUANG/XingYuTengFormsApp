@@ -11,10 +11,11 @@ namespace XingYuTengFormsApp
 
         private DeviceData deviceData;
         private Warning warning;
-        public Form2(String deviceId)
+        private Form form;
+        public Form2(String deviceId,Form form1)
         {
             InitializeComponent();
-
+            form = form1;
             deviceData = DeviceDataDao.Instance.GetDeviceDataById(deviceId);
         }
 
@@ -26,6 +27,7 @@ namespace XingYuTengFormsApp
         public void OnSuccess(string item)
         {
             DeviceDataDao.Instance.Update(deviceData.id, new string[] { "title", "desc" }, new string[] { title.Text,desc.Text});
+            form.UpdateDeviceList(deviceData.id, title.Text);
             MessageBox.Show(item);
         }
 

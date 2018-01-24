@@ -334,6 +334,18 @@ namespace XingYuTengFormsApp
             }
         }
 
+        public void UpdateDeviceList(string deviceId,string title) {
+            foreach(ItemPoint itemPoint in items)
+            {
+                if (itemPoint.deviceId.Equals(deviceId))
+                {
+                    itemPoint.title = title;                 
+                    break;
+                }
+            }
+            deviceList.SetObjects(items);
+        }
+
         /// <summary>
         /// 删除列表详细信息控件
         /// </summary>
@@ -597,7 +609,7 @@ namespace XingYuTengFormsApp
 
         private void 修改设备ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form2 item =new Form2(dialogDeviceId);
+            Form2 item =new Form2(dialogDeviceId,this);
             item.Location =Location;
             if (!item.IsDisposed)
             {
