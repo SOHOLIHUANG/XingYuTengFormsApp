@@ -503,20 +503,17 @@ namespace XingYuTengFormsApp
 
         private void PictureBoxLagest_Click(object sender, EventArgs e)
         {
-            string Path = Util.Utils.GetPath();
             if (isMax)
             {
                 isMax = false;
                 WindowState = FormWindowState.Normal;//还原
-                Path += @"\lagest.png";
-                pictureBoxSize.Image = Image.FromFile(Path);
+                pictureBoxSize.Image = global::XingYuTengFormsApp.Properties.Resources.lagest;
             }
             else
             {
                 isMax = true;
                 WindowState = FormWindowState.Maximized;//最大化
-                Path += @"\restore.png";
-                pictureBoxSize.Image = Image.FromFile(Path);
+                pictureBoxSize.Image = global::XingYuTengFormsApp.Properties.Resources.restore;
             }
         }
 
@@ -668,7 +665,8 @@ namespace XingYuTengFormsApp
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            BackThread();
+            thread = new Thread(new ThreadStart(BackThread));
+            thread.Start();
         }
 
         private void 修改设备ToolStripMenuItem_Click(object sender, EventArgs e)

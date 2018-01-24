@@ -33,15 +33,10 @@ namespace XingYuTengFormsApp
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form));
-            this.pictureBox = new System.Windows.Forms.PictureBox();
             this.label = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.AddDevice = new System.Windows.Forms.PictureBox();
             this.deviceID = new System.Windows.Forms.TextBox();
             this.labelAdd = new System.Windows.Forms.Label();
-            this.pictureBoxSmall = new System.Windows.Forms.PictureBox();
-            this.pictureBoxSize = new System.Windows.Forms.PictureBox();
-            this.pictureBoxClose = new System.Windows.Forms.PictureBox();
             this.Panel = new System.Windows.Forms.Panel();
             this.olvColumnDesk = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.columnName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -49,7 +44,6 @@ namespace XingYuTengFormsApp
             this.olvColumnDelete = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.detail = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.updateTime = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.detailObject = new BrightIdeasSoftware.ObjectListView();
@@ -59,36 +53,28 @@ namespace XingYuTengFormsApp
             this.修改设备ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.备注信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deviceList = new BrightIdeasSoftware.ObjectListView();
-            this.loading = new System.Windows.Forms.PictureBox();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
+            this.loading = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxClose = new System.Windows.Forms.PictureBox();
+            this.pictureBoxSize = new System.Windows.Forms.PictureBox();
+            this.pictureBoxSmall = new System.Windows.Forms.PictureBox();
+            this.AddDevice = new System.Windows.Forms.PictureBox();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AddDevice)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSmall)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSize)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             this.Panel.SuspendLayout();
             this.detail.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.detailObject)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.loading)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSmall)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AddDevice)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBox
-            // 
-            this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox.Image")));
-            this.pictureBox.InitialImage = null;
-            this.pictureBox.Location = new System.Drawing.Point(21, 30);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(42, 42);
-            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox.TabIndex = 0;
-            this.pictureBox.TabStop = false;
             // 
             // label
             // 
@@ -115,19 +101,6 @@ namespace XingYuTengFormsApp
             this.panel1.Size = new System.Drawing.Size(434, 32);
             this.panel1.TabIndex = 2;
             // 
-            // AddDevice
-            // 
-            this.AddDevice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddDevice.Image = ((System.Drawing.Image)(resources.GetObject("AddDevice.Image")));
-            this.AddDevice.Location = new System.Drawing.Point(407, 4);
-            this.AddDevice.Name = "AddDevice";
-            this.AddDevice.Size = new System.Drawing.Size(23, 23);
-            this.AddDevice.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.AddDevice.TabIndex = 2;
-            this.AddDevice.TabStop = false;
-            this.AddDevice.Click += new System.EventHandler(this.AddDevice_Click);
-            // 
             // deviceID
             // 
             this.deviceID.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -152,49 +125,6 @@ namespace XingYuTengFormsApp
             this.labelAdd.Size = new System.Drawing.Size(89, 20);
             this.labelAdd.TabIndex = 0;
             this.labelAdd.Text = "添加设备";
-            // 
-            // pictureBoxSmall
-            // 
-            this.pictureBoxSmall.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxSmall.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBoxSmall.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxSmall.Image")));
-            this.pictureBoxSmall.Location = new System.Drawing.Point(787, 34);
-            this.pictureBoxSmall.Name = "pictureBoxSmall";
-            this.pictureBoxSmall.Size = new System.Drawing.Size(32, 32);
-            this.pictureBoxSmall.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBoxSmall.TabIndex = 3;
-            this.pictureBoxSmall.TabStop = false;
-            this.pictureBoxSmall.Click += new System.EventHandler(this.PictureBoxSmall_Click);
-            // 
-            // pictureBoxSize
-            // 
-            this.pictureBoxSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxSize.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBoxSize.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxSize.Image")));
-            this.pictureBoxSize.Location = new System.Drawing.Point(826, 34);
-            this.pictureBoxSize.Name = "pictureBoxSize";
-            this.pictureBoxSize.Size = new System.Drawing.Size(32, 32);
-            this.pictureBoxSize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBoxSize.TabIndex = 4;
-            this.pictureBoxSize.TabStop = false;
-            this.pictureBoxSize.Click += new System.EventHandler(this.PictureBoxLagest_Click);
-            // 
-            // pictureBoxClose
-            // 
-            this.pictureBoxClose.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxClose.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBoxClose.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxClose.Image")));
-            this.pictureBoxClose.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxClose.InitialImage")));
-            this.pictureBoxClose.Location = new System.Drawing.Point(873, 36);
-            this.pictureBoxClose.Name = "pictureBoxClose";
-            this.pictureBoxClose.Size = new System.Drawing.Size(23, 23);
-            this.pictureBoxClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBoxClose.TabIndex = 5;
-            this.pictureBoxClose.TabStop = false;
-            this.pictureBoxClose.Click += new System.EventHandler(this.PictureBoxClose_Click);
             // 
             // Panel
             // 
@@ -283,17 +213,6 @@ namespace XingYuTengFormsApp
             this.detail.TabIndex = 0;
             this.detail.Visible = false;
             this.detail.MouseLeave += new System.EventHandler(this.Panel_MouseLeave);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(220, 5);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(13, 13);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 31;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // updateTime
             // 
@@ -450,6 +369,12 @@ namespace XingYuTengFormsApp
             this.deviceList.UseTranslucentHotItem = true;
             this.deviceList.View = System.Windows.Forms.View.Details;
             // 
+            // timer
+            // 
+            this.timer.Enabled = true;
+            this.timer.Interval = 245000;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
             // loading
             // 
             this.loading.BackColor = System.Drawing.Color.White;
@@ -463,11 +388,86 @@ namespace XingYuTengFormsApp
             this.loading.TabStop = false;
             this.loading.Visible = false;
             // 
-            // timer
+            // pictureBox1
             // 
-            this.timer.Enabled = true;
-            this.timer.Interval = 245000;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            this.pictureBox1.Image = global::XingYuTengFormsApp.Properties.Resources.closeMin;
+            this.pictureBox1.Location = new System.Drawing.Point(220, 5);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(13, 13);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 31;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // pictureBoxClose
+            // 
+            this.pictureBoxClose.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxClose.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxClose.Image = global::XingYuTengFormsApp.Properties.Resources.close;
+            this.pictureBoxClose.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxClose.InitialImage")));
+            this.pictureBoxClose.Location = new System.Drawing.Point(873, 36);
+            this.pictureBoxClose.Name = "pictureBoxClose";
+            this.pictureBoxClose.Size = new System.Drawing.Size(23, 23);
+            this.pictureBoxClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBoxClose.TabIndex = 5;
+            this.pictureBoxClose.TabStop = false;
+            this.pictureBoxClose.Click += new System.EventHandler(this.PictureBoxClose_Click);
+            // 
+            // pictureBoxSize
+            // 
+            this.pictureBoxSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxSize.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxSize.Image = global::XingYuTengFormsApp.Properties.Resources.lagest;
+            this.pictureBoxSize.Location = new System.Drawing.Point(826, 34);
+            this.pictureBoxSize.Name = "pictureBoxSize";
+            this.pictureBoxSize.Size = new System.Drawing.Size(32, 32);
+            this.pictureBoxSize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBoxSize.TabIndex = 4;
+            this.pictureBoxSize.TabStop = false;
+            this.pictureBoxSize.Click += new System.EventHandler(this.PictureBoxLagest_Click);
+            // 
+            // pictureBoxSmall
+            // 
+            this.pictureBoxSmall.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxSmall.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxSmall.Image = global::XingYuTengFormsApp.Properties.Resources.small;
+            this.pictureBoxSmall.Location = new System.Drawing.Point(787, 34);
+            this.pictureBoxSmall.Name = "pictureBoxSmall";
+            this.pictureBoxSmall.Size = new System.Drawing.Size(32, 32);
+            this.pictureBoxSmall.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBoxSmall.TabIndex = 3;
+            this.pictureBoxSmall.TabStop = false;
+            this.pictureBoxSmall.Click += new System.EventHandler(this.PictureBoxSmall_Click);
+            // 
+            // AddDevice
+            // 
+            this.AddDevice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddDevice.Image = global::XingYuTengFormsApp.Properties.Resources.add;
+            this.AddDevice.Location = new System.Drawing.Point(407, 4);
+            this.AddDevice.Name = "AddDevice";
+            this.AddDevice.Size = new System.Drawing.Size(23, 23);
+            this.AddDevice.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.AddDevice.TabIndex = 2;
+            this.AddDevice.TabStop = false;
+            this.AddDevice.Click += new System.EventHandler(this.AddDevice_Click);
+            // 
+            // pictureBox
+            // 
+            this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox.Image = global::XingYuTengFormsApp.Properties.Resources.icon;
+            this.pictureBox.InitialImage = null;
+            this.pictureBox.Location = new System.Drawing.Point(21, 30);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(42, 42);
+            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox.TabIndex = 0;
+            this.pictureBox.TabStop = false;
             // 
             // Form
             // 
@@ -491,23 +491,23 @@ namespace XingYuTengFormsApp
             this.TransparencyKey = System.Drawing.Color.Lavender;
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AddDevice)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSmall)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSize)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).EndInit();
             this.Panel.ResumeLayout(false);
             this.Panel.PerformLayout();
             this.detail.ResumeLayout(false);
             this.detail.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.detailObject)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.loading)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSmall)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AddDevice)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
