@@ -37,6 +37,8 @@ namespace XingYuTengFormsApp
         private string dialogDeviceId;//存储弹框里的设备id
         private int count;
         private Thread thread;
+        delegate void DelegateCreateDatas();
+        delegate void DelegateAddDevice(string deviceId);
         #endregion
 
         #region
@@ -70,14 +72,18 @@ namespace XingYuTengFormsApp
                 deviceList.SetObjects(items);
                 MessageBox.Show(task.title+"已删除");
             };
-            Control.CheckForIllegalCrossThreadCalls = false;
-            BackThread();
         }
 
         private void BackThread()
         {
-            thread = new Thread(new ThreadStart(CreateDeviceDatas));
-            thread.Start();
+            if (loading.InvokeRequired)
+            {
+                loading.BeginInvoke(new DelegateCreateDatas(CreateDeviceDatas));
+            }
+            else
+            {
+                CreateDeviceDatas();
+            }
         }
 
         /// <summary>
@@ -362,6 +368,8 @@ namespace XingYuTengFormsApp
         private void Form1_Activated(object sender, EventArgs e)
         {
             this.deviceID.Focus();
+            thread = new Thread(new ThreadStart(BackThread));
+            thread.Start();
         }
 
         private void SetTag(Control cons)
@@ -551,7 +559,19 @@ namespace XingYuTengFormsApp
 
         private void AddDeviceThread(object obj)
         {
-            NetWorkUtil.Instance.AddDevice((string)obj, this);
+            if (loading.InvokeRequired)
+            {
+                loading.BeginInvoke(new DelegateAddDevice(AddDeviceInfo), obj);
+            }
+            else
+            {
+                AddDeviceInfo((string)obj);
+            }
+        }
+
+        private void AddDeviceInfo(string obj)
+        {
+            NetWorkUtil.Instance.AddDevice(obj, this);
         }
 
         private void ShowLoading()
