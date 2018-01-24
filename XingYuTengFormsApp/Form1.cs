@@ -157,7 +157,6 @@ namespace XingYuTengFormsApp
                 HandleSelectionChanged(deviceList);
             };
 
-
             this.Resize += new EventHandler(Form1_Resize);
             width = this.Width;
             height = this.Height;
@@ -237,6 +236,9 @@ namespace XingYuTengFormsApp
                         break;
                 }
             };
+
+            thread = new Thread(new ThreadStart(BackThread));
+            thread.Start();
         }
 
         public void HandleSelectionChanged(ObjectListView listView)
@@ -368,8 +370,6 @@ namespace XingYuTengFormsApp
         private void Form1_Activated(object sender, EventArgs e)
         {
             this.deviceID.Focus();
-            thread = new Thread(new ThreadStart(BackThread));
-            thread.Start();
         }
 
         private void SetTag(Control cons)
@@ -605,6 +605,50 @@ namespace XingYuTengFormsApp
                     if (count == 0)
                     {
                         deviceList.SetObjects(items);
+                    }
+                }
+            }
+            WarningInfo(item.deviceId, item.title, item.dataStreamsList);
+            
+        }
+
+        private void WarningInfo(string deviceId, string title, List<DataStreams> dataStreamsList)
+        {
+            Warning warning = WarningDao.Instance.GetWarningById(deviceId);
+            if (warning != null && dataStreamsList != null && dataStreamsList.Count > 0)
+            {
+                foreach (DataStreams dataStreams in dataStreamsList) {
+                    AlertLib.AlertForm af = new AlertLib.AlertForm();
+                    if (dataStreams.id.Equals("T")) {
+                        foreach (DataPoints dataPoints in dataStreams.datapoints)
+                        {
+                            if (!string.IsNullOrEmpty(warning.temperatureMax) && double.Parse(dataPoints.value) > double.Parse(warning.temperatureMax)){
+                                af.Show(deviceId, title, dataPoints.at+"的温度为"+dataPoints.value);
+                            }
+
+                            if (!string.IsNullOrEmpty(warning.temperatureMin) && double.Parse(dataPoints.value) < double.Parse(warning.temperatureMin))
+                            {
+                                af.Show(deviceId, title, dataPoints.at + "的温度为" + dataPoints.value);
+                            }
+                            break;
+                        }
+                    }
+
+                    if (dataStreams.id.Equals("P"))
+                    {
+                        foreach (DataPoints dataPoints in dataStreams.datapoints)
+                        {
+                            if (!string.IsNullOrEmpty(warning.humidityMax) && double.Parse(dataPoints.value) > double.Parse(warning.humidityMax))
+                            {
+                                af.Show(deviceId, title, dataPoints.at + "的湿度为" + dataPoints.value);
+                            }
+
+                            if (!string.IsNullOrEmpty(warning.humidityMin) && double.Parse(dataPoints.value) < double.Parse(warning.humidityMin))
+                            {
+                                af.Show(deviceId, title, dataPoints.at + "的湿度为" + dataPoints.value);
+                            }
+                            break;
+                        }
                     }
                 }
             }
