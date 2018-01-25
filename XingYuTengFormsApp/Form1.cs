@@ -257,10 +257,10 @@ namespace XingYuTengFormsApp
             {
                 TabPage tabPage1 = new TabPage(); ;
                 tabPage1.BackColor = System.Drawing.Color.White;
-                tabPage1.Location = new System.Drawing.Point(4, 25);
+                tabPage1.Location = new System.Drawing.Point(0, 0);
                 tabPage1.Name = stream.id;
                 tabPage1.Padding = new System.Windows.Forms.Padding(3);
-                tabPage1.Size = new System.Drawing.Size(611, 443);
+                tabPage1.Size = new System.Drawing.Size(619, 472);
                 tabPage1.TabIndex = 0;
                 tabPage1.Text = stream.id + "曲线";
                 this.tabControl1.Controls.Add(tabPage1);
@@ -274,7 +274,7 @@ namespace XingYuTengFormsApp
                     Dock = System.Windows.Forms.DockStyle.Fill,
                     Location = new System.Drawing.Point(0, 0),
                     Name = "cartesianChart1",
-                    Size = new System.Drawing.Size(734, 435),
+                    Size = new System.Drawing.Size(619, 472),
                     TabIndex = 1,
                     Text = "cartesianChart1"
                 };

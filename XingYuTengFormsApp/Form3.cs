@@ -25,7 +25,12 @@ namespace XingYuTengFormsApp
 
         private void Form3_Load(object sender, EventArgs e)
         {
-            //colorDialog.ShowDialog();
+            
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            colorDialog.ShowDialog();
         }
     }
 }
