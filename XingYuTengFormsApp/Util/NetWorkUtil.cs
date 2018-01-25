@@ -69,6 +69,7 @@ namespace XingYuTengFormsApp
                 if (device.error.Equals("succ"))
                 {
                     DeviceDataDao.Instance.Insert(device.data);
+                    RemarksDao.Instance.Insert(device.data);
                     GetDataPoints(device.data, result, null, AllConstant.POINTS, null, null, null, null);
                 }
                 else {

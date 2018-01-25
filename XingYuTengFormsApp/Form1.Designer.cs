@@ -395,14 +395,14 @@ namespace XingYuTengFormsApp
             // 修改设备ToolStripMenuItem
             // 
             this.修改设备ToolStripMenuItem.Name = "修改设备ToolStripMenuItem";
-            this.修改设备ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.修改设备ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.修改设备ToolStripMenuItem.Text = "修改设备";
             this.修改设备ToolStripMenuItem.Click += new System.EventHandler(this.修改设备ToolStripMenuItem_Click);
             // 
             // 备注信息ToolStripMenuItem
             // 
             this.备注信息ToolStripMenuItem.Name = "备注信息ToolStripMenuItem";
-            this.备注信息ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.备注信息ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.备注信息ToolStripMenuItem.Text = "备注信息";
             this.备注信息ToolStripMenuItem.Click += new System.EventHandler(this.备注信息ToolStripMenuItem_Click);
             // 
@@ -489,6 +489,7 @@ namespace XingYuTengFormsApp
             this.MinimumSize = new System.Drawing.Size(920, 580);
             this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "7";
             this.TransparencyKey = System.Drawing.Color.Lavender;
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.Load += new System.EventHandler(this.Form1_Load);

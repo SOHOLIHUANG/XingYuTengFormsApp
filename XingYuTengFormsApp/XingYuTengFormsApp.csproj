@@ -128,6 +128,7 @@
     <Compile Include="Entity\Location.cs" />
     <Compile Include="Entity\AppPoint.cs" />
     <Compile Include="Entity\PointData.cs" />
+    <Compile Include="Entity\RemarksID.cs" />
     <Compile Include="Entity\UpdateDevice.cs" />
     <Compile Include="Entity\UpdateDesc.cs" />
     <Compile Include="Entity\UpdateResponse.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\JsonHelper.cs" />
     <Compile Include="Util\SQLiteUtil\DeviceDataDao.cs" />
+    <Compile Include="Util\SQLiteUtil\RemarksDao.cs" />
     <Compile Include="Util\SQLiteUtil\SQLiteHelper.cs" />
     <Compile Include="Util\SQLiteUtil\WarningDao.cs" />
     <Compile Include="Util\Utils.cs" />

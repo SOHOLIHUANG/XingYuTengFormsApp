@@ -25,6 +25,7 @@ namespace XingYuTengFormsApp
         {
             DeviceDataDao.Instance.CreateDeviceTable();
             WarningDao.Instance.CreateWarnningTable();
+            RemarksDao.Instance.CreateDeviceTable();
         }
     }
 }
