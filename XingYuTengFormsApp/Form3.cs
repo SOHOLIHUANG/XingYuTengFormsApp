@@ -78,6 +78,7 @@ namespace XingYuTengFormsApp
                 remarks.remarks = remark.Text;
                 RemarksDao.Instance.Update(remarks);
                 propertyList.SetObjects(list);
+                form.UpdateList(remarks.id,remarks.deviceId,remarks.typeId);
                 MessageBox.Show("修改成功");
             }
         }

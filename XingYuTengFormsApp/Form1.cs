@@ -75,6 +75,58 @@ namespace XingYuTengFormsApp
             this.detailObject.FormatCell += detailObject_FormatCell;
         }
 
+        internal void UpdateList(string id,string deviceId,string typeId)
+        {
+            foreach(ItemPoint item in items)
+            {
+                if (item.deviceId.Equals(deviceId))
+                {
+                    StringBuilder builder = new StringBuilder();
+                    foreach (DataStreams dataStream in item.dataStreamsList)
+                    {
+                        RemarksID remarksID = RemarksDao.Instance.GetDeviceDataById(id);
+                        foreach (DataPoints dataPoints in dataStream.datapoints)
+                        {
+                            dataPoints.at = dataPoints.at.Substring(0, dataPoints.at.Length - 4);
+                        }
+                        if (dataStream.id.Equals("P") || dataStream.id.Equals("T") || dataStream.id.Equals("H"))
+                        {
+                            //只获取最新的一个点在列表里显示
+                            bool m = false;
+                            foreach (DataPoints dataPoints in dataStream.datapoints)
+                            {
+                                if (m)
+                                {
+                                    break;
+                                }
+                                if (remarksID != null && !string.IsNullOrEmpty(remarksID.remarks)&& dataStream.id.Equals(typeId))
+                                {
+                                    builder.Append(remarksID.remarks + "=" + dataPoints.value);   
+                                }
+                                else
+                                {
+                                    builder.Append(dataStream.id + "=" + dataPoints.value);
+                                }
+
+                                foreach (DeviceDataStreams stream in item.deviceDatastreams)
+                                {
+                                    if (dataStream.id.Equals(stream.id))
+                                    {
+                                        builder.Append(stream.unit + "  ");
+                                        m = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    item.dataStrams = builder.ToString();
+                    deviceList.SetObjects(items);
+                    break;
+                }
+            }
+        }
+
         private void BackThread()
         {
             if (loading.InvokeRequired)
