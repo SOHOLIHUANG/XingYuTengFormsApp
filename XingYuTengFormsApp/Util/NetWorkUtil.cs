@@ -234,7 +234,7 @@ namespace XingYuTengFormsApp
                                 if (m) {
                                     break;
                                 }
-                                if (string.IsNullOrEmpty(remarksID.remarks))
+                                if (remarksID==null||string.IsNullOrEmpty(remarksID.remarks))
                                 {
                                     builder.Append(dataStream.id + "=" + dataPoints.value);
                                 }

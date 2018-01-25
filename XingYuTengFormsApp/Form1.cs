@@ -266,24 +266,24 @@ namespace XingYuTengFormsApp
                 tabPage1.TabIndex = 0;
                 RemarksID remarksID = RemarksDao.Instance.GetDeviceDataById(oLVListItem.deviceId + stream.id);
                 string title = null;
-                if (string.IsNullOrEmpty(remarksID.remarks))
-                {
-                    title = stream.id + "曲线";
-                }
-                else
+                if (remarksID!=null&&!string.IsNullOrEmpty(remarksID.remarks))
                 {
                     title = remarksID.remarks + "曲线";
                 }
-                System.Windows.Media.Color fillColor,strokeColor;
-                if (string.IsNullOrEmpty(remarksID.A) && string.IsNullOrEmpty(remarksID.R) && string.IsNullOrEmpty(remarksID.G) && string.IsNullOrEmpty(remarksID.B))
-                {
-                    fillColor = System.Windows.Media.Color.FromArgb(255, 0, 0, 0);
-                    strokeColor= System.Windows.Media.Color.FromArgb(225, 0, 0, 0);
-                }
                 else
+                {
+                    title = stream.id + "曲线";
+                }
+                System.Windows.Media.Color fillColor,strokeColor;
+                if (remarksID != null&&!string.IsNullOrEmpty(remarksID.A) && !string.IsNullOrEmpty(remarksID.R) && !string.IsNullOrEmpty(remarksID.G) && !string.IsNullOrEmpty(remarksID.B))
                 {
                     fillColor = System.Windows.Media.Color.FromArgb(byte.Parse(remarksID.A), byte.Parse(remarksID.R), byte.Parse(remarksID.G), byte.Parse(remarksID.B));
                     strokeColor = System.Windows.Media.Color.FromArgb(byte.Parse(remarksID.A), byte.Parse(remarksID.R), byte.Parse(remarksID.G), byte.Parse(remarksID.B));
+                }
+                else
+                {
+                    fillColor = System.Windows.Media.Color.FromArgb(255, 0, 0, 0);
+                    strokeColor = System.Windows.Media.Color.FromArgb(225, 0, 0, 0);
                 }
                     tabPage1.Text = title;
                 this.tabControl1.Controls.Add(tabPage1);
@@ -736,17 +736,17 @@ namespace XingYuTengFormsApp
         {
             DetailValue detailValue = (DetailValue)e.Model;
             RemarksID remarksID = RemarksDao.Instance.GetDeviceDataById(detailValue.ID + detailValue.Name);
-            if (!string.IsNullOrEmpty(remarksID.remarks)&& e.SubItem.Text.Equals(remarksID.typeId))
+            if (remarksID!=null&&!string.IsNullOrEmpty(remarksID.remarks)&& e.SubItem.Text.Equals(remarksID.typeId))
             {
                 e.SubItem.Text = remarksID.remarks;
             }
-            if (string.IsNullOrEmpty(remarksID.A) && string.IsNullOrEmpty(remarksID.R) && string.IsNullOrEmpty(remarksID.G) && string.IsNullOrEmpty(remarksID.B))
+            if (remarksID != null&&!string.IsNullOrEmpty(remarksID.A) && !string.IsNullOrEmpty(remarksID.R) && !string.IsNullOrEmpty(remarksID.G) && !string.IsNullOrEmpty(remarksID.B))
             {
-                e.SubItem.ForeColor = System.Drawing.Color.Black;
+                e.SubItem.ForeColor = System.Drawing.Color.FromArgb(int.Parse(remarksID.A), int.Parse(remarksID.R), int.Parse(remarksID.G), int.Parse(remarksID.B));               
             }
             else
             {
-                e.SubItem.ForeColor = System.Drawing.Color.FromArgb(int.Parse(remarksID.A), int.Parse(remarksID.R), int.Parse(remarksID.G), int.Parse(remarksID.B));
+                e.SubItem.ForeColor = System.Drawing.Color.Black;
             }
         }
     }
