@@ -49,6 +49,28 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
             }
         }
 
+        public RemarksID GetDeviceDataById(string Id)
+        {
+            RemarksID remarksId = null;
+            string sql = "select * from " + AllConstant.REMARKS_TABLE + " WHERE id = '" + Id + "';";
+            SQLiteDataReader dataReader = (SQLiteDataReader)SQLiteHelper.ExecuteReader(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
+            while (dataReader.Read())
+            {
+                remarksId = new RemarksID();
+                remarksId.id = dataReader["id"].ToString();
+                remarksId.deviceId = dataReader["deviceId"].ToString();
+                remarksId.typeId = dataReader["typeId"].ToString();
+                remarksId.remarks = dataReader["remarks"].ToString();
+                remarksId.A = dataReader["A"].ToString();
+                remarksId.R = dataReader["R"].ToString();
+                remarksId.G = dataReader["G"].ToString();
+                remarksId.B = dataReader["B"].ToString();
+
+            }
+            dataReader.Close();
+            return remarksId;
+        }
+
         public List<RemarksID> GetAll(string deviceId)
         {
             List<RemarksID> remarksIdList = new List<RemarksID>();

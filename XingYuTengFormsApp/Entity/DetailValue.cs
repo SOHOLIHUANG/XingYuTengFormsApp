@@ -8,8 +8,8 @@ namespace XingYuTengFormsApp.Entity
 {
     class DetailValue
     {
+        public string ID { set; get; }
         public string Name { set; get; }
-
         public string Value { set; get; }
     }
 }

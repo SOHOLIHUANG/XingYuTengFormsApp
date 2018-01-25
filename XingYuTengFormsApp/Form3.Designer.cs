@@ -182,6 +182,7 @@
             this.property.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.property.Enabled = false;
             this.property.Font = new System.Drawing.Font("宋体", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.property.ForeColor = System.Drawing.SystemColors.WindowText;
             this.property.Location = new System.Drawing.Point(386, 26);
             this.property.Name = "property";
             this.property.Size = new System.Drawing.Size(506, 39);

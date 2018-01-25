@@ -72,6 +72,7 @@ namespace XingYuTengFormsApp
                 deviceList.SetObjects(items);
                 MessageBox.Show(task.title+"已删除");
             };
+            this.detailObject.FormatCell += detailObject_FormatCell;
         }
 
         private void BackThread()
@@ -199,6 +200,7 @@ namespace XingYuTengFormsApp
                             //只获取最新的一个点在弹框中显示
                             bool m = false;
                             DetailValue detailValue = new DetailValue();
+                            detailValue.ID= oLVListItem.deviceId;
                             foreach (DataPoints dataPoints in dataStream.datapoints)
                             {
                                 if (m) {
@@ -262,7 +264,28 @@ namespace XingYuTengFormsApp
                 tabPage1.Padding = new System.Windows.Forms.Padding(3);
                 tabPage1.Size = new System.Drawing.Size(619, 472);
                 tabPage1.TabIndex = 0;
-                tabPage1.Text = stream.id + "曲线";
+                RemarksID remarksID = RemarksDao.Instance.GetDeviceDataById(oLVListItem.deviceId + stream.id);
+                string title = null;
+                if (string.IsNullOrEmpty(remarksID.remarks))
+                {
+                    title = stream.id + "曲线";
+                }
+                else
+                {
+                    title = remarksID.remarks + "曲线";
+                }
+                System.Windows.Media.Color fillColor,strokeColor;
+                if (string.IsNullOrEmpty(remarksID.A) && string.IsNullOrEmpty(remarksID.R) && string.IsNullOrEmpty(remarksID.G) && string.IsNullOrEmpty(remarksID.B))
+                {
+                    fillColor = System.Windows.Media.Color.FromArgb(255, 0, 0, 0);
+                    strokeColor= System.Windows.Media.Color.FromArgb(225, 0, 0, 0);
+                }
+                else
+                {
+                    fillColor = System.Windows.Media.Color.FromArgb(byte.Parse(remarksID.A), byte.Parse(remarksID.R), byte.Parse(remarksID.G), byte.Parse(remarksID.B));
+                    strokeColor = System.Windows.Media.Color.FromArgb(byte.Parse(remarksID.A), byte.Parse(remarksID.R), byte.Parse(remarksID.G), byte.Parse(remarksID.B));
+                }
+                    tabPage1.Text = title;
                 this.tabControl1.Controls.Add(tabPage1);
 
 
@@ -293,15 +316,15 @@ namespace XingYuTengFormsApp
                     {
                         new LineSeries
                         {
-                            Title = stream.id + "曲线",
+                            Title = title,
                             Values = new ChartValues<double>(values),
                              PointGeometry = DefaultGeometries.None,
                              Fill = new SolidColorBrush
                                     {
-                                        Color = System.Windows.Media.Color.FromRgb(105,204,104),
+                                        Color = fillColor,
                                         Opacity = .4
                                     },
-                             Stroke = new SolidColorBrush(System.Windows.Media.Color.FromRgb(248, 213, 72)),
+                             Stroke = new SolidColorBrush(strokeColor)
 
                         }
                     };
@@ -706,6 +729,24 @@ namespace XingYuTengFormsApp
             {
                 item.Hide();
                 item.Show();
+            }
+        }
+
+        private void detailObject_FormatCell(object sender, FormatCellEventArgs e)
+        {
+            DetailValue detailValue = (DetailValue)e.Model;
+            RemarksID remarksID = RemarksDao.Instance.GetDeviceDataById(detailValue.ID + detailValue.Name);
+            if (!string.IsNullOrEmpty(remarksID.remarks)&& e.SubItem.Text.Equals(remarksID.typeId))
+            {
+                e.SubItem.Text = remarksID.remarks;
+            }
+            if (string.IsNullOrEmpty(remarksID.A) && string.IsNullOrEmpty(remarksID.R) && string.IsNullOrEmpty(remarksID.G) && string.IsNullOrEmpty(remarksID.B))
+            {
+                e.SubItem.ForeColor = System.Drawing.Color.Black;
+            }
+            else
+            {
+                e.SubItem.ForeColor = System.Drawing.Color.FromArgb(int.Parse(remarksID.A), int.Parse(remarksID.R), int.Parse(remarksID.G), int.Parse(remarksID.B));
             }
         }
     }

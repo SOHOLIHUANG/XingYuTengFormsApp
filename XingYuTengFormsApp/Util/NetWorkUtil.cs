@@ -220,6 +220,7 @@ namespace XingYuTengFormsApp
                     StringBuilder builder = new StringBuilder();
                     foreach (DataStreams dataStream in point.data.datastreams)
                     {
+                        RemarksID remarksID = RemarksDao.Instance.GetDeviceDataById(item.deviceId + dataStream.id);
                         foreach (DataPoints dataPoints in dataStream.datapoints)
                         {
                             dataPoints.at = dataPoints.at.Substring(0, dataPoints.at.Length - 4);
@@ -233,7 +234,15 @@ namespace XingYuTengFormsApp
                                 if (m) {
                                     break;
                                 }
-                                builder.Append(dataStream.id + "=" + dataPoints.value);
+                                if (string.IsNullOrEmpty(remarksID.remarks))
+                                {
+                                    builder.Append(dataStream.id + "=" + dataPoints.value);
+                                }
+                                else
+                                {
+                                    builder.Append(remarksID.remarks + "=" + dataPoints.value);
+                                }
+                                
                                 foreach (DeviceDataStreams stream in deviceData.datastreams)
                                 {
                                     if (dataStream.id.Equals(stream.id))

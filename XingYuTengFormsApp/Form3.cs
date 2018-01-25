@@ -19,6 +19,7 @@ namespace XingYuTengFormsApp
             InitializeComponent();
             form = form1;
             id = deviceId;
+            this.propertyList.FormatCell += propertyList_FormatCell;
         }
 
         private void Form3_Load(object sender, EventArgs e)
@@ -51,6 +52,7 @@ namespace XingYuTengFormsApp
                 {
                     pictureBox1.BackColor = Color.FromArgb(int.Parse(remarks.A), int.Parse(remarks.R),
                     int.Parse(remarks.G), int.Parse(remarks.B));
+                    
                 }
             }
         }
@@ -77,6 +79,19 @@ namespace XingYuTengFormsApp
                 RemarksDao.Instance.Update(remarks);
                 propertyList.SetObjects(list);
                 MessageBox.Show("修改成功");
+            }
+        }
+
+        private void propertyList_FormatCell(object sender, FormatCellEventArgs e)
+        {
+            RemarksID remarksID = (RemarksID)e.Model;
+            if(string.IsNullOrEmpty(remarksID.A)&& string.IsNullOrEmpty(remarksID.R)&& string.IsNullOrEmpty(remarksID.G)&& string.IsNullOrEmpty(remarksID.B))
+            {
+                e.SubItem.ForeColor = Color.Black;
+            }
+            else
+            {
+                e.SubItem.ForeColor = Color.FromArgb(int.Parse(remarksID.A), int.Parse(remarksID.R), int.Parse(remarksID.G), int.Parse(remarksID.B));
             }
         }
     }
