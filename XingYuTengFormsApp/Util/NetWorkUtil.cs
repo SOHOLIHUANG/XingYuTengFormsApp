@@ -1,9 +1,5 @@
 ﻿using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using XingYuTengFormsApp.Entity;
 using XingYuTengFormsApp.Util;
 using XingYuTengFormsApp.Util.SQLiteUtil;

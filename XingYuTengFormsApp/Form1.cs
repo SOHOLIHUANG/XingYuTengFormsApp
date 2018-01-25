@@ -305,12 +305,12 @@ namespace XingYuTengFormsApp
                 List<DataPoints> dataPointsList = stream.datapoints;
                 double[] values = new double[dataPointsList.Count];
                 string[] labels = new string[dataPointsList.Count];
-                int m = 0;
+                int m = dataPointsList.Count-1;
                 foreach (DataPoints dataPoints in dataPointsList)
                 {
                     values[m] = double.Parse(dataPoints.value);
                     labels[m] = dataPoints.at;
-                    m++;
+                    m--;
                 }
                 cartesianChart1.Series = new SeriesCollection
                     {
