@@ -478,51 +478,58 @@ namespace XingYuTengFormsApp
                     con.Width = (int)a;
                 } else
                 {
-                    float a = System.Convert.ToSingle(mytag[0]) * newx;//根据窗体缩放比例确定控件的值，宽度
-                    if (!con.Name.Equals("deviceList"))
+                    if (con.Name.Equals("refresh") && refresh.Visible)
                     {
+                        ShowRefresh();
+                    }
+                    else
+                    {
+                        float a = System.Convert.ToSingle(mytag[0]) * newx;//根据窗体缩放比例确定控件的值，宽度
+                        if (!con.Name.Equals("deviceList"))
+                        {
+                            if (con.Name.Equals("tabControl1"))
+                            {
+                                con.Width = Width - deviceList.Width - 4;
+                            }
+                            else if (con.Name.Equals("Panel"))
+                            {
+                                con.Width = Width - 4;
+                            }
+                            else
+                            {
+                                con.Width = (int)a;//宽度
+                            }
+                        }
+                        a = System.Convert.ToSingle(mytag[1]) * newy;//高度
+                        if (!con.Name.Equals("Panel"))
+                        {
+                            if (con.Name.Equals("deviceList") || con.Name.Equals("tabControl1"))
+                            {
+                                con.Height = Height - Panel.Height - 4;
+                            }
+                            else
+                            {
+                                con.Height = (int)(a);
+                            }
+                        }
+                        a = System.Convert.ToSingle(mytag[2]) * newx;//左边距离
                         if (con.Name.Equals("tabControl1"))
                         {
-                            con.Width = Width - deviceList.Width - 4;
-                        }
-                        else if(con.Name.Equals("Panel"))
-                        {
-                            con.Width = Width - 4;
+                            con.Left = 2 + deviceList.Width;
                         }
                         else
                         {
-                            con.Width = (int)a;//宽度
+                            con.Left = (int)(a);
                         }
-                    }
-                    a = System.Convert.ToSingle(mytag[1]) * newy;//高度
-                    if (!con.Name.Equals("Panel"))
-                    {
+                        a = System.Convert.ToSingle(mytag[3]) * newy;//上边缘距离
                         if (con.Name.Equals("deviceList") || con.Name.Equals("tabControl1"))
                         {
-                            con.Height = Height - Panel.Height - 4;
+                            con.Top = 2 + Panel.Height;
                         }
                         else
                         {
-                            con.Height = (int)(a);
+                            con.Top = (int)(a);
                         }
-                    }
-                    a = System.Convert.ToSingle(mytag[2]) * newx;//左边距离
-                    if (con.Name.Equals("tabControl1"))
-                    {
-                        con.Left = 2 + deviceList.Width;
-                    }
-                    else
-                    {
-                        con.Left = (int)(a);
-                    }
-                    a = System.Convert.ToSingle(mytag[3]) * newy;//上边缘距离
-                    if (con.Name.Equals("deviceList") || con.Name.Equals("tabControl1"))
-                    {
-                        con.Top = 2 + Panel.Height;
-                    }
-                    else
-                    {
-                        con.Top = (int)(a);
                     }
                 }
                 
@@ -585,6 +592,11 @@ namespace XingYuTengFormsApp
                 WindowState = FormWindowState.Maximized;//最大化
                 pictureBoxSize.Image = global::XingYuTengFormsApp.Properties.Resources.restore;
             }
+
+            if (refresh.Visible)
+            {
+                ShowRefresh();
+            }
         }
 
         private void PictureBoxClose_Click(object sender, EventArgs e)
@@ -640,6 +652,13 @@ namespace XingYuTengFormsApp
             loading.Visible = true;
         }
 
+        private void ShowRefresh()
+        {
+            Point point = deviceList.Location;
+            refresh.Location = new Point(point.X + (deviceList.Width - refresh.Width) / 2, point.Y + (deviceList.Height - refresh.Height) / 2);
+            refresh.Visible = true;
+        }
+
         private void HideLoading()
         {
             loading.Visible = false;
@@ -675,6 +694,7 @@ namespace XingYuTengFormsApp
                     count--;
                     if (count == 0)
                     {
+                        refresh.Visible = false;
                         deviceList.SetObjects(items);
                     }
                 }
@@ -746,8 +766,32 @@ namespace XingYuTengFormsApp
         void INetworkResult.OnFailure(string error)
         {
             count--;
-            HideLoading();
+            if (loading.InvokeRequired)
+            {
+                loading.BeginInvoke(new DelegateAddDevice(ResultFailure),error);
+            }
+            else
+            {
+                HideLoading();
+            }
+           
+        }
+
+        private void ResultFailure(string error)
+        {
             MessageBox.Show(error);
+            if (count == 0)
+            {
+                if (items.Count > 0)
+                {
+                    deviceList.SetObjects(items);
+                }
+                else
+                {
+                    ShowRefresh();
+                }
+                HideLoading();
+            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -798,6 +842,14 @@ namespace XingYuTengFormsApp
             {
                 e.SubItem.ForeColor = System.Drawing.Color.Black;
             }
+        }
+
+        private void refresh_Click(object sender, EventArgs e)
+        {
+            refresh.Visible = false;
+            items.Clear();
+            isAdd = false;
+            BackThread();
         }
     }
 

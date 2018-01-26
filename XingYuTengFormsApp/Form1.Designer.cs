@@ -61,6 +61,7 @@ namespace XingYuTengFormsApp
             this.deviceList = new BrightIdeasSoftware.ObjectListView();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.loading = new System.Windows.Forms.PictureBox();
+            this.refresh = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AddDevice)).BeginInit();
             this.Panel.SuspendLayout();
@@ -421,7 +422,6 @@ namespace XingYuTengFormsApp
             this.olvColumnDesk,
             this.olvColumnDelete});
             this.deviceList.Cursor = System.Windows.Forms.Cursors.Default;
-            this.deviceList.EmptyListMsg = "未添加设备";
             this.deviceList.FullRowSelect = true;
             this.deviceList.HeaderWordWrap = true;
             this.deviceList.HideSelection = false;
@@ -470,6 +470,18 @@ namespace XingYuTengFormsApp
             this.loading.TabStop = false;
             this.loading.Visible = false;
             // 
+            // refresh
+            // 
+            this.refresh.ForeColor = System.Drawing.Color.Black;
+            this.refresh.Location = new System.Drawing.Point(112, 291);
+            this.refresh.Name = "refresh";
+            this.refresh.Size = new System.Drawing.Size(75, 23);
+            this.refresh.TabIndex = 32;
+            this.refresh.Text = "刷新";
+            this.refresh.UseVisualStyleBackColor = true;
+            this.refresh.Visible = false;
+            this.refresh.Click += new System.EventHandler(this.refresh_Click);
+            // 
             // Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -477,6 +489,7 @@ namespace XingYuTengFormsApp
             this.BackColor = System.Drawing.Color.Lavender;
             this.ClientSize = new System.Drawing.Size(920, 580);
             this.ControlBox = false;
+            this.Controls.Add(this.refresh);
             this.Controls.Add(this.loading);
             this.Controls.Add(this.detail);
             this.Controls.Add(this.deviceList);
@@ -489,7 +502,7 @@ namespace XingYuTengFormsApp
             this.MinimumSize = new System.Drawing.Size(920, 580);
             this.Name = "Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "7";
+            this.Text = "  ";
             this.TransparencyKey = System.Drawing.Color.Lavender;
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -544,6 +557,7 @@ namespace XingYuTengFormsApp
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox loading;
         private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Button refresh;
     }
 }
 
