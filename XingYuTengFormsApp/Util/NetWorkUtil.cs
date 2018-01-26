@@ -66,7 +66,7 @@ namespace XingYuTengFormsApp
                 {
                     DeviceDataDao.Instance.Insert(device.data);
                     RemarksDao.Instance.Insert(device.data);
-                    GetDataPoints(device.data, result, null, AllConstant.POINTS, null, null, null, null);
+                    GetLatestPoint(device.data, result);
                 }
                 else {
                     result.OnFailure(device.error);
@@ -147,19 +147,100 @@ namespace XingYuTengFormsApp
                 result.OnFailure("更新设备信息失败");
             }
         }
-        /// <summary>
-        /// 获取绘制图表的数据点
-        /// </summary>
-        /// <param name="deviceData"></param>
-        /// <param name="result"></param>
-        public void GetDataPoints(DeviceData deviceData, INetworkResult result,string datastream_id,
-            string limit,string start,string end,string cursor,string duration)
+
+        public void GetLatestPoint(DeviceData deviceData, INetworkResult result)
         {
 
             // client.Authenticator = new HttpBasicAuthenticator(username, password);
 
             var request = new RestRequest("devices/{device_id}/datapoints", Method.GET);
             request.AddUrlSegment("device_id", deviceData.id); // replaces matching token in request.Resource
+
+            // add parameters for all properties on an object
+            //request.AddObject(object);
+
+            // or just whitelisted properties
+            //request.AddObject(object, "PersonId", "Name", ...);
+
+            // easily add HTTP Headers
+            request.AddHeader("api-key", "VtaeS4yK3Fk6xiOljgw69lYcH9k=");
+            request.AddParameter("newAdd", true);
+            IRestResponse response = client.Execute(request);
+            var content = response.Content; // raw content as string
+            if (response.IsSuccessful)
+            {
+                AppPoint point = JsonHelper.DeserializeJsonToObject<AppPoint>(content);
+
+                if (point.error.Equals("succ"))
+                {
+                    ItemPoint item = new ItemPoint
+                    {
+                        deviceId = deviceData.id,
+                        title = deviceData.title
+                    };
+                    StringBuilder builder = new StringBuilder();
+                    foreach (DataStreams dataStream in point.data.datastreams)
+                    {
+                        RemarksID remarksID = RemarksDao.Instance.GetDeviceDataById(item.deviceId + dataStream.id);
+                        foreach (DataPoints dataPoints in dataStream.datapoints)
+                        {
+                            dataPoints.at = dataPoints.at.Substring(0, dataPoints.at.Length - 4);
+                        }
+                        if (dataStream.id.Equals("P") || dataStream.id.Equals("T") || dataStream.id.Equals("H"))
+                        {
+                            foreach (DataPoints dataPoints in dataStream.datapoints)
+                            {
+                                if (remarksID == null || string.IsNullOrEmpty(remarksID.remarks))
+                                {
+                                    builder.Append(dataStream.id + "=" + dataPoints.value);
+                                }
+                                else
+                                {
+                                    builder.Append(remarksID.remarks + "=" + dataPoints.value);
+                                }
+
+                                foreach (DeviceDataStreams stream in deviceData.datastreams)
+                                {
+                                    if (dataStream.id.Equals(stream.id))
+                                    {
+                                        builder.Append(stream.unit + "  ");
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    item.dataStreamsList = point.data.datastreams;
+                    item.deviceDatastreams = deviceData.datastreams;
+                    item.dataStrams = builder.ToString();
+
+                    result.OnSuccess(item);
+
+                }
+                else
+                {
+                    result.OnFailure(point.error);
+                }
+
+            }
+            else
+            {
+                result.OnFailure("获取" + deviceData.title + "的数据失败");
+            }
+        }
+        /// <summary>
+        /// 获取绘制图表的数据点
+        /// </summary>
+        /// <param name="deviceData"></param>
+        /// <param name="result"></param>
+        public void GetDataPoints(ItemPoint deviceData, INetworkResult result,string datastream_id,
+            string limit,string start,string end,string cursor,string duration)
+        {
+
+            // client.Authenticator = new HttpBasicAuthenticator(username, password);
+
+            var request = new RestRequest("devices/{device_id}/datapoints", Method.GET);
+            request.AddUrlSegment("device_id", deviceData.deviceId); // replaces matching token in request.Resource
 
             // add parameters for all properties on an object
             //request.AddObject(object);
@@ -210,7 +291,7 @@ namespace XingYuTengFormsApp
                 {
                     ItemPoint item = new ItemPoint
                     {
-                        deviceId = deviceData.id,
+                        deviceId = deviceData.deviceId,
                         title = deviceData.title
                     };
                     StringBuilder builder = new StringBuilder();
@@ -239,7 +320,7 @@ namespace XingYuTengFormsApp
                                     builder.Append(remarksID.remarks + "=" + dataPoints.value);
                                 }
                                 
-                                foreach (DeviceDataStreams stream in deviceData.datastreams)
+                                foreach (DeviceDataStreams stream in deviceData.deviceDatastreams)
                                 {
                                     if (dataStream.id.Equals(stream.id))
                                     {
@@ -252,7 +333,7 @@ namespace XingYuTengFormsApp
                         }
                     }
                     item.dataStreamsList = point.data.datastreams;
-                    item.deviceDatastreams = deviceData.datastreams;
+                    item.deviceDatastreams = deviceData.deviceDatastreams;
                     item.dataStrams = builder.ToString();
 
                     result.OnSuccess(item);

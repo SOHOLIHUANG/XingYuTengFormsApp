@@ -127,10 +127,9 @@ namespace XingYuTengFormsApp
             }
         }
 
-        private void BackThread()
+        private void BackThreadLatesPoint()
         {
             ShowLoading();
-            items.Clear();
             isAdd = false;
             count = DeviceDataDao.Instance.Count();
             if (count == 0)
@@ -139,9 +138,17 @@ namespace XingYuTengFormsApp
             }
             else
             {
-                thread = new Thread(new ThreadStart(CreateDeviceDatas));
+                thread = new Thread(new ThreadStart(GetLatestPoint));
                 thread.Start();
             }
+        }
+
+        private void BackThreadChartPoints(ItemPoint oLVListItem)
+        {
+            ShowLoading();
+            isAdd = false;
+            thread = new Thread(new ParameterizedThreadStart(GetChartPoints));
+            thread.Start(oLVListItem);
         }
 
         /// <summary>
@@ -295,7 +302,8 @@ namespace XingYuTengFormsApp
                         break;
                 }
             };
-            BackThread();
+            items.Clear();
+            BackThreadLatesPoint();
         }
 
         public void HandleSelectionChanged(ObjectListView listView)
@@ -303,7 +311,21 @@ namespace XingYuTengFormsApp
             if (listView.SelectedObject is ItemPoint oLVListItem)
             {
                 mDeviceId = oLVListItem.deviceId;
-                AddTabPages(oLVListItem);
+                int mCount = 0;
+                foreach(DataStreams datastreams in oLVListItem.dataStreamsList)
+                {
+                    mCount = datastreams.datapoints.Count;
+                    break;
+                }
+
+                if (mCount > 1)
+                {
+                    AddTabPages(oLVListItem);
+                }
+                else
+                {
+                    BackThreadChartPoints(oLVListItem);
+                }
             }
         }
 
@@ -571,11 +593,16 @@ namespace XingYuTengFormsApp
             return renderer;
         }
 
-        private void CreateDeviceDatas()
+        private void GetLatestPoint()
         {
             foreach (DeviceData deviceData in DeviceDataDao.Instance.GetAll()) {
-                NetWorkUtil.Instance.GetDataPoints(deviceData, this,null,AllConstant.POINTS,null,null,null,null);
+                NetWorkUtil.Instance.GetLatestPoint(deviceData, this);
             }
+        }
+
+        private void GetChartPoints(Object oLVListItem)
+        {
+            NetWorkUtil.Instance.GetDataPoints((ItemPoint)oLVListItem, this, null, AllConstant.POINTS, null, null, null, null);
         }
 
         private void PictureBoxLagest_Click(object sender, EventArgs e)
@@ -678,24 +705,99 @@ namespace XingYuTengFormsApp
 
         private void ResultSuccess(ItemPoint item)
         {
-            items.Add(item);
-            if (mDeviceId != null && mDeviceId.Equals(item.deviceId))
+            int mCount = 0;
+            foreach (DataStreams datastreams in item.dataStreamsList)
             {
-                AddTabPages(item);
+                mCount = datastreams.datapoints.Count;
+                break;
             }
-            if (!deviceList.IsDisposed)
+
+            if (mCount > 1)
             {
-                if (isAdd)
+                foreach(ItemPoint iP in items)
                 {
-                    deviceList.SetObjects(items);
-                }
-                else
-                {
-                    count--;
-                    if (count == 0)
+                    if (iP.deviceId.Equals(item.deviceId))
                     {
-                        refresh.Visible = false;
+                        iP.dataStrams = item.dataStrams;
+                        iP.dataStreamsList = item.dataStreamsList;
+                    }
+                }
+                deviceList.SetObjects(items);
+                if (mDeviceId != null && mDeviceId.Equals(item.deviceId))
+                {
+                    AddTabPages(item);
+                }
+            }
+            else
+            {
+                if (!deviceList.IsDisposed)
+                {
+                    if (isAdd)
+                    {
+                        items.Add(item);
                         deviceList.SetObjects(items);
+                    }
+                    else
+                    {
+                        int pointCount = 0;
+                        ItemPoint itemPoint=null;
+                        foreach (ItemPoint itemP in items)
+                        {
+                            if (itemP.deviceId.Equals(item.deviceId))
+                            {
+                                itemPoint = itemP;
+                                foreach (DataStreams datastreamsPoint in itemP.dataStreamsList)
+                                {
+                                    pointCount = datastreamsPoint.datapoints.Count;
+                                    break;
+                                }
+                                break;
+                            }
+                        }
+
+                        if (itemPoint == null)
+                        {
+                            items.Add(item);
+                        }
+                        else
+                        {
+                            if (pointCount > 1)
+                            {
+                                foreach (DataStreams datastreamsPoint in itemPoint.dataStreamsList)
+                                {
+                                    string id = datastreamsPoint.id;
+                                    List<DataPoints> dataPointsList = datastreamsPoint.datapoints;
+                                    dataPointsList.RemoveAt(dataPointsList.Count - 1);
+                                    foreach (DataStreams datastreams in item.dataStreamsList)
+                                    {
+                                        if (datastreams.id.Equals(id))
+                                        {
+                                            foreach (DataPoints point in datastreams.datapoints)
+                                            {
+                                                dataPointsList.Insert(0, point);
+                                                break;
+                                            }
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (mDeviceId != null && mDeviceId.Equals(item.deviceId))
+                                {
+                                    AddTabPages(itemPoint);
+                                }
+                            }
+                            else
+                            {
+                                itemPoint.dataStreamsList = item.dataStreamsList;
+                            }
+                            itemPoint.dataStrams = item.dataStrams;
+                        }
+                        count--;
+                        if (count == 0)
+                        {
+                            refresh.Visible = false;
+                            deviceList.SetObjects(items);
+                        }
                     }
                 }
             }
@@ -801,7 +903,7 @@ namespace XingYuTengFormsApp
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            BackThread();
+            BackThreadLatesPoint();
         }
 
         private void 修改设备ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -849,7 +951,7 @@ namespace XingYuTengFormsApp
             refresh.Visible = false;
             items.Clear();
             isAdd = false;
-            BackThread();
+            BackThreadLatesPoint();
         }
     }
 
