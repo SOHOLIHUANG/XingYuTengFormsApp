@@ -63,6 +63,9 @@ namespace XingYuTengFormsApp
             {
                 ItemPoint task = (ItemPoint)e.Model;
                 DeviceDataDao.Instance.Delete(task.deviceId);
+                RemarksDao.Instance.Delete(task.deviceId);
+                WarningDao.Instance.Delete(task.deviceId);
+
                 items.Remove(task);
                 if (mDeviceId != null && mDeviceId.Equals(task.deviceId))
                 {

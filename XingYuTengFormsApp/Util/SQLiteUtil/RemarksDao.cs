@@ -122,5 +122,11 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
             builder.Append(" WHERE id = '" + remarksID.id + "'");
             SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString, builder.ToString(), CommandType.Text);
         }
+
+        public void Delete(string deviceId)
+        {
+            string sql = "DELETE FROM " + AllConstant.REMARKS_TABLE + " WHERE deviceId = " + deviceId;
+            SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
+        }
     }
 }

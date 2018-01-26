@@ -64,5 +64,11 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
             dataReader.Close();
             return warning;
         }
+
+        public void Delete(string deviceId)
+        {
+            string sql = "DELETE FROM " + AllConstant.WARNING_TABLE + " WHERE id = " + deviceId;
+            SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
+        }
     }
 }
