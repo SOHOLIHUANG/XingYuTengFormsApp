@@ -37,7 +37,7 @@ namespace XingYuTengFormsApp
         private string dialogDeviceId;//存储弹框里的设备id
         private int count;
         private Thread thread;
-        delegate void DelegateCreateDatas();
+        delegate void DelegateCreateDatas(ItemPoint item);
         delegate void DelegateAddDevice(string deviceId);
         #endregion
 
@@ -129,13 +129,18 @@ namespace XingYuTengFormsApp
 
         private void BackThread()
         {
-            if (loading.InvokeRequired)
+            ShowLoading();
+            items.Clear();
+            isAdd = false;
+            count = DeviceDataDao.Instance.Count();
+            if (count == 0)
             {
-                loading.BeginInvoke(new DelegateCreateDatas(CreateDeviceDatas));
+                HideLoading();
             }
             else
             {
-                CreateDeviceDatas();
+                thread = new Thread(new ThreadStart(CreateDeviceDatas));
+                thread.Start();
             }
         }
 
@@ -290,9 +295,7 @@ namespace XingYuTengFormsApp
                         break;
                 }
             };
-
-            thread = new Thread(new ThreadStart(BackThread));
-            thread.Start();
+            BackThread();
         }
 
         public void HandleSelectionChanged(ObjectListView listView)
@@ -563,16 +566,8 @@ namespace XingYuTengFormsApp
 
         private void CreateDeviceDatas()
         {
-            ShowLoading();
-            items.Clear();
-            isAdd = false;
-            count = DeviceDataDao.Instance.Count();
             foreach (DeviceData deviceData in DeviceDataDao.Instance.GetAll()) {
                 NetWorkUtil.Instance.GetDataPoints(deviceData, this,null,AllConstant.POINTS,null,null,null,null);
-            }
-            if (count == 0)
-            {
-                HideLoading();
             }
         }
 
@@ -615,11 +610,7 @@ namespace XingYuTengFormsApp
                     }
                     else
                     {
-                        ShowLoading();
-                        isAdd = true;
-                        thread = new Thread(new ParameterizedThreadStart(AddDeviceThread));
-                        thread.Start(deviceId);
-                        
+                        AddDeviceThread(deviceId);
                     }
                 }
                 else {
@@ -629,21 +620,17 @@ namespace XingYuTengFormsApp
             }
         }
 
-        private void AddDeviceThread(object obj)
+        private void AddDeviceThread(string deviceId)
         {
-            if (loading.InvokeRequired)
-            {
-                loading.BeginInvoke(new DelegateAddDevice(AddDeviceInfo), obj);
-            }
-            else
-            {
-                AddDeviceInfo((string)obj);
-            }
+            ShowLoading();
+            isAdd = true;
+            thread = new Thread(new ParameterizedThreadStart(AddDeviceInfo));
+            thread.Start(deviceId);
         }
 
-        private void AddDeviceInfo(string obj)
+        private void AddDeviceInfo(object obj)
         {
-            NetWorkUtil.Instance.AddDevice(obj, this);
+            NetWorkUtil.Instance.AddDevice((string)obj, this);
         }
 
         private void ShowLoading()
@@ -660,13 +647,25 @@ namespace XingYuTengFormsApp
 
         void INetworkResult.OnSuccess(ItemPoint item)
         {
+            if (loading.InvokeRequired)
+            {
+                loading.BeginInvoke(new DelegateCreateDatas(ResultSuccess),item);
+            }
+            else
+            {
+                HideLoading();
+            }   
+        }
+
+        private void ResultSuccess(ItemPoint item)
+        {
             items.Add(item);
-            HideLoading();
             if (mDeviceId != null && mDeviceId.Equals(item.deviceId))
             {
                 AddTabPages(item);
             }
-            if (!deviceList.IsDisposed) {
+            if (!deviceList.IsDisposed)
+            {
                 if (isAdd)
                 {
                     deviceList.SetObjects(items);
@@ -680,8 +679,8 @@ namespace XingYuTengFormsApp
                     }
                 }
             }
-            WarningInfo(item.deviceId, item.title, item.dataStreamsList,item.deviceDatastreams);
-            
+            HideLoading();
+            WarningInfo(item.deviceId, item.title, item.dataStreamsList, item.deviceDatastreams);
         }
 
         private void WarningInfo(string deviceId, string title, List<DataStreams> dataStreamsList, List<DeviceDataStreams> deviceDatastreams)
@@ -758,8 +757,7 @@ namespace XingYuTengFormsApp
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            thread = new Thread(new ThreadStart(BackThread));
-            thread.Start();
+            BackThread();
         }
 
         private void 修改设备ToolStripMenuItem_Click(object sender, EventArgs e)
