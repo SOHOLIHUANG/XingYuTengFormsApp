@@ -217,14 +217,14 @@ namespace XingYuTengFormsApp
             ClearAddedcomponent();
         }
 
+        private void DelegateItemClick(object listSender, EventArgs args)
+        {
+            HandleSelectionChanged(deviceList);
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
-
-            this.deviceList.SelectionChanged += delegate (object listSender, EventArgs args)
-            {
-                HandleSelectionChanged(deviceList);
-            };
-
+            this.deviceList.SelectionChanged += DelegateItemClick;
             this.Resize += new EventHandler(Form1_Resize);
             width = this.Width;
             height = this.Height;
@@ -327,6 +327,7 @@ namespace XingYuTengFormsApp
                 }
                 else
                 {
+                    this.deviceList.SelectionChanged -= DelegateItemClick;
                     BackThreadChartPoints(oLVListItem);
                 }
             }
@@ -728,6 +729,7 @@ namespace XingYuTengFormsApp
                 deviceList.SetObjects(items);
                 if (mDeviceId != null && mDeviceId.Equals(item.deviceId))
                 {
+                    this.deviceList.SelectionChanged += DelegateItemClick;
                     AddTabPages(item);
                 }
             }
@@ -884,7 +886,9 @@ namespace XingYuTengFormsApp
 
         private void ResultFailure(string error)
         {
+            HideLoading();
             MessageBox.Show(error);
+            this.deviceList.SelectionChanged += DelegateItemClick;
             if (count == 0)
             {
                 if (items.Count > 0)
@@ -895,7 +899,6 @@ namespace XingYuTengFormsApp
                 {
                     ShowRefresh();
                 }
-                HideLoading();
             }
         }
 
