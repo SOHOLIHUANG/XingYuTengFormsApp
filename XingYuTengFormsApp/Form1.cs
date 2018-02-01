@@ -382,7 +382,7 @@ namespace XingYuTengFormsApp
                     TabIndex = 1,
                     Text = "cartesianChart1"
                 };
-
+                cartesianChart1.Zoom = ZoomingOptions.X;
                 List<DataPoints> dataPointsList = stream.datapoints;
                 double[] values = new double[dataPointsList.Count];
                 string[] labels = new string[dataPointsList.Count];
