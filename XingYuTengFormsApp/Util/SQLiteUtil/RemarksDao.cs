@@ -38,14 +38,14 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
         {
             string sql = "CREATE TABLE IF NOT EXISTS Remarks (id VARCHAR(255) PRIMARY KEY NOT NULL,deviceId VARCHAR(255)," +
                 "typeId VARCHAR(255),remarks VARCHAR(255),A VARCHAR(255),R VARCHAR(255),G VARCHAR(255), B VARCHAR(255));";
-            SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
+            SQLiteHelper.Instance.ExecuteNonQuery(sql, CommandType.Text);
         }
 
         public void Insert(DeviceData deviceData)
         {
             foreach (DeviceDataStreams streams in deviceData.datastreams) {
                 string sql = "INSERT OR REPLACE INTO Remarks(id,deviceId,typeId) VALUES('"+deviceData.id+streams.id+"','"+deviceData.id+"','"+streams.id+"');";
-                SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
+                SQLiteHelper.Instance.ExecuteNonQuery(sql, CommandType.Text);
             }
         }
 
@@ -53,7 +53,7 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
         {
             RemarksID remarksId = null;
             string sql = "select * from " + AllConstant.REMARKS_TABLE + " WHERE id = '" + Id + "';";
-            SQLiteDataReader dataReader = (SQLiteDataReader)SQLiteHelper.ExecuteReader(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
+            SQLiteDataReader dataReader = (SQLiteDataReader)SQLiteHelper.Instance.ExecuteReader(sql, CommandType.Text);
             while (dataReader.Read())
             {
                 remarksId = new RemarksID();
@@ -75,7 +75,7 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
         {
             List<RemarksID> remarksIdList = new List<RemarksID>();
             string sql = "select * from " + AllConstant.REMARKS_TABLE +" WHERE deviceId = "+deviceId+";";
-            SQLiteDataReader dataReader = (SQLiteDataReader)SQLiteHelper.ExecuteReader(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
+            SQLiteDataReader dataReader = (SQLiteDataReader)SQLiteHelper.Instance.ExecuteReader(sql, CommandType.Text);
             while (dataReader.Read())
             {
                 RemarksID remarksId = new RemarksID();
@@ -120,13 +120,13 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
                 builder.Append("B = '" + remarksID.B + "'");
             }
             builder.Append(" WHERE id = '" + remarksID.id + "'");
-            SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString, builder.ToString(), CommandType.Text);
+            SQLiteHelper.Instance.ExecuteNonQuery(builder.ToString(), CommandType.Text);
         }
 
         public void Delete(string deviceId)
         {
             string sql = "DELETE FROM " + AllConstant.REMARKS_TABLE + " WHERE deviceId = " + deviceId;
-            SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
+            SQLiteHelper.Instance.ExecuteNonQuery(sql, CommandType.Text);
         }
     }
 }

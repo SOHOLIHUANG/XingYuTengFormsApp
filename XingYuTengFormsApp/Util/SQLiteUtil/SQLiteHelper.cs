@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
 using System.Data.SQLite;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace XingYuTengFormsApp.Util
 {
@@ -15,7 +11,8 @@ namespace XingYuTengFormsApp.Util
     {
         private static SQLiteHelper instance;
         private static readonly object obj = new object();
-
+        // Application.StartupPath  
+        private string LocalDbConnectionString;
 
         public static SQLiteHelper Instance
         {
@@ -28,6 +25,7 @@ namespace XingYuTengFormsApp.Util
                         if (null == instance)
                         {
                             instance = new SQLiteHelper();
+                            instance.UpdateLocalDbConnectionString();
                         }
                     }
 
@@ -36,9 +34,20 @@ namespace XingYuTengFormsApp.Util
             }
         }
 
-        // Application.StartupPath  
-        public static string LocalDbConnectionString = ConfigurationManager.ConnectionStrings["localdb"].ConnectionString;
+        /// <summary>
+        /// 修改数据库连接字符串
+        /// </summary>
+        private void UpdateLocalDbConnectionString()
+        {
+            LocalDbConnectionString = ConfigurationManager.ConnectionStrings["localdb"].ConnectionString;
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\XingYuTeng\\";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
 
+            LocalDbConnectionString = LocalDbConnectionString.Replace("db_xingyuteng.db", path + "db_xingyuteng.db");
+        }
         #region ExecuteNonQuery  
         /// <summary>  
         /// 执行数据库操作(新增、更新或删除)  
@@ -46,7 +55,7 @@ namespace XingYuTengFormsApp.Util
         /// <param name="connectionString">连接字符串</param>  
         /// <param name="cmd">SqlCommand对象</param>  
         /// <returns>所受影响的行数</returns>  
-        public static int ExecuteNonQuery(string connectionString, SQLiteCommand cmd)
+        public int ExecuteNonQuery(string connectionString, SQLiteCommand cmd)
         {
             int result = 0;
             if (connectionString == null || connectionString.Length == 0)
@@ -76,15 +85,15 @@ namespace XingYuTengFormsApp.Util
         /// <param name="commandText">执行语句或存储过程名</param>  
         /// <param name="commandType">执行类型</param>  
         /// <returns>所受影响的行数</returns>  
-        public static int ExecuteNonQuery(string connectionString, string commandText, CommandType commandType)
+        public int ExecuteNonQuery(string commandText, CommandType commandType)
         {
             int result = 0;
-            if (connectionString == null || connectionString.Length == 0)
+            if (LocalDbConnectionString == null || LocalDbConnectionString.Length == 0)
                 throw new ArgumentNullException("connectionString");
             if (commandText == null || commandText.Length == 0)
                 throw new ArgumentNullException("commandText");
             SQLiteCommand cmd = new SQLiteCommand();
-            using (SQLiteConnection con = new SQLiteConnection(connectionString))
+            using (SQLiteConnection con = new SQLiteConnection(LocalDbConnectionString))
             {
                 SQLiteTransaction trans = null;
                 PrepareCommand(cmd, con, ref trans, true, commandType, commandText);
@@ -110,7 +119,7 @@ namespace XingYuTengFormsApp.Util
         /// <param name="commandType">执行类型</param>  
         /// <param name="cmdParms">SQL参数对象</param>  
         /// <returns>所受影响的行数</returns>  
-        public static int ExecuteNonQuery(string connectionString, string commandText, CommandType commandType, params SQLiteParameter[] cmdParms)
+        public int ExecuteNonQuery(string connectionString, string commandText, CommandType commandType, params SQLiteParameter[] cmdParms)
         {
             int result = 0;
             if (connectionString == null || connectionString.Length == 0)
@@ -145,7 +154,7 @@ namespace XingYuTengFormsApp.Util
         /// <param name="connectionString">连接字符串</param>  
         /// <param name="cmd">SqlCommand对象</param>  
         /// <returns>查询所得的第1行第1列数据</returns>  
-        public static object ExecuteScalar(string connectionString, SQLiteCommand cmd)
+        public object ExecuteScalar(string connectionString, SQLiteCommand cmd)
         {
             object result = 0;
             if (connectionString == null || connectionString.Length == 0)
@@ -175,15 +184,15 @@ namespace XingYuTengFormsApp.Util
         /// <param name="commandText">执行语句或存储过程名</param>  
         /// <param name="commandType">执行类型</param>  
         /// <returns>查询所得的第1行第1列数据</returns>  
-        public static object ExecuteScalar(string connectionString, string commandText, CommandType commandType)
+        public object ExecuteScalar(string commandText, CommandType commandType)
         {
             object result = 0;
-            if (connectionString == null || connectionString.Length == 0)
+            if (LocalDbConnectionString == null || LocalDbConnectionString.Length == 0)
                 throw new ArgumentNullException("connectionString");
             if (commandText == null || commandText.Length == 0)
                 throw new ArgumentNullException("commandText");
             SQLiteCommand cmd = new SQLiteCommand();
-            using (SQLiteConnection con = new SQLiteConnection(connectionString))
+            using (SQLiteConnection con = new SQLiteConnection(LocalDbConnectionString))
             {
                 SQLiteTransaction trans = null;
                 PrepareCommand(cmd, con, ref trans, true, commandType, commandText);
@@ -209,7 +218,7 @@ namespace XingYuTengFormsApp.Util
         /// <param name="commandType">执行类型</param>  
         /// <param name="cmdParms">SQL参数对象</param>  
         /// <returns>查询所得的第1行第1列数据</returns>  
-        public static object ExecuteScalar(string connectionString, string commandText, CommandType commandType, params SQLiteParameter[] cmdParms)
+        public object ExecuteScalar(string connectionString, string commandText, CommandType commandType, params SQLiteParameter[] cmdParms)
         {
             object result = 0;
             if (connectionString == null || connectionString.Length == 0)
@@ -244,7 +253,7 @@ namespace XingYuTengFormsApp.Util
         /// <param name="connectionString">连接字符串</param>  
         /// <param name="cmd">SqlCommand对象</param>  
         /// <returns>SqlDataReader对象</returns>  
-        public static DbDataReader ExecuteReader(string connectionString, SQLiteCommand cmd)
+        public DbDataReader ExecuteReader(string connectionString, SQLiteCommand cmd)
         {
             DbDataReader reader = null;
             if (connectionString == null || connectionString.Length == 0)
@@ -271,15 +280,15 @@ namespace XingYuTengFormsApp.Util
         /// <param name="commandText">执行语句或存储过程名</param>  
         /// <param name="commandType">执行类型</param>  
         /// <returns>SqlDataReader对象</returns>  
-        public static DbDataReader ExecuteReader(string connectionString, string commandText, CommandType commandType)
+        public DbDataReader ExecuteReader(string commandText, CommandType commandType)
         {
             DbDataReader reader = null;
-            if (connectionString == null || connectionString.Length == 0)
+            if (LocalDbConnectionString == null || LocalDbConnectionString.Length == 0)
                 throw new ArgumentNullException("connectionString");
             if (commandText == null || commandText.Length == 0)
                 throw new ArgumentNullException("commandText");
 
-            SQLiteConnection con = new SQLiteConnection(connectionString);
+            SQLiteConnection con = new SQLiteConnection(LocalDbConnectionString);
             SQLiteCommand cmd = new SQLiteCommand();
             SQLiteTransaction trans = null;
             PrepareCommand(cmd, con, ref trans, false, commandType, commandText);
@@ -302,7 +311,7 @@ namespace XingYuTengFormsApp.Util
         /// <param name="commandType">执行类型</param>  
         /// <param name="cmdParms">SQL参数对象</param>  
         /// <returns>SqlDataReader对象</returns>  
-        public static DbDataReader ExecuteReader(string connectionString, string commandText, CommandType commandType, params SQLiteParameter[] cmdParms)
+        public DbDataReader ExecuteReader(string connectionString, string commandText, CommandType commandType, params SQLiteParameter[] cmdParms)
         {
             DbDataReader reader = null;
             if (connectionString == null || connectionString.Length == 0)
@@ -333,7 +342,7 @@ namespace XingYuTengFormsApp.Util
         /// <param name="connectionString">连接字符串</param>  
         /// <param name="cmd">SqlCommand对象</param>  
         /// <returns>DataSet对象</returns>  
-        public static DataSet ExecuteDataSet(string connectionString, SQLiteCommand cmd)
+        public DataSet ExecuteDataSet(string connectionString, SQLiteCommand cmd)
         {
             DataSet ds = new DataSet();
             SQLiteConnection con = new SQLiteConnection(connectionString);
@@ -368,7 +377,7 @@ namespace XingYuTengFormsApp.Util
         /// <param name="commandText">执行语句或存储过程名</param>  
         /// <param name="commandType">执行类型</param>  
         /// <returns>DataSet对象</returns>  
-        public static DataSet ExecuteDataSet(string connectionString, string commandText, CommandType commandType)
+        public DataSet ExecuteDataSet(string connectionString, string commandText, CommandType commandType)
         {
             if (connectionString == null || connectionString.Length == 0)
                 throw new ArgumentNullException("connectionString");
@@ -409,7 +418,7 @@ namespace XingYuTengFormsApp.Util
         /// <param name="commandType">执行类型</param>  
         /// <param name="cmdParms">SQL参数对象</param>  
         /// <returns>DataSet对象</returns>  
-        public static DataSet ExecuteDataSet(string connectionString, string commandText, CommandType commandType, params SQLiteParameter[] cmdParms)
+        public DataSet ExecuteDataSet(string connectionString, string commandText, CommandType commandType, params SQLiteParameter[] cmdParms)
         {
             if (connectionString == null || connectionString.Length == 0)
                 throw new ArgumentNullException("connectionString");
@@ -456,7 +465,7 @@ namespace XingYuTengFormsApp.Util
         /// <param name="currentIndex">当前页数</param>  
         /// <param name="recordOut">数据总量</param>  
         /// <returns>DataTable数据表</returns>  
-        public static DataTable SelectPaging(string connString, string tableName, string strColumns, string strWhere, string strOrder, int pageSize, int currentIndex, out int recordOut)
+        public  DataTable SelectPaging(string connString, string tableName, string strColumns, string strWhere, string strOrder, int pageSize, int currentIndex, out int recordOut)
         {
             DataTable dt = new DataTable();
             recordOut = Convert.ToInt32(ExecuteScalar(connString, "select count(*) from " + tableName, CommandType.Text));
@@ -485,7 +494,7 @@ namespace XingYuTengFormsApp.Util
         /// <param name="cmdType">SQL字符串执行类型</param>  
         /// <param name="cmdText">SQL Text</param>  
         /// <param name="cmdParms">SQLiteParameters to use in the command</param>  
-        private static void PrepareCommand(SQLiteCommand cmd, SQLiteConnection conn, ref SQLiteTransaction trans, bool useTrans, CommandType cmdType, string cmdText, params SQLiteParameter[] cmdParms)
+        private void PrepareCommand(SQLiteCommand cmd, SQLiteConnection conn, ref SQLiteTransaction trans, bool useTrans, CommandType cmdType, string cmdText, params SQLiteParameter[] cmdParms)
         {
 
             if (conn.State != ConnectionState.Open)

@@ -44,7 +44,7 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
             string sql = "CREATE TABLE IF NOT EXISTS DeviceData (auth_info VARCHAR(255),create_time VARCHAR(255),id INT PRIMARY KEY NOT NULL," +
                         "location  VARCHAR(255), online BOOLEAN, isPrivate BOOLEAN, protocol VARCHAR(255),title VARCHAR(255)," +
                         "[desc] VARCHAR(255),datastreams VARCHAR(255));";
-            SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString,sql,CommandType.Text);
+            SQLiteHelper.Instance.ExecuteNonQuery(sql,CommandType.Text);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
             string datastreams = JsonHelper.SerializeObject(deviceData.datastreams);
             string sql = "INSERT OR REPLACE INTO DeviceData VALUES('" + deviceData.auth_info+"','"+deviceData.create_time+"',"+deviceData.id+",'"+location+"','"
                 +deviceData.online+"','"+deviceData.isPrivate+"','"+deviceData.protocol+"','"+deviceData.title+"','"+deviceData.desc+"','"+datastreams+"');";
-            SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
+            SQLiteHelper.Instance.ExecuteNonQuery(sql, CommandType.Text);
         }
 
         public void Update(string deviceId,string[] keys,string[] values)
@@ -72,14 +72,14 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
                     builder.Append(keys[i] + " = '" + values[i] + "',");
                 }
             }
-            SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString, builder.ToString(), CommandType.Text);
+            SQLiteHelper.Instance.ExecuteNonQuery(builder.ToString(), CommandType.Text);
         }
 
         public DeviceData GetDeviceDataById(string deviceId)
         {
             DeviceData deviceData = null;
             string sql = "select * from " + AllConstant.DEVICEDATA_TABLE +" WHERE id = "+deviceId+ ";";
-            SQLiteDataReader dataReader = (SQLiteDataReader)SQLiteHelper.ExecuteReader(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
+            SQLiteDataReader dataReader = (SQLiteDataReader)SQLiteHelper.Instance.ExecuteReader(sql, CommandType.Text);
             while (dataReader.Read())
             {
                 deviceData = new DeviceData();
@@ -108,7 +108,7 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
         {
             List<DeviceData> deviceDataList = new List<DeviceData>();
             string sql = "select * from "+AllConstant.DEVICEDATA_TABLE+";";
-            SQLiteDataReader dataReader =(SQLiteDataReader)SQLiteHelper.ExecuteReader(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
+            SQLiteDataReader dataReader =(SQLiteDataReader)SQLiteHelper.Instance.ExecuteReader(sql, CommandType.Text);
             while (dataReader.Read()) {
                 DeviceData deviceData = new DeviceData();
                 deviceData.auth_info = dataReader["auth_info"].ToString();
@@ -137,7 +137,7 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
         {
             bool hasId = false;
             string sql = "select * from " + AllConstant.DEVICEDATA_TABLE + " WHERE id ="+id+";";
-            SQLiteDataReader dataReader = (SQLiteDataReader)SQLiteHelper.ExecuteReader(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
+            SQLiteDataReader dataReader = (SQLiteDataReader)SQLiteHelper.Instance.ExecuteReader(sql, CommandType.Text);
             hasId = dataReader.HasRows;
             dataReader.Close();
             return hasId;
@@ -147,14 +147,14 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
         {
             int num = 0;
             string sql = "select count(*) from " + AllConstant.DEVICEDATA_TABLE +";";
-            num = Convert.ToInt32(SQLiteHelper.ExecuteScalar(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text));
+            num = Convert.ToInt32(SQLiteHelper.Instance.ExecuteScalar(sql, CommandType.Text));
             return num;
         }
 
         public void Delete(string deviceId)
         {
             string sql = "DELETE FROM "+AllConstant.DEVICEDATA_TABLE+" WHERE id = "+deviceId;
-            SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
+            SQLiteHelper.Instance.ExecuteNonQuery(sql, CommandType.Text);
         }
     }
 }

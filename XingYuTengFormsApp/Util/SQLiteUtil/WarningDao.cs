@@ -38,20 +38,20 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
         {
             string sql = "CREATE TABLE IF NOT EXISTS Warning (id INT PRIMARY KEY NOT NULL,temperatureMax  VARCHAR(255)," +
                 "temperatureMin VARCHAR(255),humidityMax VARCHAR(255),humidityMin VARCHAR(255));";
-            SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
+            SQLiteHelper.Instance.ExecuteNonQuery(sql, CommandType.Text);
         }
 
         public void Insert(Warning warning)
         {
             string sql = "INSERT OR REPLACE INTO Warning VALUES(" + warning.id+",'"+warning.temperatureMax+"','"+warning.temperatureMin+"','"+warning.humidityMax+"','"+warning.humidityMin+"');";
-            SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
+            SQLiteHelper.Instance.ExecuteNonQuery(sql, CommandType.Text);
         }
 
         public Warning GetWarningById(string deviceId)
         {
             Warning warning = null;
             string sql = "select * from " + AllConstant.WARNING_TABLE + " WHERE id = " + deviceId + ";";
-            SQLiteDataReader dataReader = (SQLiteDataReader)SQLiteHelper.ExecuteReader(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
+            SQLiteDataReader dataReader = (SQLiteDataReader)SQLiteHelper.Instance.ExecuteReader(sql, CommandType.Text);
             while (dataReader.Read())
             {
                 warning = new Warning();
@@ -68,7 +68,7 @@ namespace XingYuTengFormsApp.Util.SQLiteUtil
         public void Delete(string deviceId)
         {
             string sql = "DELETE FROM " + AllConstant.WARNING_TABLE + " WHERE id = " + deviceId;
-            SQLiteHelper.ExecuteNonQuery(SQLiteHelper.LocalDbConnectionString, sql, CommandType.Text);
+            SQLiteHelper.Instance.ExecuteNonQuery(sql, CommandType.Text);
         }
     }
 }
