@@ -60,7 +60,7 @@ namespace XingYuTengFormsApp
 
             IRestResponse response = client.Execute(request);
             var content = response.Content; // raw content as string
-            if (response.IsSuccessful) {
+            if (response.ResponseStatus==ResponseStatus.Completed) {
                 Device device=JsonHelper.DeserializeJsonToObject<Device>(content);
                 if (device.error.Equals("succ"))
                 {
@@ -129,7 +129,7 @@ namespace XingYuTengFormsApp
 
             IRestResponse response = client.Execute(request);
             var content = response.Content; // raw content as string
-            if (response.IsSuccessful)
+            if (response.ResponseStatus == ResponseStatus.Completed)
             {
                 UpdateResponse updateResponse= JsonHelper.DeserializeJsonToObject<UpdateResponse>(content);
                 if (updateResponse.error.Equals("succ"))
@@ -167,7 +167,7 @@ namespace XingYuTengFormsApp
             request.AddParameter("newAdd", true);
             IRestResponse response = client.Execute(request);
             var content = response.Content; // raw content as string
-            if (response.IsSuccessful)
+            if (response.ResponseStatus == ResponseStatus.Completed)
             {
                 AppPoint point = JsonHelper.DeserializeJsonToObject<AppPoint>(content);
 
@@ -283,7 +283,7 @@ namespace XingYuTengFormsApp
 
             IRestResponse response = client.Execute(request);
             var content = response.Content; // raw content as string
-            if (response.IsSuccessful)
+            if (response.ResponseStatus == ResponseStatus.Completed)
             {
                 AppPoint point = JsonHelper.DeserializeJsonToObject<AppPoint>(content);
 
