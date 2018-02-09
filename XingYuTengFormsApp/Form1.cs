@@ -515,11 +515,11 @@ namespace XingYuTengFormsApp
                         {
                             if (con.Name.Equals("tabControl1"))
                             {
-                                con.Width = Width - deviceList.Width - 4;
+                                con.Width = Width - deviceList.Width;
                             }
                             else if (con.Name.Equals("Panel"))
                             {
-                                con.Width = Width - 4;
+                                con.Width = Width;
                             }
                             else
                             {
@@ -531,7 +531,7 @@ namespace XingYuTengFormsApp
                         {
                             if (con.Name.Equals("deviceList") || con.Name.Equals("tabControl1"))
                             {
-                                con.Height = Height - Panel.Height - 4;
+                                con.Height = Height - Panel.Height;
                             }
                             else
                             {
@@ -541,7 +541,7 @@ namespace XingYuTengFormsApp
                         a = System.Convert.ToSingle(mytag[2]) * newx;//左边距离
                         if (con.Name.Equals("tabControl1"))
                         {
-                            con.Left = 2 + deviceList.Width;
+                            con.Left = deviceList.Width;
                         }
                         else
                         {
@@ -550,7 +550,7 @@ namespace XingYuTengFormsApp
                         a = System.Convert.ToSingle(mytag[3]) * newy;//上边缘距离
                         if (con.Name.Equals("deviceList") || con.Name.Equals("tabControl1"))
                         {
-                            con.Top = 2 + Panel.Height;
+                            con.Top = Panel.Height;
                         }
                         else
                         {

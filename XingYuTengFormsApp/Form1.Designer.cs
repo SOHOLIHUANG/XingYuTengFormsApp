@@ -99,7 +99,7 @@ namespace XingYuTengFormsApp
             this.panel1.Controls.Add(this.labelAdd);
             this.panel1.Location = new System.Drawing.Point(240, 34);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(434, 32);
+            this.panel1.Size = new System.Drawing.Size(438, 32);
             this.panel1.TabIndex = 2;
             // 
             // AddDevice
@@ -107,7 +107,7 @@ namespace XingYuTengFormsApp
             this.AddDevice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.AddDevice.Image = global::XingYuTengFormsApp.Properties.Resources.add;
-            this.AddDevice.Location = new System.Drawing.Point(407, 4);
+            this.AddDevice.Location = new System.Drawing.Point(411, 4);
             this.AddDevice.Name = "AddDevice";
             this.AddDevice.Size = new System.Drawing.Size(23, 23);
             this.AddDevice.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -125,7 +125,7 @@ namespace XingYuTengFormsApp
             this.deviceID.Font = new System.Drawing.Font("宋体", 15F);
             this.deviceID.Location = new System.Drawing.Point(115, 5);
             this.deviceID.Name = "deviceID";
-            this.deviceID.Size = new System.Drawing.Size(266, 23);
+            this.deviceID.Size = new System.Drawing.Size(270, 23);
             this.deviceID.TabIndex = 0;
             // 
             // labelAdd
@@ -134,7 +134,7 @@ namespace XingYuTengFormsApp
             this.labelAdd.AutoSize = true;
             this.labelAdd.Font = new System.Drawing.Font("宋体", 15F);
             this.labelAdd.ForeColor = System.Drawing.Color.Black;
-            this.labelAdd.Location = new System.Drawing.Point(7, 5);
+            this.labelAdd.Location = new System.Drawing.Point(9, 5);
             this.labelAdd.Name = "labelAdd";
             this.labelAdd.Size = new System.Drawing.Size(89, 20);
             this.labelAdd.TabIndex = 0;
@@ -152,9 +152,9 @@ namespace XingYuTengFormsApp
             this.Panel.Controls.Add(this.panel1);
             this.Panel.Controls.Add(this.label);
             this.Panel.Controls.Add(this.pictureBox);
-            this.Panel.Location = new System.Drawing.Point(2, 2);
+            this.Panel.Location = new System.Drawing.Point(0, 0);
             this.Panel.Name = "Panel";
-            this.Panel.Size = new System.Drawing.Size(916, 104);
+            this.Panel.Size = new System.Drawing.Size(920, 104);
             this.Panel.TabIndex = 3;
             this.Panel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Panel_MouseDown);
             // 
@@ -165,7 +165,7 @@ namespace XingYuTengFormsApp
             this.pictureBoxClose.BackColor = System.Drawing.Color.Transparent;
             this.pictureBoxClose.Image = global::XingYuTengFormsApp.Properties.Resources.close;
             this.pictureBoxClose.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBoxClose.InitialImage")));
-            this.pictureBoxClose.Location = new System.Drawing.Point(873, 36);
+            this.pictureBoxClose.Location = new System.Drawing.Point(877, 36);
             this.pictureBoxClose.Name = "pictureBoxClose";
             this.pictureBoxClose.Size = new System.Drawing.Size(23, 23);
             this.pictureBoxClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -179,7 +179,7 @@ namespace XingYuTengFormsApp
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxSize.BackColor = System.Drawing.Color.Transparent;
             this.pictureBoxSize.Image = global::XingYuTengFormsApp.Properties.Resources.lagest;
-            this.pictureBoxSize.Location = new System.Drawing.Point(826, 34);
+            this.pictureBoxSize.Location = new System.Drawing.Point(830, 34);
             this.pictureBoxSize.Name = "pictureBoxSize";
             this.pictureBoxSize.Size = new System.Drawing.Size(32, 32);
             this.pictureBoxSize.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -193,7 +193,7 @@ namespace XingYuTengFormsApp
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxSmall.BackColor = System.Drawing.Color.Transparent;
             this.pictureBoxSmall.Image = global::XingYuTengFormsApp.Properties.Resources.small;
-            this.pictureBoxSmall.Location = new System.Drawing.Point(787, 34);
+            this.pictureBoxSmall.Location = new System.Drawing.Point(791, 34);
             this.pictureBoxSmall.Name = "pictureBoxSmall";
             this.pictureBoxSmall.Size = new System.Drawing.Size(32, 32);
             this.pictureBoxSmall.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -426,7 +426,7 @@ namespace XingYuTengFormsApp
             this.deviceList.HeaderWordWrap = true;
             this.deviceList.HideSelection = false;
             this.deviceList.IncludeColumnHeadersInCopy = true;
-            this.deviceList.Location = new System.Drawing.Point(2, 106);
+            this.deviceList.Location = new System.Drawing.Point(0, 104);
             this.deviceList.Name = "deviceList";
             this.deviceList.OverlayText.Alignment = System.Drawing.ContentAlignment.BottomLeft;
             this.deviceList.OverlayText.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
@@ -438,7 +438,7 @@ namespace XingYuTengFormsApp
             this.deviceList.ShowGroups = false;
             this.deviceList.ShowHeaderInAllViews = false;
             this.deviceList.ShowItemToolTips = true;
-            this.deviceList.Size = new System.Drawing.Size(299, 472);
+            this.deviceList.Size = new System.Drawing.Size(300, 476);
             this.deviceList.SortGroupItemsByPrimaryColumn = false;
             this.deviceList.TabIndex = 2;
             this.deviceList.TriStateCheckBoxes = true;
